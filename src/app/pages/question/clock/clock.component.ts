@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-clock',
@@ -7,57 +8,56 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 })
 export class ClockComponent implements OnInit,OnDestroy,AfterViewInit {
 
-  minutes = 1; 
+  minutes = 0; 
   seconds = 0;
   
-  clockInterval: any = null; 
+  clockSub: Subscription = null; 
   constructor() { }
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
-   this.minutes = 1; 
-   this.seconds = 59; 
    //this.startClock();
   }
 
   ngOnDestroy() {
-    this.stopClock();
+    this.stop();
   }
 
   /**
    * starts clock
    */
-  startClock() {
-    this.clockInterval = setInterval(this.count,1000);
+  start() {
+    this.minutes = 0; 
+    this.seconds = 59; 
+    this.clockSub = interval(1000).subscribe(_=>this.count());
   }
 
   /**
    * stops clock
    */
-  stopClock() {
-    if(this.clockInterval){
-      clearInterval(this.clockInterval);
+  stop() {
+    if(this.clockSub){
+     this.clockSub.unsubscribe();
     }
+    this.minutes = 0;
+    this.seconds = 0;
   }
 
   /**
    * Back count clock
    */
-  count() {
-    console.log(this.minutes,':',this.seconds);
+  private count() {
     if(this.seconds > 0) {
       this.seconds--; 
     }else {
       this.seconds = 59; 
-     // this.minutes--;
+      this.minutes--;
     }
-
-    /*
-    if(this.minutes <= 0) {
-      this.stopClock();
-    }*/
+    if(this.minutes < 0) {
+      this.stop();
+    }
   }
 
 
