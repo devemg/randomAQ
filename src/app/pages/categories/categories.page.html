@@ -4,7 +4,7 @@
       <img src="assets/title-white.svg" alt="RandomAQ" />
     </div>
     <div class="grid">
-      <ion-card class="card" *ngFor="let item of catList">
+      <ion-card class="card" *ngFor="let item of catList" (click)="goToCategory(item.id)">
         <img class="image" [src]="item.image" [alt]="item.name" />
         <h3>{{item.name}}</h3>
       </ion-card>
