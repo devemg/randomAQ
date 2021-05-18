@@ -1,9 +1,12 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>single-category</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
+  <div class="container gradient">
+    <ion-card class="card">
+      <div class="title">
+        <img class="image" [src]="category.image" [alt]="category.name" />
+        <h2>{{category.name}}</h2>
+        <p>{{category.description}}</p>
+        <button class="start-btn">Iniciar</button>
+      </div>
+    </ion-card>
+  </div>
 </ion-content>
