@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'categories/:id',
     loadChildren: () => import('./pages/single-category/single-category.module').then( m => m.SingleCategoryPageModule)
+  },
+  {
+    path: 'question',
+    loadChildren: () => import('./pages/question/question.module').then( m => m.QuestionPageModule)
   }
 ];
 

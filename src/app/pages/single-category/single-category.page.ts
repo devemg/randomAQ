@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from 'src/app/models/category';
 import { ApiService } from 'src/app/services/api.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-single-category',
@@ -17,7 +18,8 @@ export class SingleCategoryPage implements OnInit {
     id:0
   };
 
-  constructor(private activatedRouter: ActivatedRoute, private apiService: ApiService) { 
+  constructor(private activatedRouter: ActivatedRoute, private apiService: ApiService, private router: Router,
+    private localService: LocalStorageService) { 
     const id = this.activatedRouter.snapshot.params.id;
     if(id){
       this.category = this.apiService.getCategory(id);
@@ -25,6 +27,14 @@ export class SingleCategoryPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  /**
+   * Start questions
+   */
+  start(){
+    this.localService.setCategory(this.category);
+    this.router.navigate(['/question']);
   }
 
 }
