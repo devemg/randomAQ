@@ -1,9 +1,13 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>categories</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
+  <div class="container gradient">
+    <div class="title">
+      <img src="assets/title-white.svg" alt="RandomAQ" />
+    </div>
+    <div class="grid">
+      <ion-card class="card" *ngFor="let item of catList">
+        <img class="image" [src]="item.image" [alt]="item.name" />
+        <h3>{{item.name}}</h3>
+      </ion-card>
+    </div>
+  </div>
 </ion-content>
