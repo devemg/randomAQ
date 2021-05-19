@@ -12,13 +12,13 @@
         <div  *ngIf="!running" class="answer">
           <h2>{{question.answer}}</h2>
         </div>
-        <app-clock *ngIf="running" ></app-clock>
+        <app-clock *ngIf="running" (timeover)="timeover()" ></app-clock>
         <div class="buttons" *ngIf="running">
           <button class="circle-btn"><img class="image-btn" src="assets/script-x.svg" alt="X" (click)="badAnswer()" /></button>
           <button class="circle-btn"><img class="image-btn" src="assets/check-mark.svg" alt="check" (click)="coolAnswer()" /></button>
         </div>
         <div class="buttons" *ngIf="!running">
-          <button class="circle-btn"><img class="image-btn" src="assets/script-x.svg" alt="X" (click)="back()" /></button>
+          <button class="circle-btn"><img class="image-btn" src="assets/home-alt.svg" alt="X" (click)="back()" /></button>
         </div>
       </div>
     </ion-card>

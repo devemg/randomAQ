@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { setUncaughtExceptionCaptureCallback } from 'process';
 import { Category } from 'src/app/models/category';
 import { Question } from 'src/app/models/question';
 import { ApiService } from 'src/app/services/api.service';
@@ -12,7 +14,7 @@ import { ClockComponent } from './clock/clock.component';
   styleUrls: ['./question.page.scss'],
 })
 export class QuestionPage implements OnInit, AfterViewInit {
-  @ViewChild(ClockComponent) clock: ClockComponent;
+  @ViewChild(ClockComponent,{static:false}) clock: ClockComponent;
 
   category: Category = {
     image:'',
@@ -25,7 +27,10 @@ export class QuestionPage implements OnInit, AfterViewInit {
   };
 
   running = true; 
-  constructor(private localService: LocalStorageService, private apiService: ApiService, private router: Router) { }
+  time: number = 0;
+  constructor(private localService: LocalStorageService, private apiService: ApiService, private router: Router,
+    public alertController: AlertController
+    ) { }
 
   ngOnInit() {
     this.category = this.localService.getCategory();
@@ -33,15 +38,19 @@ export class QuestionPage implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    console.log("starting...")
     this.running = true;
+    this.clock.setTime(this.localService.getTimeClock());
     this.clock.start();
   }
+
+
 
   /**
    * exec if the answer is wrong
    */
   badAnswer() {
-    this.clock.stop();
+    this.clock.stop(false);
     this.running = false;
   }
 
@@ -49,7 +58,7 @@ export class QuestionPage implements OnInit, AfterViewInit {
    * exec if the answer is fine
    */
   coolAnswer() {
-    this.clock.stop();
+    this.clock.stop(false);
     this.running = false;
   }
 
@@ -59,5 +68,22 @@ export class QuestionPage implements OnInit, AfterViewInit {
   back() {
     this.router.navigate(['/categories']);
   }
+
+  /**
+   * Show message if thime is over
+   */
+  async timeover() {
+    this.running = false;
+    const alert = await this.alertController.create({
+      header: '¡El tiempo acabó!',
+      subHeader: '',
+      message: 'El tiempo ha terminado.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+
 
 }
