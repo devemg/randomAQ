@@ -8,6 +8,7 @@ import { QuestionPageRoutingModule } from './question-routing.module';
 
 import { QuestionPage } from './question.page';
 import { ClockComponent } from './clock/clock.component';
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { ClockComponent } from './clock/clock.component';
     IonicModule,
     QuestionPageRoutingModule
   ],
-  declarations: [QuestionPage,ClockComponent]
+  declarations: [QuestionPage,ClockComponent],
+  providers: [ NativeAudio ]
 })
 export class QuestionPageModule {}

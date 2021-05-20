@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { Category } from 'src/app/models/category';
 import { ApiService } from 'src/app/services/api.service';
 

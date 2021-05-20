@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { AlertController } from '@ionic/angular';
 import { setUncaughtExceptionCaptureCallback } from 'process';
 import { Category } from 'src/app/models/category';
@@ -29,16 +30,17 @@ export class QuestionPage implements OnInit, AfterViewInit {
   running = true; 
   time: number = 0;
   constructor(private localService: LocalStorageService, private apiService: ApiService, private router: Router,
-    public alertController: AlertController
+    public alertController: AlertController,private nativeAudio: NativeAudio
     ) { }
 
   ngOnInit() {
     this.category = this.localService.getCategory();
     this.question = this.apiService.getQuestion();
+    this.nativeAudio.preloadSimple('time-over', '/assets/sounds/short-alarm.wav')
+    .then(()=>console.log("sound loaded"), (ex)=>console.log("sound not loaded",ex));
   }
 
   ngAfterViewInit() {
-    console.log("starting...")
     this.running = true;
     this.clock.setTime(this.localService.getTimeClock());
     this.clock.start();
@@ -80,10 +82,17 @@ export class QuestionPage implements OnInit, AfterViewInit {
       message: 'El tiempo ha terminado.',
       buttons: ['OK']
     });
-
+    this.playAlarm();
     await alert.present();
   }
 
+  /**
+   * Play sound if time is out
+   */
+  playAlarm() {
+      this.nativeAudio.play('time-over')
+      .then(()=>console.log("play sound"), ()=>console.log("not play sound "));
+  }
 
 
 }
