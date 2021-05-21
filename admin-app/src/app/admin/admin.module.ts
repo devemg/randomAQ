@@ -6,6 +6,12 @@ import { ListCategoriesComponent } from './components/categories/list-categories
 import { NewUpdateCategoryComponent } from './components/categories/new-update-category/new-update-category.component';
 import { HomeComponent } from './components/home/home.component';
 import { MaterialAngularModule } from '../material-angular.module';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 
 
 @NgModule({
@@ -17,7 +23,13 @@ import { MaterialAngularModule } from '../material-angular.module';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    MaterialAngularModule
+    MaterialAngularModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule
   ]
 })
 export class AdminModule { }
