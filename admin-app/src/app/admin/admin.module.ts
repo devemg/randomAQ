@@ -5,6 +5,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { ListCategoriesComponent } from './components/categories/list-categories/list-categories.component';
 import { NewUpdateCategoryComponent } from './components/categories/new-update-category/new-update-category.component';
 import { HomeComponent } from './components/home/home.component';
+import { MaterialAngularModule } from '../material-angular.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { HomeComponent } from './components/home/home.component';
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    MaterialAngularModule
   ]
 })
 export class AdminModule { }

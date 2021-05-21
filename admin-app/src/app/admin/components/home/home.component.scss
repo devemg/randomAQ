@@ -1,0 +1,50 @@
+.menu {
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    .image {
+        width: 15%;
+    }
+
+    .image:hover {
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 3.25));
+        cursor: pointer;
+    }
+
+    mat-icon {
+        color: white;
+    }
+
+}
+
+.right-menu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    list-style: none;
+
+    li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        margin: 0;
+        a {
+            
+            text-decoration: none;
+            color: white;
+        }
+
+        a:hover {
+            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 3.25));
+        }
+
+        button:hover {
+            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 3.25));
+        }
+    }
+
+
+}
