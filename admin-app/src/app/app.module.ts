@@ -1,24 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
-import { ListQuestionsComponent } from './components/questions/list-questions/list-questions.component';
-import { ListCategoriesComponent } from './components/categories/list-categories/list-categories.component';
-import { NewUpdateCategoryComponent } from './components/categories/new-update-category/new-update-category.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
-    ListQuestionsComponent,
-    ListCategoriesComponent,
-    NewUpdateCategoryComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
