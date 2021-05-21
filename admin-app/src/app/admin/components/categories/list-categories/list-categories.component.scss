@@ -2,4 +2,34 @@
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    padding-bottom: 1em;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-y: auto;
+    height: 85%;
+
+    table {
+        width: 100%;
+    }
+}
+
+tbody {
+    height: 100%;
+}
+
+.row-buttons{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-element {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 50px;
+    height: 50px;
 }
