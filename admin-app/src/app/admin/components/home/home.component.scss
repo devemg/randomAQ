@@ -101,7 +101,14 @@
 
 
 }
+mat-drawer-content {
+    align-items: center;
+}
 
+.card {
+    width: 90%;
+    height: 85%;
+}
 
 @media  only screen and (max-width:768px){
 
