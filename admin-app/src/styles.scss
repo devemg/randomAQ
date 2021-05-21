@@ -2,3 +2,19 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.gradient {
+    background: linear-gradient(218.49deg, #C04848 5.98%, #480048 98.42%);
+}
+
+.container-all {
+    width: 100%;
+    min-height: 100vh;
+
+}
+
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
