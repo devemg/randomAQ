@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ListQuestionsComponent } from './components/questions/list-questions/list-questions.component';
 import { ListCategoriesComponent } from './components/categories/list-categories/list-categories.component';
 import { NewUpdateCategoryComponent } from './components/categories/new-update-category/new-update-category.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { NewUpdateCategoryComponent } from './components/categories/new-update-c
     NewUpdateCategoryComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
