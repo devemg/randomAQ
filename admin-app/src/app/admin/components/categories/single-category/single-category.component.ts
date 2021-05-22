@@ -12,11 +12,11 @@ export interface DialogDataCategory {
 }
 
 @Component({
-  selector: 'app-new-update-category',
-  templateUrl: './new-update-category.component.html',
-  styleUrls: ['./new-update-category.component.scss']
+  selector: 'app-single-category',
+  templateUrl: './single-category.component.html',
+  styleUrls: ['./single-category.component.scss']
 })
-export class NewUpdateCategoryComponent implements OnInit {
+export class SingleCategoryComponent implements OnInit {
 
   title = "New Category";
   images: Image[] = [];

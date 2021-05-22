@@ -5,15 +5,15 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ModalStatus } from 'src/app/admin/models/status-modal';
 import { categoriesMock } from 'src/app/admin/services/mock-data-services.spec';
 
-import { NewUpdateCategoryComponent } from './new-update-category.component';
+import { SingleCategoryComponent } from './single-category.component';
 
-describe('NewUpdateCategoryComponent', () => {
-  let component: NewUpdateCategoryComponent;
-  let fixture: ComponentFixture<NewUpdateCategoryComponent>;
+describe('SingleCategoryComponent', () => {
+  let component: SingleCategoryComponent;
+  let fixture: ComponentFixture<SingleCategoryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NewUpdateCategoryComponent ],
+      declarations: [ SingleCategoryComponent ],
       providers: [ FormBuilder, 
         { provide: MAT_DIALOG_DATA, useValue: null } ],
       schemas:[ CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA ]
@@ -22,7 +22,7 @@ describe('NewUpdateCategoryComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewUpdateCategoryComponent);
+    fixture = TestBed.createComponent(SingleCategoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

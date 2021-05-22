@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Category } from 'src/app/admin/models/category';
 import { ModalStatus } from 'src/app/admin/models/status-modal';
 import { CategoryService } from 'src/app/admin/services/category.service';
-import { NewUpdateCategoryComponent } from '../new-update-category/new-update-category.component';
+import { SingleCategoryComponent } from '../single-category/single-category.component';
 
 @Component({
   selector: 'app-list-categories',
@@ -35,20 +35,20 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
   }
 
   newCategory() {
-    this.matDialog.open(NewUpdateCategoryComponent,{
+    this.matDialog.open(SingleCategoryComponent,{
       width:'60%'
     })
   }
 
   updateCategory(category: Category) {
-    this.matDialog.open(NewUpdateCategoryComponent,{
+    this.matDialog.open(SingleCategoryComponent,{
       width:'60%',
       data:{ status:ModalStatus.UPDATING, category:category }
     })
   }
 
   seeCategory(category: Category) {
-    this.matDialog.open(NewUpdateCategoryComponent,{
+    this.matDialog.open(SingleCategoryComponent,{
       width:'60%',
       data:{ status:ModalStatus.READONLY, category:category }
     })
