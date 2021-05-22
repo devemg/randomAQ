@@ -7,7 +7,7 @@ import { categoriesMock } from 'src/app/admin/services/mock-data-services.spec';
 
 import { NewUpdateCategoryComponent } from './new-update-category.component';
 
-fdescribe('NewUpdateCategoryComponent', () => {
+describe('NewUpdateCategoryComponent', () => {
   let component: NewUpdateCategoryComponent;
   let fixture: ComponentFixture<NewUpdateCategoryComponent>;
 
@@ -38,6 +38,8 @@ fdescribe('NewUpdateCategoryComponent', () => {
   it('should check status is creating', () => {
     expect(component.title).toBe("New Category");
     expect(component.status).toBe(ModalStatus.CREATING);
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('input[formControlName=name]').readOnly).toBeFalse();
 });
 
   it('should check if the form is invalid with fake data without image', () => {
@@ -75,6 +77,8 @@ fdescribe('NewUpdateCategoryComponent', () => {
     expect(component.categoryForm.valid).toBeTrue();
     expect(component.title).toBe("Category");
     expect(component.status).toBe(ModalStatus.READONLY);
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('input[formControlName=name]').readOnly).toBeTrue();
   });
 
   it('should check modal status as updating', () => {
@@ -84,6 +88,8 @@ fdescribe('NewUpdateCategoryComponent', () => {
     expect(component.categoryForm.valid).toBeTrue();
     expect(component.title).toBe("Update Category");
     expect(component.status).toBe(ModalStatus.UPDATING);
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('input[formControlName=name]').readOnly).toBeFalse();
   });
 
 });
