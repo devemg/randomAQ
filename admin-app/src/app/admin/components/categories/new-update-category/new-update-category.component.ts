@@ -23,7 +23,7 @@ export class NewUpdateCategoryComponent implements OnInit {
 
   categoryForm: FormGroup;
   status:ModalStatus = ModalStatus.CREATING;
-  
+  image = '';
 
   constructor(private formBuilder: FormBuilder, private catService: CategoryService,
     @Inject(MAT_DIALOG_DATA) public data: DialogDataCategory) { 
@@ -38,18 +38,15 @@ export class NewUpdateCategoryComponent implements OnInit {
   ngOnInit(): void {
     this.status = this.data != null?this.data.status:ModalStatus.CREATING;
     // updating list of images
-    if(this.status == ModalStatus.READONLY){
-      this.images = [
-        { id: 1, name:this.data.category.name, url:this.data.category.image }
-      ];
-    }else {
+    if(this.status != ModalStatus.READONLY){
       this.catService.getImages().subscribe(res=>{
         this.images = res;
       });
     }
     //updating form data
     if(this.status != ModalStatus.CREATING){
-      this.categoryForm.patchValue({...this.data.category,image:1});
+      this.categoryForm.patchValue({...this.data.category});
+      this.image = this.data.category.image;
     }
     //updating title 
     switch(this.status){
@@ -58,6 +55,15 @@ export class NewUpdateCategoryComponent implements OnInit {
       case ModalStatus.READONLY: this.title = 'Category'; break; 
     }
   }
+
+  /**
+   * change preview image 
+   */
+  changeSelectedImage(event: number){
+    let image = this.images.find(m=>m.id == event);
+    this.image = image?image.url:'';
+  }
+
 
   /**
    * save new category

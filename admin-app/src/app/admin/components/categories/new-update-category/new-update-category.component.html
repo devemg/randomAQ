@@ -13,7 +13,7 @@
 
           <mat-form-field class="full-width" appearance="outline" *ngIf="status != 3">
             <mat-label>Image</mat-label>
-            <mat-select required formControlName="image">
+            <mat-select required formControlName="image" (valueChange)="changeSelectedImage($event)">
                 <mat-option *ngFor="let item of images" [value]="item.id">
                     <div class="select-container">
                         <img class="select-img" [src]="item.url" alt="{{item.name}}" />
@@ -23,9 +23,9 @@
               </mat-select>
               <mat-error>Image is required</mat-error>
           </mat-form-field>
-          <div *ngIf="status == 3" class="image-stack">
-            <mat-label>Image</mat-label>
-            <img [src]="images[0].url" alt="{{images[0].name}}" />
+          <div *ngIf="image != ''" class="image-stack">
+            <mat-label>Current Image</mat-label>
+            <img [src]="image" alt="" />
           </div>
     </form>
 </mat-dialog-content>
