@@ -9,6 +9,8 @@ import { MaterialAngularModule } from '../material-angular.module';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ShortDescriptionPipe } from './pipes/short-description.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ListQuestionsComponent } from './components/questions/list-questions/list-questions.component';
+import { SingleQuestionComponent } from './components/questions/single-question/single-question.component';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     ListCategoriesComponent,
     SingleCategoryComponent,
     HomeComponent,
-    ShortDescriptionPipe
+    ShortDescriptionPipe,
+    ListQuestionsComponent,
+    SingleQuestionComponent
   ],
   imports: [
     CommonModule,
