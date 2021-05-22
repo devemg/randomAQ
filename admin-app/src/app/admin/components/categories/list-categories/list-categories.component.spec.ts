@@ -6,8 +6,9 @@ import { ShortDescriptionPipe } from 'src/app/admin/pipes/short-description.pipe
 import { CategoryService } from 'src/app/admin/services/category.service';
 import { categoriesMock } from 'src/app/admin/services/mock-data-services.spec';
 import { of } from 'rxjs';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
-fdescribe('ListCategoriesComponent', () => {
+describe('ListCategoriesComponent', () => {
   let component: ListCategoriesComponent;
   let fixture: ComponentFixture<ListCategoriesComponent>;
   let catService: CategoryService;
@@ -19,7 +20,8 @@ fdescribe('ListCategoriesComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ListCategoriesComponent, ShortDescriptionPipe ],
-      imports: [MatDialogModule, NoopAnimationsModule ]
+      imports: [MatDialogModule, NoopAnimationsModule ],
+      schemas:[ CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA ]
     })
     .compileComponents();
   });
