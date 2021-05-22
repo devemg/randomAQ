@@ -24,4 +24,37 @@ describe('NewUpdateCategoryComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should check if the form is invalid at start', () => {
+      expect(component.categoryForm.invalid).toBeTrue();
+  });
+
+  it('should check if the form is invalid with fake data without image', () => {
+    component.categoryForm.patchValue({
+      name:'Category A',
+      description:"Description A"
+    });
+    fixture.detectChanges();
+    expect(component.categoryForm.invalid).toBeTrue();
+  });
+
+  it('should check if the form is invalid with fake data without name', () => {
+    component.categoryForm.patchValue({
+      image:1,
+      description:"Description A"
+    });
+    fixture.detectChanges();
+    expect(component.categoryForm.invalid).toBeTrue();
+  });
+
+  it('should check if the form is valid with fake data', () => {
+    component.categoryForm.patchValue({
+      name:'Category A',
+      description:"Description A",
+      image:1
+    });
+    fixture.detectChanges();
+    expect(component.categoryForm.valid).toBeTrue();
+  });
+
 });
