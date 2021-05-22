@@ -40,9 +40,9 @@ export const imagesMock: Image[] = [
 
 
 export const questionsMock: Question[] = [
-  {id:1,content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category_id:1,category:categoriesMock[0]},
-  {id:2,content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category_id:2,category:categoriesMock[1]},
-  {id:3,content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category_id:3,category:categoriesMock[2]},
-  {id:4,content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category_id:4,category:categoriesMock[3]},
-  {id:5,content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category_id:5,category:categoriesMock[4]}
+  {id:1,content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category:categoriesMock[0]},
+  {id:2,content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category:categoriesMock[1]},
+  {id:3,content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category:categoriesMock[2]},
+  {id:4,content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category:categoriesMock[3]},
+  {id:5,content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category:categoriesMock[4]}
 ];

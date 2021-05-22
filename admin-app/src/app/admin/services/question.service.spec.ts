@@ -30,7 +30,7 @@ describe('QuestionService', () => {
 
   it('should call getQuestionsByCategory with id = 1 and return a list of questions', () => {
     service.getQuestionByCategory(1).subscribe(response => {
-      expect(response).toEqual(questionsMock.filter(m=>m.category_id == 1));
+      expect(response).toEqual(questionsMock.filter(m=>m.category?.id == 1));
     });
   });
 
