@@ -7,12 +7,8 @@ import { NewUpdateCategoryComponent } from './components/categories/new-update-c
 import { HomeComponent } from './components/home/home.component';
 import { MaterialAngularModule } from '../material-angular.module';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { ShortDescriptionPipe } from './pipes/short-description.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -27,11 +23,7 @@ import { ShortDescriptionPipe } from './pipes/short-description.pipe';
     AdminRoutingModule,
     MaterialAngularModule,
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule
+    ReactiveFormsModule
   ]
 })
 export class AdminModule { }

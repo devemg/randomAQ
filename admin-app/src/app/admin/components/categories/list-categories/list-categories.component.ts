@@ -1,8 +1,10 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Category } from 'src/app/admin/models/category';
 import { ApiService } from 'src/app/services/api.service';
+import { NewUpdateCategoryComponent } from '../new-update-category/new-update-category.component';
 
 @Component({
   selector: 'app-list-categories',
@@ -15,7 +17,7 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
   displayedColumns: string[] = ['name', 'image' ,'description', 'options'];
   datasource: MatTableDataSource<Category>;
 
-  constructor(private apiService:ApiService) {
+  constructor(private apiService: ApiService, private matDialog: MatDialog) {
      let cats: Category[] = [];
      cats = cats.concat(this.apiService.getAllCategories());
      cats = cats.concat(this.apiService.getAllCategories());
@@ -29,6 +31,12 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
     if(this.paginator){
       this.datasource.paginator = this.paginator;
     }
+  }
+
+  newCategory() {
+    this.matDialog.open(NewUpdateCategoryComponent,{
+      width:'60%'
+    })
   }
 
 }
