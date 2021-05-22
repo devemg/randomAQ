@@ -47,5 +47,25 @@ describe('ListCategoriesComponent', () => {
     expect(allCategories).toHaveBeenCalled();
   });
 
+  it('should open matDialog to create new Category', () => {
+    let open = spyOn(component.matDialog,'open');
+    component.newCategory();
+    component.ngOnInit();
+    expect(open).toHaveBeenCalled();
+  }); 
+
+  it('should open matDialog to create QuCategoryestion', () => {
+    let open = spyOn(component.matDialog,'open');
+    component.seeCategory(categoriesMock[0]);
+    component.ngOnInit();
+    expect(open).toHaveBeenCalled();
+  }); 
+
+  it('should open matDialog to update Category', () => {
+    let open = spyOn(component.matDialog,'open');
+    component.updateCategory(categoriesMock[0]);
+    component.ngOnInit();
+    expect(open).toHaveBeenCalled();
+  }); 
 
 });

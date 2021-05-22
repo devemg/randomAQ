@@ -2,13 +2,13 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Category } from 'src/app/admin/models/category';
+import { DialogData } from 'src/app/admin/models/dialog-data';
 import { Image } from 'src/app/admin/models/image';
 import { ModalStatus } from 'src/app/admin/models/status-modal';
 import { CategoryService } from 'src/app/admin/services/category.service';
 
-export interface DialogDataCategory {
+export interface DialogDataCategory extends DialogData {
   category:Category;
-  status: ModalStatus;
 }
 
 @Component({

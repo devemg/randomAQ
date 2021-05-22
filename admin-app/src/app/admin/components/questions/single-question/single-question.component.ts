@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogData } from 'src/app/admin/models/dialog-data';
+import { Question } from 'src/app/admin/models/question';
+import { ModalStatus } from 'src/app/admin/models/status-modal';
+
+export interface DialogDataQuestion extends DialogData {
+  question: Question
+}
 
 @Component({
   selector: 'app-single-question',
@@ -7,9 +15,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SingleQuestionComponent implements OnInit {
 
-  constructor() { }
+  status: ModalStatus = ModalStatus.CREATING; 
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogDataQuestion) { }
 
   ngOnInit(): void {
+    //setting status modal
+    if(this.data != null){
+      this.status = this.data.status;
+    }else {
+      this.status = ModalStatus.CREATING;
+    }
   }
 
 }
