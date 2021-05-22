@@ -78,6 +78,27 @@ export class CategoryService {
     }
 
     /**
+     * update category
+     * @param category 
+     * @returns 
+     */
+    updateCategory(category: Category): Observable<any> {
+      return new Observable(observer=>{
+        observer.next({});
+      })
+    }
+
+    /**
+     * Delete category
+     * @param id 
+     */
+    deleteCategory(id: number): Observable<any> {
+      return new Observable(observer=>{
+        observer.next({});
+      })
+    }
+
+    /**
      * Get images to asign category
      * @returns images array
      */

@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Category } from '../admin/models/category';
 
 export const LS_KEYS = {
-  CATEGORY:'category',
-  TIME:'time-clock'
+  TOKEN: 'user-token'
 }
 
 @Injectable({
@@ -15,43 +13,20 @@ export class LocalStorageService {
   constructor() { }
 
   /**
-   * save category in local storage
-   * @param category 
+   * Set auth token
+   * @param token 
    */
-  setCategory(category: Category){
-    localStorage.setItem(LS_KEYS.CATEGORY,JSON.stringify({...category,description:null}));
+  setAuthToken(token: string) {
+    localStorage.setItem(LS_KEYS.TOKEN,token);
   }
 
   /**
-   * get category from localStorage
-   * @returns category
+   * get auth token
    */
-  getCategory(): Category | null {
-    const itemString = localStorage.getItem(LS_KEYS.CATEGORY);
-    if(itemString){
-      return JSON.parse(itemString);
-    }
-    return null;
+   getAuthToken(): string{
+     let str = localStorage.getItem(LS_KEYS.TOKEN);
+   return str?str:'';
   }
 
-  /**
-   * save time clock in local storage
-   * @param category 
-   */
-   setTimeClock(time:number){
-    localStorage.setItem(LS_KEYS.TIME,time.toString());
-  }
-
-  /**
-   * get time clock from localStorage
-   * @returns category
-   */
-  getTimeClock(): number {
-    const itemString = localStorage.getItem(LS_KEYS.TIME);
-    if(itemString){
-      return Number(itemString);
-    }
-    return 30;
-  }
 
 }

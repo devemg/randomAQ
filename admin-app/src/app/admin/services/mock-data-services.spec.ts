@@ -1,5 +1,6 @@
 import { Category } from "../models/category";
 import { Image } from "../models/image";
+import { Question } from "../models/question";
 
 export const categoriesMock: Category[] = [
     { id: 1, name:'Princesas', image:'https://res.cloudinary.com/devemg/image/upload/v1621289168/randomAQ/category-icons/009-tulip_zxhh8e.png', description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor at faucibus id senectus posuere diam neque. Nulla adipiscing viverra pretium sit purus. Est, vel eget eget duis donec nunc neque semper. Scelerisque molestie commodo tellus porta facilisis dignissim.'},
@@ -36,3 +37,12 @@ export const imagesMock: Image[] = [
       id:5
     }
   ];
+
+
+export const questionsMock: Question[] = [
+  {id:1,content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category_id:1,category:categoriesMock[0]},
+  {id:2,content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category_id:2,category:categoriesMock[1]},
+  {id:3,content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category_id:3,category:categoriesMock[2]},
+  {id:4,content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category_id:4,category:categoriesMock[3]},
+  {id:5,content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category_id:5,category:categoriesMock[4]}
+];

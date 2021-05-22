@@ -1,8 +1,5 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { getTestBed, TestBed } from '@angular/core/testing';
-import { Category } from '../models/category';
-import { Image } from '../models/image';
-
+import { TestBed } from '@angular/core/testing';
 import { CategoryService } from './category.service';
 import { categoriesMock, imagesMock } from './mock-data-services.spec';
 
@@ -46,6 +43,19 @@ describe('CategoryService', () => {
     });
   });
 
+  it('should call updateCategory and return a response', () => {
+    service.updateCategory(categoriesMock[0]).subscribe(response => {
+      expect(response).toBeTruthy();
+    });
+  });
+
+
+  it('should call deleteCategory and return a response', () => {
+    service.deleteCategory(1).subscribe(response => {
+      expect(response).toBeTruthy();
+    });
+  });
+  
   it('should call getImages and return a list of images to asign categories', () => {
     service.getImages().subscribe(response => {
       expect(response.length).toBe(5);
