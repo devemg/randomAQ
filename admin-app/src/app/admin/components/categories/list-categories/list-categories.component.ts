@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Category } from 'src/app/admin/models/category';
+import { ModalStatus } from 'src/app/admin/models/status-modal';
 import { CategoryService } from 'src/app/admin/services/category.service';
 import { NewUpdateCategoryComponent } from '../new-update-category/new-update-category.component';
 
@@ -36,6 +37,20 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
   newCategory() {
     this.matDialog.open(NewUpdateCategoryComponent,{
       width:'60%'
+    })
+  }
+
+  updateCategory(category: Category) {
+    this.matDialog.open(NewUpdateCategoryComponent,{
+      width:'60%',
+      data:{ status:ModalStatus.UPDATING, category:category }
+    })
+  }
+
+  seeCategory(category: Category) {
+    this.matDialog.open(NewUpdateCategoryComponent,{
+      width:'60%',
+      data:{ status:ModalStatus.READONLY, category:category }
     })
   }
 

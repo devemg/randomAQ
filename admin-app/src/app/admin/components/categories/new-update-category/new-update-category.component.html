@@ -1,9 +1,9 @@
-<h1 mat-dialog-title><mat-icon>category</mat-icon> Category</h1>
+<h1 mat-dialog-title><mat-icon>category</mat-icon> {{title}}</h1>
 <mat-dialog-content>
     <form [formGroup]="categoryForm">
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>Name </mat-label>
-            <input matInput type="text" placeholder="Name" required formControlName="name">
+            <input matInput type="text" placeholder="Name" required formControlName="name" [disabled]="status == 3">
             <mat-error>Name is required</mat-error>
           </mat-form-field>
         <mat-form-field class="full-width" appearance="outline">
@@ -11,7 +11,7 @@
             <textarea matInput placeholder="Description" formControlName="description"> </textarea>
           </mat-form-field>
 
-          <mat-form-field  class="full-width" appearance="outline">
+          <mat-form-field class="full-width" appearance="outline" *ngIf="status != 3">
             <mat-label>Image</mat-label>
             <mat-select required formControlName="image">
                 <mat-option *ngFor="let item of images" [value]="item.id">
@@ -23,9 +23,14 @@
               </mat-select>
               <mat-error>Image is required</mat-error>
           </mat-form-field>
+          <div *ngIf="status == 3" class="image-stack">
+            <mat-label>Image</mat-label>
+            <img [src]="images[0].url" alt="{{images[0].name}}" />
+          </div>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions class="modal-buttons">
-    <button mat-button color="accent" mat-dialog-close>Cancel</button>
-    <button mat-raised-button color="primary" type="submit" [disabled]="categoryForm.invalid" (click)="save()">Create</button>
+    <button *ngIf="status != 3" mat-button color="accent" mat-dialog-close>Cancel</button>
+    <button *ngIf="status == 2" mat-raised-button color="primary" type="submit" (click)="update()">Update</button>
+    <button *ngIf="status == 1" mat-raised-button color="primary" type="submit" [disabled]="categoryForm.invalid" (click)="save()">Create</button>
   </mat-dialog-actions>

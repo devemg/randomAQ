@@ -38,3 +38,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         width: 20%;
     }
 }
+
+.link {
+    color: #480048;
+    font-weight: bold;
+}
+
+.link:hover {
+    cursor: pointer;
+    color: #C04848;
+}

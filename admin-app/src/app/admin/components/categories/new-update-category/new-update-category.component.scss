@@ -10,3 +10,18 @@
     justify-content: flex-start;
     align-items: center;
 }
+
+.image-stack {
+    display: flex;
+    flex-direction: column;
+
+    mat-label {
+        color: gray;
+        padding-bottom: 5px;
+    }
+
+    img {
+        width: 60px;
+        height: 60px;
+    }
+}
