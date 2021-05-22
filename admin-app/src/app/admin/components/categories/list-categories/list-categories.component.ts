@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Category } from 'src/app/admin/models/category';
-import { ApiService } from 'src/app/services/api.service';
+import { CategoryService } from 'src/app/admin/services/category.service';
 import { NewUpdateCategoryComponent } from '../new-update-category/new-update-category.component';
 
 @Component({
@@ -15,13 +15,12 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
   displayedColumns: string[] = ['name', 'image' ,'description', 'options'];
-  datasource: MatTableDataSource<Category>;
+  datasource: MatTableDataSource<Category> = new MatTableDataSource();
 
-  constructor(private apiService: ApiService, private matDialog: MatDialog) {
-     let cats: Category[] = [];
-     cats = cats.concat(this.apiService.getAllCategories());
-     cats = cats.concat(this.apiService.getAllCategories());
-    this.datasource = new MatTableDataSource(cats);
+  constructor(private catService: CategoryService, private matDialog: MatDialog) {
+    this.catService.getAllCategories().subscribe(res=>{
+      this.datasource = new MatTableDataSource(res);
+    })
   }
 
   ngOnInit(): void {

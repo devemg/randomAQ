@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
-import { Category } from '../admin/models/category';
-import { Image } from '../admin/models/image';
-import { Question } from '../admin/models/question';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { getTestBed, TestBed } from '@angular/core/testing';
+import { Category } from '../models/category';
+import { Image } from '../models/image';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ApiService {
+import { CategoryService } from './category.service';
 
-  categories: Category[] = [
+describe('CategoryService', () => {
+  let service: CategoryService;
+  let httpMock: HttpTestingController; 
+
+  let categoriesMock: Category[] = [
     { id: 1, name:'Princesas', image:'https://res.cloudinary.com/devemg/image/upload/v1621289168/randomAQ/category-icons/009-tulip_zxhh8e.png', description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor at faucibus id senectus posuere diam neque. Nulla adipiscing viverra pretium sit purus. Est, vel eget eget duis donec nunc neque semper. Scelerisque molestie commodo tellus porta facilisis dignissim.'},
     { id: 2, name:'Marvel', image:'https://res.cloudinary.com/devemg/image/upload/v1621289168/randomAQ/category-icons/048-dinosaur_zwnajr.png',description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor at faucibus id senectus posuere diam neque. Nulla adipiscing viverra pretium sit purus. Est, vel eget eget duis donec nunc neque semper. Scelerisque molestie commodo tellus porta facilisis dignissim.'},
     { id: 3, name:'Películas Clásicas', image:'https://res.cloudinary.com/devemg/image/upload/v1621289167/randomAQ/category-icons/046-star_bgl6dj.png', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor at faucibus id senectus posuere diam neque. Nulla adipiscing viverra pretium sit purus. Est, vel eget eget duis donec nunc neque semper. Scelerisque molestie commodo tellus porta facilisis dignissim.'},
@@ -16,7 +17,7 @@ export class ApiService {
     { id: 5, name:'Animales', image:'https://res.cloudinary.com/devemg/image/upload/v1621289165/randomAQ/category-icons/006-dolphin_ybq0hq.png', description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor at faucibus id senectus posuere diam neque. Nulla adipiscing viverra pretium sit purus. Est, vel eget eget duis donec nunc neque semper. Scelerisque molestie commodo tellus porta facilisis dignissim.'}
   ];
 
-  images: Image[] = [
+  let imagesMock: Image[] = [
     {
       name:'elephant',
       url:'https://res.cloudinary.com/devemg/image/upload/v1621289170/randomAQ/category-icons/022-elephant_qzrskn.png',
@@ -44,53 +45,51 @@ export class ApiService {
     }
   ];
 
-  question: Question[] = [
-    {id:1,content:'¿Cuál es mi princesa favorita?',answer:'Mulan'}
-  ];
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule ]
+    });
+    service = TestBed.inject(CategoryService);
+    httpMock = TestBed.inject(HttpTestingController);
+  });
 
-  constructor() { }
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
 
-  /**
-   * Get list with all categories
-   * @returns Categories list
-   */
-  getAllCategories(): Category[] {
-    return this.categories;
-  }
+  it('should call getAllCategories and return a list of categories', () => {
+    service.getAllCategories().subscribe(response => {
+      expect(response.length).toBe(5);
+      expect(response).toEqual(categoriesMock);
+    });
 
-  /**
-   * Get category by id
-   * @param id category
-   * @returns category
-   */
-  getCategory(id: number): Category | undefined {
-    return this.categories.find(element=>element.id == id);
-  }
+    //cons req = httpMock.expectOne('')
+    //expect(req.request.method).toBe('GET);
+    //req.flush(categoriesMock);
+  });
 
-  /**
-   * Save new category
-   * @param category 
-   */
-  newCategory(category: Category) {
-    console.log(category)
-  }
+  it('should call getcategory with id = 1 and return the category', () => {
+    service.getCategory(1).subscribe(response => {
+      expect(response).toBeDefined();
+      expect(response).toEqual(categoriesMock.find(m=>m.id == 1));
+    });
+  });
 
-  /**
-   * Get next question
-   * @returns Question
-   */
-  getQuestion(): Question {
-    return this.question[0];
-  }
+  it('should call newCategory and return a response', () => {
+    service.newCategory({image:'url',name:'name',description:'desc'}).subscribe(response => {
+      expect(response).toBeDefined();
+    });
+  });
 
-  /**
-   * Get images to asign category
-   * @returns images array
-   */
-  getImages(): Image[] {
-    return this.images;
-  }
+  it('should call getImages and return a list of images to asign categories', () => {
+    service.getImages().subscribe(response => {
+      expect(response.length).toBe(5);
+      expect(response).toEqual(imagesMock);
+    });
 
-}
+    //cons req = httpMock.expectOne('')
+    //expect(req.request.method).toBe('GET);
+    //req.flush(categoriesMock);
+  });
 
-//<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+});

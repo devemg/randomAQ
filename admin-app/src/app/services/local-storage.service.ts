@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Category } from '../models/category';
+import { Category } from '../admin/models/category';
 
 export const LS_KEYS = {
   CATEGORY:'category',
@@ -26,7 +26,7 @@ export class LocalStorageService {
    * get category from localStorage
    * @returns category
    */
-  getCategory(): Category {
+  getCategory(): Category | null {
     const itemString = localStorage.getItem(LS_KEYS.CATEGORY);
     if(itemString){
       return JSON.parse(itemString);

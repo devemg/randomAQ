@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Image } from 'src/app/admin/models/image';
-import { ApiService } from 'src/app/services/api.service';
+import { CategoryService } from 'src/app/admin/services/category.service';
 
 @Component({
   selector: 'app-new-update-category',
@@ -16,8 +16,10 @@ export class NewUpdateCategoryComponent implements OnInit {
   categoryForm: FormGroup;
   readonly = false; 
 
-  constructor(private formBuilder: FormBuilder, private apiService: ApiService) { 
-    this.images = this.apiService.getImages();
+  constructor(private formBuilder: FormBuilder, private catService: CategoryService) { 
+    this.catService.getImages().subscribe(res=>{
+      this.images = res;
+    });
     this.categoryForm = this.formBuilder.group({
       id:[],
       name:['',Validators.required],
@@ -35,7 +37,7 @@ export class NewUpdateCategoryComponent implements OnInit {
   save() {
    if(this.categoryForm.valid) {
      let imageUrl = this.images.find(i=>i.id == this.categoryForm.value.image);
-    this.apiService.newCategory({...this.categoryForm.value,image:imageUrl?imageUrl.url:''})
+    this.catService.newCategory({...this.categoryForm.value,image:imageUrl?imageUrl.url:''})
    }
     
   }
