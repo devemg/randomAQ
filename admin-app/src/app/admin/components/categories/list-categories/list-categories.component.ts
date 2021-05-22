@@ -17,13 +17,14 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
   displayedColumns: string[] = ['name', 'image' ,'description', 'options'];
   datasource: MatTableDataSource<Category> = new MatTableDataSource();
 
-  constructor(private catService: CategoryService, private matDialog: MatDialog) {
-    this.catService.getAllCategories().subscribe(res=>{
-      this.datasource = new MatTableDataSource(res);
-    })
+  constructor(public catService: CategoryService, public matDialog: MatDialog) {
+    
   }
 
   ngOnInit(): void {
+    this.catService.getAllCategories().subscribe(res=>{
+      this.datasource = new MatTableDataSource(res);
+    })
   }
 
    ngAfterViewInit() {
