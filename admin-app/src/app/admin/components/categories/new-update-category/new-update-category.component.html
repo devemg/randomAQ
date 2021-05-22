@@ -3,12 +3,12 @@
     <form [formGroup]="categoryForm">
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>Name </mat-label>
-            <input matInput type="text" placeholder="Name" required formControlName="name" [disabled]="status == 3">
+            <input matInput type="text" placeholder="Name" required formControlName="name" [readonly]="status == 3">
             <mat-error>Name is required</mat-error>
           </mat-form-field>
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>Description </mat-label>
-            <textarea matInput placeholder="Description" formControlName="description"> </textarea>
+            <textarea rows="4" matInput placeholder="Description" formControlName="description" [readonly]="status == 3"> </textarea>
           </mat-form-field>
 
           <mat-form-field class="full-width" appearance="outline" *ngIf="status != 3">
