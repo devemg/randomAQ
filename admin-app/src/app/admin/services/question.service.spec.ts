@@ -73,7 +73,7 @@ describe('QuestionService', () => {
 
 
   it('should call deleteQuestion and return a response', () => {
-    service.deleteQuestion(1).subscribe(response => {
+    service.deleteQuestion('1').subscribe(response => {
       expect(response).toBeTruthy();
     });
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Question } from 'src/app/admin/models/question';
 import { ModalStatus } from 'src/app/admin/models/status-modal';
@@ -18,9 +19,13 @@ export class ListQuestionsComponent implements OnInit {
   displayedColumns: string[] = ['content','category', 'options'];
   datasource: MatTableDataSource<Question> = new MatTableDataSource();
 
-  constructor(public qService: QuestionService, public matDialog:MatDialog) { }
+  constructor(public qService: QuestionService, public matDialog:MatDialog, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+      this.loadDatasource();
+  }
+
+  loadDatasource() {
     this.qService.getAllQuestions().subscribe(res=>{
       this.datasource = new MatTableDataSource(res);
     })
@@ -32,7 +37,13 @@ export class ListQuestionsComponent implements OnInit {
   newQuestion() {
     this.matDialog.open(SingleQuestionComponent,{
       width:'60%'
-    });
+    })
+    .afterClosed().subscribe(res=>{
+      if(res){
+        this.snackBar.open("Question created!",'Ok',{duration:2000})
+        this.loadDatasource();
+      }
+    },err=>this.snackBar.open("Cannot create question",'Ok',{duration:2000}));
     
   }
 
@@ -55,7 +66,26 @@ export class ListQuestionsComponent implements OnInit {
     this.matDialog.open(SingleQuestionComponent,{
       width:'60%',
       data: { status:ModalStatus.UPDATING, question }
-    });
+    })
+    .afterClosed().subscribe(res=>{
+      if(res){
+        this.snackBar.open("Question updated!",'Ok',{duration:2000})
+        this.loadDatasource();
+      }
+    },err=>this.snackBar.open("Cannot update question",'Ok',{duration:2000}));
   }
 
+  /**
+   * Delete question
+   * @param id 
+   */
+  deleteQuestion(id: string) {
+    this.qService.deleteQuestion(id)
+    .subscribe(res=>{
+      if(res){
+        this.snackBar.open("Question deleted!",'Ok',{duration:2000})
+        this.loadDatasource();
+      }
+    },err=>this.snackBar.open("Cannot delete question",'Ok',{duration:2000}))
+  }
 }

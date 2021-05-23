@@ -59,7 +59,7 @@ export class QuestionService {
    * delete question
    * @param id
    */
-   deleteQuestion(id: number):Observable<any> {
+   deleteQuestion(id: string):Observable<any> {
     return this.httpClient.delete(`${environment.URL_API}/question/${id}`);
 
   }

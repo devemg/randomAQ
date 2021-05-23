@@ -1,13 +1,14 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { of } from 'rxjs';
 import { questionsMock } from 'src/app/admin/services/mock-data-services.spec';
 import { QuestionService } from 'src/app/admin/services/question.service';
 
 import { ListQuestionsComponent } from './list-questions.component';
 
-fdescribe('ListQuestionsComponent', () => {
+describe('ListQuestionsComponent', () => {
   let component: ListQuestionsComponent;
   let fixture: ComponentFixture<ListQuestionsComponent>;
   let qService: QuestionService;
@@ -15,7 +16,10 @@ fdescribe('ListQuestionsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ListQuestionsComponent ],
-      imports: [ MatDialogModule, HttpClientTestingModule ]
+      imports: [ MatDialogModule, HttpClientTestingModule ],
+      providers: [
+        { provide: MatSnackBar, useValue: {open: ()=>{}} }
+      ]
     })
     .compileComponents();
   });
@@ -38,6 +42,12 @@ fdescribe('ListQuestionsComponent', () => {
   it('should call getAllQuestions() of categoryService on ngOnInit', () => {
     let allQuestions = spyOn(qService,'getAllQuestions').and.returnValue(of(questionsMock));
     component.ngOnInit();
+    expect(allQuestions).toHaveBeenCalled();
+  }); 
+
+  it('should call deleteQuestion() of categoryService on ngOnInit', () => {
+    let allQuestions = spyOn(qService,'deleteQuestion').and.returnValue(of(questionsMock));
+    component.deleteQuestion('1');
     expect(allQuestions).toHaveBeenCalled();
   }); 
 
