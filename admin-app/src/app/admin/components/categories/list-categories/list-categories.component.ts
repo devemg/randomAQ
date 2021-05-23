@@ -48,10 +48,10 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
     })
     .afterClosed().subscribe(res=>{
       if(res){
-        this.snackBar.open("Category created!",'Ok')
+        this.snackBar.open("Category created!",'Ok',{duration:2000})
         this.loadDatasource();
       }
-    },err=>this.snackBar.open("Cannot create category",'Ok'))
+    },err=>this.snackBar.open("Cannot create category",'Ok',{duration:2000}))
   }
 
   updateCategory(category: Category) {
@@ -60,10 +60,10 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
       data:{ status:ModalStatus.UPDATING, category:category }
     }).afterClosed().subscribe(res=>{
       if(res){
-        this.snackBar.open("Category updated!",'Ok')
+        this.snackBar.open("Category updated!",'Ok',{duration:2000})
         this.loadDatasource();
       }
-    },err=>this.snackBar.open("Cannot update category",'Ok'))
+    },err=>this.snackBar.open("Cannot update category",'Ok',{duration:2000}))
   }
 
   seeCategory(category: Category) {
@@ -75,9 +75,9 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
 
   deleteCategory(id: string) {
     this.catService.deleteCategory(id).subscribe(res=>{
-        this.snackBar.open("Category deleted!",'Ok')
+        this.snackBar.open("Category deleted!",'Ok',{duration:2000})
         this.loadDatasource();
-    },err=>this.snackBar.open("Cannot delete category",'Ok'))
+    },err=>this.snackBar.open("Cannot delete category",'Ok',{duration:2000}))
   }
 
 }
