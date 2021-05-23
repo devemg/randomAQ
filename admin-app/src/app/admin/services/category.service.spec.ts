@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { CategoryService } from './category.service';
 import { categoriesMock, imagesMock } from './mock-data-services.spec';
 
-fdescribe('CategoryService', () => {
+describe('CategoryService', () => {
   let service: CategoryService;
   let httpMock: HttpTestingController; 
 
@@ -64,7 +64,7 @@ fdescribe('CategoryService', () => {
 
 
   it('should call deleteCategory and return a response', () => {
-    service.deleteCategory(1).subscribe(response => {
+    service.deleteCategory('1').subscribe(response => {
       expect(response).toBeTruthy();
     });
 

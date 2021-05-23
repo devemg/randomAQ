@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
@@ -16,6 +17,7 @@ describe('SingleQuestionComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ SingleQuestionComponent ],
+      imports: [ HttpClientTestingModule ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: null },
         FormBuilder

@@ -1,7 +1,9 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import { ModalStatus } from 'src/app/admin/models/status-modal';
 import { CategoryService } from 'src/app/admin/services/category.service';
 import { categoriesMock } from 'src/app/admin/services/mock-data-services.spec';
@@ -16,8 +18,10 @@ describe('SingleCategoryComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ SingleCategoryComponent ],
+      imports: [ HttpClientTestingModule ],
       providers: [ FormBuilder, 
-        { provide: MAT_DIALOG_DATA, useValue: null } ],
+        { provide: MAT_DIALOG_DATA, useValue: null },
+        { provide: MatDialogRef, useValue: {close: ()=>{}} } ],
       schemas:[ CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA ]
     })
     .compileComponents();
@@ -96,27 +100,27 @@ describe('SingleCategoryComponent', () => {
   });
 
   it('should call newCategory service ', () => {
-    let newQ = spyOn(service,'newCategory').and.stub();  
+    let newQ = spyOn(service,'newCategory').and.callFake(_=>new Observable());
     component.categoryForm.patchValue(categoriesMock[0]);
     component.save();
     expect(newQ).toHaveBeenCalled();
   });
 
   it('should call updateCategory service ', () => {
-    let newQ = spyOn(service,'updateCategory').and.stub();
+    let newQ = spyOn(service,'updateCategory').and.callFake(_=>new Observable());
     component.categoryForm.patchValue(categoriesMock[0]);
     component.update();
     expect(newQ).toHaveBeenCalled();
   });
 
   it('should not call newCategory service ', () => {
-    let newQ = spyOn(service,'newCategory').and.stub();  
+    let newQ = spyOn(service,'newCategory').and.callFake(_=>new Observable());
     component.save();
     expect(newQ).not.toHaveBeenCalled();
   });
 
   it('should not call updateCategory service ', () => {
-    let newQ = spyOn(service,'updateCategory').and.stub();
+    let newQ = spyOn(service,'updateCategory').and.callFake(_=>new Observable());
     component.update();
     expect(newQ).not.toHaveBeenCalled();
   });
