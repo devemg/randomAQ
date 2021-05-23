@@ -9,7 +9,7 @@ import { QuestionService } from 'src/app/admin/services/question.service';
 
 import { SingleQuestionComponent } from './single-question.component';
 
-describe('SingleQuestionComponent', () => {
+fdescribe('SingleQuestionComponent', () => {
   let component: SingleQuestionComponent;
   let fixture: ComponentFixture<SingleQuestionComponent>;
   let service: QuestionService;
