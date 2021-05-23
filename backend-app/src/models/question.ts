@@ -1,8 +1,6 @@
-import { Category } from "./category";
-
 export interface Question {
-    id?:number;
-    category?:Category;
+    id?:string;
+    category?:string;
     content: string; 
     answer: string; 
 }
