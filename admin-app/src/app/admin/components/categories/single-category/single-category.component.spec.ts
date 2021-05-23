@@ -122,7 +122,7 @@ describe('SingleCategoryComponent', () => {
   });
 
   it('should change preview image', () => {
-    component.changeSelectedImage(1);
+    component.changeSelectedImage('1');
     fixture.detectChanges();
     expect(component.image).toEqual('https://res.cloudinary.com/devemg/image/upload/v1621289170/randomAQ/category-icons/022-elephant_qzrskn.png');
   });

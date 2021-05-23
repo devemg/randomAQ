@@ -23,14 +23,14 @@ describe('QuestionService', () => {
   });
 
   it('should call getQuestion with id = 1 and return a question', () => {
-    service.getQuestion(1).subscribe(response => {
+    service.getQuestion('1').subscribe(response => {
       expect(response).toEqual(questionsMock[0]);
     });
   });
 
   it('should call getQuestionsByCategory with id = 1 and return a list of questions', () => {
-    service.getQuestionByCategory(1).subscribe(response => {
-      expect(response).toEqual(questionsMock.filter(m=>m.category?.id == 1));
+    service.getQuestionByCategory('1').subscribe(response => {
+      expect(response).toEqual(questionsMock.filter(m=>m.category?.id == '1'));
     });
   });
 
