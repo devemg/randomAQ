@@ -71,4 +71,10 @@ describe('ListCategoriesComponent', () => {
     expect(open).toHaveBeenCalled();
   }); 
 
+  it('should call delete Category of service', () => {
+    let open = spyOn(component.catService,'deleteCategory');
+    component.deleteCategory('1');
+    expect(open).toHaveBeenCalled();
+  }); 
+
 });

@@ -78,7 +78,7 @@ export class CategoryService {
      * Delete category
      * @param id 
      */
-    deleteCategory(id: number): Observable<any> {
+    deleteCategory(id: string): Observable<any> {
       return this.httpClient.delete(`${environment.URL_API}/category/${id}`);
     }
 
