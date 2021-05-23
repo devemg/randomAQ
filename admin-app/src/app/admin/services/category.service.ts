@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Category } from '../models/category';
 import { Image } from '../models/image';
 
@@ -44,16 +46,14 @@ export class CategoryService {
     }
   ];
   
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
    /**
    * Get list with all categories
    * @returns Categories list
    */
     getAllCategories(): Observable<Category[]> {
-      return new Observable((observer)=>{
-        observer.next(this.categories);
-      });
+      return this.httpClient.get<Category[]>(`${environment.URL_API}/category`)
     }
   
     /**

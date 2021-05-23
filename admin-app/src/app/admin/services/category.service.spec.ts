@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { CategoryService } from './category.service';
 import { categoriesMock, imagesMock } from './mock-data-services.spec';
 
-describe('CategoryService', () => {
+fdescribe('CategoryService', () => {
   let service: CategoryService;
   let httpMock: HttpTestingController; 
 
@@ -25,9 +25,9 @@ describe('CategoryService', () => {
       expect(response).toEqual(categoriesMock);
     });
 
-    //cons req = httpMock.expectOne('')
-    //expect(req.request.method).toBe('GET);
-    //req.flush(categoriesMock);
+    const req = httpMock.expectOne('http://localhost:3000/category')
+    expect(req.request.method).toBe('GET');
+    req.flush(categoriesMock);
   });
 
   it('should call getcategory with id = 1 and return the category', () => {
