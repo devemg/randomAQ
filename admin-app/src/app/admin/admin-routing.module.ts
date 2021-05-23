@@ -10,6 +10,10 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {
+        path:'',
+        component:ListQuestionsComponent
+      },
+      {
         path:'categories',
         component:ListCategoriesComponent
       },
