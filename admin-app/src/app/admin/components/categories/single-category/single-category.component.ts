@@ -48,7 +48,14 @@ export class SingleCategoryComponent implements OnInit {
       this.categoryForm.patchValue({...this.data.category});
       this.image = this.data.category.image;
     }
-    //updating title 
+    //updating title     
+    this.updateTitle();
+  }
+
+  /**
+   * Update title
+   */
+  updateTitle() {
     switch(this.status){
       case ModalStatus.CREATING: this.title = 'New Category'; break; 
       case ModalStatus.UPDATING: this.title = 'Update Category'; break; 

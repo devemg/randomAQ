@@ -44,6 +44,7 @@ export class QuestionService {
    * @param q question
    */
   saveQuestion(q:Question):Observable<any> {
+    console.log(q)
     return new Observable(observer=>{
       observer.next(true);
     });
@@ -54,6 +55,7 @@ export class QuestionService {
    * @param q question
    */
    updateQuestion(q:Question):Observable<any> {
+    console.log(q)
     return new Observable(observer=>{
       observer.next(true);
     });
