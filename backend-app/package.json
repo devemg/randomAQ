@@ -1,0 +1,19 @@
+{
+  "name": "backend-app",
+  "version": "1.0.0",
+  "description": "Backend app to random-aq application",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "backend",
+    "node",
+    "randomaq"
+  ],
+  "author": "Emely Garcia",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.912.0"
+  }
+}
