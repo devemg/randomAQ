@@ -1,6 +1,6 @@
 import express from 'express';
-import { categoryRoutes } from "./categories/categories.routes";
-import { questionRoutes } from './questions/questions.routes';
+import { categoryRoutes } from "./modules/categories/categories.routes";
+import { questionRoutes } from './modules/questions/questions.routes';
 
 const app = express();
 app.use(express.json());
