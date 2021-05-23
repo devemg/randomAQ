@@ -12,7 +12,7 @@ const documentClient = new AWS.DynamoDB.DocumentClient({
 var params = {
     TableName: 'randomaq-categories',
     Key: {
-        id: '4e654f00-7273-4b4e-ba5b-4d6731e51b27'
+        id: 'de995a89-9b0b-4735-887a-9f52e6ad1aa4'
       }
 }
 
@@ -21,3 +21,13 @@ documentClient.get(params, function(err, data) {
     if (err) console.log(err);
     else console.log(data.Item);
   });
+
+   /**
+   * response: 
+   * {
+        description: 'Lorem ipsum dolor sit amet,',
+        id: 'de995a89-9b0b-4735-887a-9f52e6ad1aa4',
+        name: 'Princesas',
+        image: 'https://res.cloudinary.com/devemg/image/upload/v1621289168/randomAQ/category-icons/009-tulip_zxhh8e.png'
+      }
+   */

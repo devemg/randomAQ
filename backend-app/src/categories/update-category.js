@@ -11,7 +11,7 @@ const documentClient = new AWS.DynamoDB.DocumentClient({
 
 var body = {
   description: 'Lorem ipsum dolor sit amet,',
-  id: '4e654f00-7273-4b4e-ba5b-4d6731e51b27',
+  id: 'de995a89-9b0b-4735-887a-9f52e6ad1aa4',
   name: 'Juegos',
   image: 'https://res.cloudinary.com/devemg/image/upload/v1621289168/randomAQ/category-icons/009-tulip_zxhh8e.png'
 };
@@ -48,12 +48,13 @@ documentClient.update(params, function(err, data) {
     else console.log(data);
   });
 
-  /**
-   * 
+ /**
+   * response: 
    * {
-  description: 'Lorem ipsum dolor sit amet,',
-  id: '4e654f00-7273-4b4e-ba5b-4d6731e51b27',
-  name: 'Princesas',
-  image: 'https://res.cloudinary.com/devemg/image/upload/v1621289168/randomAQ/category-icons/009-tulip_zxhh8e.png'
-}
+      Attributes: {
+        description: 'Lorem ipsum dolor sit amet,',
+        image: 'https://res.cloudinary.com/devemg/image/upload/v1621289168/randomAQ/category-icons/009-tulip_zxhh8e.png',
+        name: 'Juegos'
+      }
+    }
    */
