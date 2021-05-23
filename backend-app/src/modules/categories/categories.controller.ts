@@ -1,24 +1,81 @@
-import  * as AWS from "aws-sdk";
+import { Request, Response } from "express";
+import { CategoriesRepository } from "./categories.repository";
 
-const documentClient = new AWS.DynamoDB.DocumentClient({
-    apiVersion: '2012-08-10',
-    region: 'us-east-1',
-    accessKeyId: process.env.aws_dynamo_acces_key,
-    secretAccessKey: process.env.aws_dynamo_secret_key
-});
-
+const catRepository = new CategoriesRepository();
 export class CategoriesController {
+    
 
-    params = {
-        TableName:'randomaq-categories'
-    };
-
-    getAll() {
-        console.log("Getting a new item...");
-        documentClient.scan(this.params, function(err, data) {
-            if (err) console.log(err);
-            else console.log(data.Items);
-        });
+    /**
+     * Get all categories
+     * @param req 
+     * @param res 
+     */
+    getAllCategories(request:Request, response:Response) {
+        catRepository.getAll().then( (res)=>{
+            response.status(200).json(res.Items);
+        })
+        .catch(err=>{
+            response.status(400).json({message: err.message })
+        })
     }
 
+    /**
+     * Get one categories
+     * @param req 
+     * @param res 
+     */
+     getCategoryById(request:Request, response:Response) {
+        catRepository.getOne(request.params.id).then( (res)=>{
+            response.status(res.Item?200:404).json(res.Item?res.Item:{message:'Category not found'});
+        })
+        .catch(err=>{
+            response.status(400).json({message: err.message })
+        })
+    }
+
+    /**
+     * create new category
+     * @param req 
+     * @param res 
+     */
+     newCategory(request:Request, response:Response) {
+        catRepository.create(request.body).then( (res)=>{
+            response.status(200).json(res);
+        })
+        .catch(err=>{
+            response.status(400).json({message: err.message })
+        })
+    }
+
+    /**
+     * update category
+     * @param req 
+     * @param res 
+     */
+     updateCategory(request:Request, response:Response) {
+        catRepository.update(request.body).then( (res)=>{
+            response.status(res.Attributes?200:404).json(res.Attributes?res.Attributes:{message:"Category not found"});
+        })
+        .catch(err=>{
+            if(err.code == 'ConditionalCheckFailedException'){
+                response.status(404).json({message:"Category not found"});
+            }else{
+                response.status(400).json({message: err.message })
+            }
+        })
+    }
+
+    /**
+     * Get one categories
+     * @param req 
+     * @param res 
+     */
+     deleteCategory(request:Request, response:Response) {
+        catRepository.delete(request.params.id).then( (res)=>{
+            response.status(res.Attributes?200:404).json(res.Attributes?res.Attributes:{message:"Category not found"});
+        })
+        .catch(err=>{
+            response.status(400).json({message: err.message })
+        })
+    }
 }
