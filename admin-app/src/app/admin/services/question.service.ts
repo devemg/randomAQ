@@ -23,7 +23,7 @@ export class QuestionService {
    * Get question by id
    * id
    */
-   getQuestion(id: number):Observable<Question> {
+   getQuestion(id: string):Observable<Question> {
     return new Observable(observer=>{
       observer.next(questionsMock.find(m=>m.id == id));
     });
@@ -33,7 +33,7 @@ export class QuestionService {
    * Get questions by category id
    * @param id
    */
-   getQuestionByCategory(idCategory: number):Observable<Question[]> {
+   getQuestionByCategory(idCategory: string):Observable<Question[]> {
     return new Observable(observer=>{
       observer.next(questionsMock.filter(m=>m.category?.id == idCategory));
     });
