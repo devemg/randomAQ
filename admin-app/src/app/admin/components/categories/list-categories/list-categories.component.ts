@@ -31,7 +31,6 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
   loadDatasource() {
     this.loading = true;
     this.catService.getAllCategories().subscribe(res=>{
-      console.log(res)
       this.datasource = new MatTableDataSource(res);
       if(this.paginator){
         this.datasource.paginator = this.paginator;
