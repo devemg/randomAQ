@@ -19,6 +19,7 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
   displayedColumns: string[] = ['name', 'image' ,'description', 'options'];
   datasource: MatTableDataSource<Category> = new MatTableDataSource();
 
+  loading = false;
   constructor(public catService: CategoryService, public matDialog: MatDialog, public snackBar: MatSnackBar) {
     
   }
@@ -28,11 +29,14 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
   }
 
   loadDatasource() {
+    this.loading = true;
     this.catService.getAllCategories().subscribe(res=>{
+      console.log(res)
       this.datasource = new MatTableDataSource(res);
       if(this.paginator){
         this.datasource.paginator = this.paginator;
       }
+      this.loading = false;
     })
   }
 
@@ -43,13 +47,24 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
     this.matDialog.open(SingleCategoryComponent,{
       width:'60%'
     })
+    .afterClosed().subscribe(res=>{
+      if(res){
+        this.snackBar.open("Category created!",'Ok')
+        this.loadDatasource();
+      }
+    },err=>this.snackBar.open("Cannot create category",'Ok'))
   }
 
   updateCategory(category: Category) {
     this.matDialog.open(SingleCategoryComponent,{
       width:'60%',
       data:{ status:ModalStatus.UPDATING, category:category }
-    })
+    }).afterClosed().subscribe(res=>{
+      if(res){
+        this.snackBar.open("Category updated!",'Ok')
+        this.loadDatasource();
+      }
+    },err=>this.snackBar.open("Cannot update category",'Ok'))
   }
 
   seeCategory(category: Category) {
