@@ -4,7 +4,10 @@
   "description": "Backend app to random-aq application",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "npm test",
+    "build": "tsc",
+    "start": "nodemon ./src/index.ts",
+    "prod": " tsc && node dist/index.js"
   },
   "keywords": [
     "backend",
@@ -16,6 +19,12 @@
   "dependencies": {
     "aws-sdk": "^2.912.0",
     "dotenv": "^10.0.0",
+    "express": "^4.17.1",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.11",
+    "nodemon": "^2.0.7",
+    "typescript": "^4.2.4"
   }
 }
