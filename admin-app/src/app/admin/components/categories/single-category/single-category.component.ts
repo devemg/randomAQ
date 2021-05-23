@@ -25,7 +25,7 @@ export class SingleCategoryComponent implements OnInit {
   status:ModalStatus = ModalStatus.CREATING;
   image = '';
 
-  constructor(private formBuilder: FormBuilder, private catService: CategoryService,
+  constructor(private formBuilder: FormBuilder, public catService: CategoryService,
     @Inject(MAT_DIALOG_DATA) public data: DialogDataCategory) { 
     this.categoryForm = this.formBuilder.group({
       id:[],
@@ -86,7 +86,9 @@ export class SingleCategoryComponent implements OnInit {
    * update category
    */
    update() {
-    console.log(this.categoryForm.value);
-    
+    if(this.categoryForm.valid) {
+      let imageUrl = this.images.find(i=>i.id == this.categoryForm.value.image);
+     this.catService.updateCategory({...this.categoryForm.value,image:imageUrl?imageUrl.url:''})
+    }
    }
 }

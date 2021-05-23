@@ -44,7 +44,10 @@ describe('ListCategoriesComponent', () => {
   it('should call getAllCategories() of categoryService on ngOnInit', () => {
     let allCategories = spyOn(catService,'getAllCategories').and.returnValue(of(categoriesMock));
     component.ngOnInit();
+    component.ngAfterViewInit();
+    fixture.detectChanges();
     expect(allCategories).toHaveBeenCalled();
+    expect(component.datasource).toBeTruthy();
   });
 
   it('should open matDialog to create new Category', () => {

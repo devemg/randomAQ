@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ModalStatus } from 'src/app/admin/models/status-modal';
+import { CategoryService } from 'src/app/admin/services/category.service';
 import { categoriesMock } from 'src/app/admin/services/mock-data-services.spec';
 
 import { SingleCategoryComponent } from './single-category.component';
@@ -10,6 +11,7 @@ import { SingleCategoryComponent } from './single-category.component';
 describe('SingleCategoryComponent', () => {
   let component: SingleCategoryComponent;
   let fixture: ComponentFixture<SingleCategoryComponent>;
+  let service: CategoryService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -24,6 +26,7 @@ describe('SingleCategoryComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SingleCategoryComponent);
     component = fixture.componentInstance;
+    service = component.catService;
     fixture.detectChanges();
   });
 
@@ -90,6 +93,38 @@ describe('SingleCategoryComponent', () => {
     expect(component.status).toBe(ModalStatus.UPDATING);
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('input[formControlName=name]').readOnly).toBeFalse();
+  });
+
+  it('should call newCategory service ', () => {
+    let newQ = spyOn(service,'newCategory').and.stub();  
+    component.categoryForm.patchValue(categoriesMock[0]);
+    component.save();
+    expect(newQ).toHaveBeenCalled();
+  });
+
+  it('should call updateCategory service ', () => {
+    let newQ = spyOn(service,'updateCategory').and.stub();
+    component.categoryForm.patchValue(categoriesMock[0]);
+    component.update();
+    expect(newQ).toHaveBeenCalled();
+  });
+
+  it('should not call newCategory service ', () => {
+    let newQ = spyOn(service,'newCategory').and.stub();  
+    component.save();
+    expect(newQ).not.toHaveBeenCalled();
+  });
+
+  it('should not call updateCategory service ', () => {
+    let newQ = spyOn(service,'updateCategory').and.stub();
+    component.update();
+    expect(newQ).not.toHaveBeenCalled();
+  });
+
+  it('should change preview image', () => {
+    component.changeSelectedImage(1);
+    fixture.detectChanges();
+    expect(component.image).toEqual('https://res.cloudinary.com/devemg/image/upload/v1621289170/randomAQ/category-icons/022-elephant_qzrskn.png');
   });
 
 });
