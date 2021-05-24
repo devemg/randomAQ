@@ -1,13 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
+import { AuthService } from './auth.service';
 import { LocalStorageService } from './local-storage.service';
 
-describe('LocalStorageService', () => {
-  let service: LocalStorageService;
+describe('AuthService', () => {
+  let service: AuthService;
+  let localService: LocalStorageService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(LocalStorageService);
+    service = TestBed.inject(AuthService);
+    localService = TestBed.inject(LocalStorageService);
   });
 
   beforeEach(() => {
@@ -41,28 +44,14 @@ describe('LocalStorageService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should save auth token', () => {
-    service.setAuthToken('123');
-    expect(localStorage.getItem('user-token')).toEqual('123');
+  it('should login and save token', () => {
+    service.login('user','password'); 
+    expect(localService.isAuth()).toBeTrue();
   });
 
-  it('should get auth token', () => {
-    service.setAuthToken('123');
-    expect(service.getAuthToken()).toEqual('123');
-  });
-
-  it('should return false with user not authenticated', () => {
-    expect(service.isAuth()).toBeFalse();
-  });
-
-  it('should return true with user authenticated', () => {
-    service.setAuthToken('123');
-    expect(service.isAuth()).toBeTrue();
-  });
-
-  it('should remove auth token', () => {
-    service.removeAuthToken();
-    expect(service.isAuth()).toBeFalse();
+  it('should logout and remove token', () => {
+    service.logout();
+    expect(localService.isAuth()).toBeFalse();
   });
 
 });

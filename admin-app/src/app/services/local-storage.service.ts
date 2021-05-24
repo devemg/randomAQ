@@ -28,9 +28,21 @@ export class LocalStorageService {
    return str?str:'';
   }
 
+  /**
+   * Check if the user is authenticated
+   * @returns 
+   */
   isAuth(): boolean {
     let str = localStorage.getItem(LS_KEYS.TOKEN);
     return str != null;
   }
+
+  /**
+   * remove auth token
+   */
+  removeAuthToken() {
+    localStorage.removeItem(LS_KEYS.TOKEN);
+  }
+
 
 }
