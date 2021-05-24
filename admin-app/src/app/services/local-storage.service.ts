@@ -28,5 +28,9 @@ export class LocalStorageService {
    return str?str:'';
   }
 
+  isAuth(): boolean {
+    let str = localStorage.getItem(LS_KEYS.TOKEN);
+    return str != null;
+  }
 
 }

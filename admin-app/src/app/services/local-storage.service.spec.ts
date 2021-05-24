@@ -51,4 +51,13 @@ describe('LocalStorageService', () => {
     expect(service.getAuthToken()).toEqual('123');
   });
 
+  it('should return false with user not authenticated', () => {
+    expect(service.isAuth()).toBeFalse();
+  });
+
+  it('should return true with user authenticated', () => {
+    service.setAuthToken('123');
+    expect(service.isAuth()).toBeTrue();
+  });
+
 });
