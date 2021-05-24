@@ -9,13 +9,15 @@ import { MaterialAngularModule } from './material-angular.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
 import { MessageComponent } from './components/message/message.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    MessageComponent
+    MessageComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
