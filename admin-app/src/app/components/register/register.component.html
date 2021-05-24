@@ -5,21 +5,34 @@
 
         </mat-card-header>
         <mat-card-content>
-            <form (ngSubmit)="register()">
+            <form [formGroup]="registerForm" (ngSubmit)="register()">
                 <mat-form-field appearance="outline">
                     <mat-label>User</mat-label>
                     <mat-icon matPrefix>account_circle</mat-icon>
-                    <input matInput type="text" placeholder="User">
+                    <input matInput type="text" placeholder="User" formControlName="username" required>
                     <mat-error>User is required</mat-error>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <mat-icon matPrefix>alternate_email</mat-icon>
+                    <input matInput type="email" placeholder="Email" formControlName="email" required>
+                    <mat-error>Email is required</mat-error>
                   </mat-form-field>
                   <mat-form-field appearance="outline">
                     <mat-label>Password</mat-label>
                     <mat-icon matPrefix>password</mat-icon>
-                    <input matInput type="text" placeholder="Password">
+                    <input matInput type="password" placeholder="Password" formControlName="password" required>
                     <mat-error>Password is required</mat-error>
                   </mat-form-field>
-                  <button class="btn-submit" mat-raised-button color="primary">Iniciar Sesión</button>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Confirm Password</mat-label>
+                    <mat-icon matPrefix>password</mat-icon>
+                    <input matInput type="password" placeholder="Confirm Password" formControlName="confirmPassword" required>
+                    <mat-error>Confirm password is required</mat-error>
+                  </mat-form-field>
+                  <button type="submit" class="btn-submit" mat-raised-button color="primary">Create Account</button>
             </form>
+            <p style="text-align: center;">Already have an account? <a class="link" routerLink="/login">Sign In</a></p>
         </mat-card-content>
     </mat-card>
 </div>

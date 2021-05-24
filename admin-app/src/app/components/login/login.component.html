@@ -5,21 +5,22 @@
 
         </mat-card-header>
         <mat-card-content>
-            <form (ngSubmit)="login()">
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
                 <mat-form-field appearance="outline">
                     <mat-label>User</mat-label>
                     <mat-icon matPrefix>account_circle</mat-icon>
-                    <input matInput type="text" placeholder="User">
+                    <input required matInput type="text" placeholder="User" formControlName="username">
                     <mat-error>User is required</mat-error>
                   </mat-form-field>
                   <mat-form-field appearance="outline">
                     <mat-label>Password</mat-label>
                     <mat-icon matPrefix>password</mat-icon>
-                    <input matInput type="text" placeholder="Password">
+                    <input required matInput type="text" placeholder="Password" formControlName="password">
                     <mat-error>Password is required</mat-error>
                   </mat-form-field>
-                  <button class="btn-submit" mat-raised-button color="primary">Iniciar Sesión</button>
+                  <button class="btn-submit" mat-raised-button color="primary">Sign In</button>
             </form>
+            <p style="text-align: center;">No account? <a class="link" routerLink="/register">Create One</a></p>
         </mat-card-content>
     </mat-card>
 </div>
