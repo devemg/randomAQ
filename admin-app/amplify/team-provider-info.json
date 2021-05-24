@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-randomaq-dev-102817-authRole",
+      "UnauthRoleArn": "arn:aws:iam::095193355706:role/amplify-randomaq-dev-102817-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::095193355706:role/amplify-randomaq-dev-102817-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-randomaq-dev-102817-deployment",
+      "UnauthRoleName": "amplify-randomaq-dev-102817-unauthRole",
+      "StackName": "amplify-randomaq-dev-102817",
+      "StackId": "arn:aws:cloudformation:us-east-2:095193355706:stack/amplify-randomaq-dev-102817/0ddc7d50-bcad-11eb-829f-0a9363ef648e",
+      "AmplifyAppId": "d188jm1yzhvyse"
+    }
+  }
+}
