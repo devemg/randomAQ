@@ -9,15 +9,18 @@
                 <mat-form-field appearance="outline">
                     <mat-label>User</mat-label>
                     <mat-icon matPrefix>account_circle</mat-icon>
-                    <input required matInput type="text" placeholder="User" formControlName="username">
+                    <input required matInput type="text" placeholder="User" formControlName="username" (focus)="errorMessage = null;" >
                     <mat-error>User is required</mat-error>
                   </mat-form-field>
                   <mat-form-field appearance="outline">
                     <mat-label>Password</mat-label>
                     <mat-icon matPrefix>password</mat-icon>
-                    <input required matInput type="text" placeholder="Password" formControlName="password">
-                    <mat-error>Password is required</mat-error>
+                    <input required matInput type="password" placeholder="Password" formControlName="password" (focus)="errorMessage = null;">
+                    <mat-error *ngIf="isError('password','required')">Password is required</mat-error>
+                    <mat-error *ngIf="isError('password','minlength')">Password minimun length is 8</mat-error>
                   </mat-form-field>
+                  <mat-error class="error-msg" *ngIf="errorMessage">{{errorMessage}}</mat-error>
+
                   <button class="btn-submit" mat-raised-button color="primary">Sign In</button>
             </form>
             <p style="text-align: center;">No account? <a class="link" routerLink="/register">Create One</a></p>

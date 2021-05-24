@@ -55,7 +55,7 @@ export class RegisterComponent implements OnInit {
    */
   isError(control: string, error: string){
     return this.registerFControls[control].touched 
-    && this.registerFControls[control].hasError(error)
+    && this.registerFControls[control].hasError(error);
   }
 
 }
