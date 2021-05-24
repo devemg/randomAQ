@@ -10,17 +10,6 @@ import { LogInUser } from '../models/login-user';
 export class AuthService {
 
   constructor(private localService: LocalStorageService) { 
-    Auth.configure({
-      userPoolId:'us-east-1_hPVsDYBCG',
-			userPoolWebClientId:'44bignuc1ghp4cp8sn3v5alf6k',
-			region: 'us-east-1',
-			//oauth,
-			//identityPoolId: '',
-			//mandatorySignIn,
-			//refreshHandlers,
-			//identityPoolRegion,
-			//clientMetadata,
-    });
   }
 
   /**
@@ -28,18 +17,25 @@ export class AuthService {
    * @param user 
    */
   async register(user: NewUser) {
-    try {
-      const newUser  = await Auth.signUp({
-          username: user.username,
-          password: user.password,
-          attributes: {
-            email: user.email
-          }
-      });
-      console.log(newUser);
-    } catch (error) {
-        console.log('error signing up:', error);
-    }
+    Auth.configure({
+      userPoolId:'us-east-1_zB1UvrAap',
+			userPoolWebClientId:'754ogk3q9aj8542ro960c8vjq8',
+			region: 'us-east-1',
+      mandatorySignIn:true
+			//oauth,
+			//identityPoolId: '',
+			//refreshHandlers,
+			//identityPoolRegion,
+			//clientMetadata,
+    });
+
+    return Auth.signUp({
+      username: user.username,
+      password: user.password,
+      attributes: {
+        email: user.email
+      }
+    });
   }
 
   changePassword() {

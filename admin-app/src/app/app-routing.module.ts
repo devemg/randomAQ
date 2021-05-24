@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
+import { MessageComponent } from './components/message/message.component';
 import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
@@ -15,6 +16,14 @@ const routes: Routes = [
   {
     path:'register',
     component:RegisterComponent
+  },
+  {
+    path: 'registered-to-verificate',
+    component:MessageComponent
+  },
+  {
+    path: 'verificated',
+    component:MessageComponent
   },
   {
     path:'admin',

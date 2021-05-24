@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { PasswordValidator } from './password-validator';
 
@@ -14,7 +15,7 @@ export class RegisterComponent implements OnInit {
 
   get registerFControls() { return this.registerForm.controls; }
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) {
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.formBuilder.group({
       username: ['',[Validators.required,Validators.minLength(4)]],
       email: ['',[Validators.required,Validators.email]],
@@ -26,11 +27,22 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Save new user
+   */
   register() {
     if(this.registerForm.valid){
-      console.log(this.registerForm.value);
-    }else {
-      console.log(this.registerFControls.errors)
+      this.authService.register(this.registerForm.value).then(res=>{
+        console.log(res)
+        //save JWT in local storage
+        this.router.navigate(['/registered-to-verificate']);
+      })
+      .catch(err=>{
+        console.log(err)
+        if(err.code == 'UsernameExistsException') {
+          this.registerFControls.username.setErrors({ usernameAlreadyExists: true })
+        }
+      });
     }
     
   }
