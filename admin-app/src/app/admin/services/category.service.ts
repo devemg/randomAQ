@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { APIService, ListCategorysQuery } from 'src/app/services/API.service';
+import { APIService } from 'src/app/services/API.service';
 import { Category } from '../models/category';
 import { Image } from '../models/image';
 
@@ -7,7 +7,6 @@ import { Image } from '../models/image';
   providedIn: 'root'
 })
 export class CategoryService {
-
   images: Image[] = [
     {
       name:'elephant',
@@ -91,7 +90,7 @@ export class CategoryService {
      * Delete category
      * @param id 
      */
-    deleteCategory(id: number): Promise<any> {
+    deleteCategory(id: string): Promise<any> {
       return new Promise((resolve:any,reject:any)=>{
         resolve({});
       })

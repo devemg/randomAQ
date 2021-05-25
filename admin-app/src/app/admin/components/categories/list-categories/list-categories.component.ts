@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Category } from 'src/app/admin/models/category';
 import { ModalStatus } from 'src/app/admin/models/status-modal';
@@ -18,38 +19,52 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
   displayedColumns: string[] = ['name', 'image' ,'description', 'options'];
   datasource: MatTableDataSource<Category> = new MatTableDataSource();
 
-  constructor(public catService: CategoryService, public matDialog: MatDialog) {
+  loading = false;
+  constructor(public catService: CategoryService, public matDialog: MatDialog, public snackBar: MatSnackBar) {
     
   }
 
   ngOnInit(): void {
-    this.loadSource();
+      this.loadDatasource();
   }
 
-  loadSource() {
+  loadDatasource() {
+    this.loading = true;
     this.catService.getAllCategories().then(res=>{
       this.datasource = new MatTableDataSource(res);
+      if(this.paginator){
+        this.datasource.paginator = this.paginator;
+      }
+      this.loading = false;
     })
     .catch(err=>console.log(err));
   }
 
    ngAfterViewInit() {
-    if(this.paginator){
-      this.datasource.paginator = this.paginator;
-    }
   }
 
   newCategory() {
     this.matDialog.open(SingleCategoryComponent,{
       width:'60%'
     })
+    .afterClosed().subscribe(res=>{
+      if(res){
+        this.snackBar.open("Category created!",'Ok',{duration:2000})
+        this.loadDatasource();
+      }
+    },err=>this.snackBar.open("Cannot create category",'Ok',{duration:2000}))
   }
 
   updateCategory(category: Category) {
     this.matDialog.open(SingleCategoryComponent,{
       width:'60%',
       data:{ status:ModalStatus.UPDATING, category:category }
-    })
+    }).afterClosed().subscribe(res=>{
+      if(res){
+        this.snackBar.open("Category updated!",'Ok',{duration:2000})
+        this.loadDatasource();
+      }
+    },err=>this.snackBar.open("Cannot update category",'Ok',{duration:2000}))
   }
 
   seeCategory(category: Category) {
@@ -57,6 +72,13 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
       width:'60%',
       data:{ status:ModalStatus.READONLY, category:category }
     })
+  }
+
+  deleteCategory(id: string) {
+    this.catService.deleteCategory(id).then(res=>{
+        this.snackBar.open("Category deleted!",'Ok',{duration:2000})
+        this.loadDatasource();
+    }).catch(err=>this.snackBar.open("Cannot delete category",'Ok',{duration:2000}))
   }
 
 }

@@ -14,35 +14,35 @@ export const imagesMock: Image[] = [
     {
       name:'elephant',
       url:'https://res.cloudinary.com/devemg/image/upload/v1621289170/randomAQ/category-icons/022-elephant_qzrskn.png',
-      id:1
+      id:'1'
     },
     {
       name:'heart',
       url:'https://res.cloudinary.com/devemg/image/upload/v1621289170/randomAQ/category-icons/021-heart_yu2e8e.png',
-      id:2
+      id:'2'
     },
     {
       name:'crab',
       url:'https://res.cloudinary.com/devemg/image/upload/v1621289170/randomAQ/category-icons/020-crab_nbv3p5.png',
-      id:3
+      id:'3'
     },
     {
       name:'boat',
       url:'https://res.cloudinary.com/devemg/image/upload/v1621289169/randomAQ/category-icons/019-boat_oai4ed.png',
-      id:4
+      id:'4'
     },
     {
       name:'pig',
       url:'https://res.cloudinary.com/devemg/image/upload/v1621289168/randomAQ/category-icons/010-pig_k5qkiw.png',
-      id:5
+      id:'5'
     }
   ];
 
 
 export const questionsMock: Question[] = [
-  {id:1,content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category:categoriesMock[0]},
-  {id:2,content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category:categoriesMock[1]},
-  {id:3,content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category:categoriesMock[2]},
-  {id:4,content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category:categoriesMock[3]},
-  {id:5,content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category:categoriesMock[4]}
+  {id:'1',content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category:categoriesMock[0]},
+  {id:'2',content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category:categoriesMock[1]},
+  {id:'3',content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category:categoriesMock[2]},
+  {id:'4',content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category:categoriesMock[3]},
+  {id:'5',content:'¿Cuál es mi princesa favorita?',answer:'Mulan',category:categoriesMock[4]}
 ];

@@ -4,6 +4,13 @@
     </button>
 </div>
 <div class="table-responsive">
+  <div *ngIf="loading"
+   style="display: flex; justify-content: center; align-items: center;">
+  <mat-progress-spinner 
+    color="primary" 
+    mode="indeterminate">
+  </mat-progress-spinner>
+</div>
   <table mat-table [dataSource]="datasource">
   
     <!-- Name Column -->
@@ -34,7 +41,7 @@
             <mat-icon>mode_edit</mat-icon>
           </button>
   
-          <button mat-icon-button color="accent" aria-label="Delete category" matTooltip="Delete Category">
+          <button mat-icon-button color="accent" aria-label="Delete category" matTooltip="Delete Category" (click)="deleteCategory(element.id)">
             <mat-icon>delete</mat-icon>
           </button>
         </div>

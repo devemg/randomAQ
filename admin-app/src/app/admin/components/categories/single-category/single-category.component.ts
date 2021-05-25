@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Category } from 'src/app/admin/models/category';
 import { DialogData } from 'src/app/admin/models/dialog-data';
 import { Image } from 'src/app/admin/models/image';
@@ -26,7 +26,7 @@ export class SingleCategoryComponent implements OnInit {
   image = '';
 
   constructor(private formBuilder: FormBuilder, public catService: CategoryService,
-    @Inject(MAT_DIALOG_DATA) public data: DialogDataCategory) { 
+    @Inject(MAT_DIALOG_DATA) public data: DialogDataCategory, private matDialgoRef: MatDialogRef<SingleCategoryComponent>) { 
     this.categoryForm = this.formBuilder.group({
       id:[],
       name:['',Validators.required],
@@ -78,15 +78,10 @@ export class SingleCategoryComponent implements OnInit {
    */
   save() {
    if(this.categoryForm.valid) {
-     let imageUrl = this.images.find(i=>i.id == this.categoryForm.value.image);
-    this.catService.newCategory({...this.categoryForm.value,image:imageUrl?imageUrl.url:''})
-    .then(res=>{
-      console.log(res)
-    })
-    .catch(err=>{
-
-    })
-   }
+      let imageUrl = this.images.find(i=>i.id == this.categoryForm.value.image);
+      this.catService.newCategory({...this.categoryForm.value,image:imageUrl?imageUrl.url:''})
+      .then(res=>this.matDialgoRef.close(true)).catch(err=>this.matDialgoRef.close(false))
+    }
   }
 
   /**
@@ -94,8 +89,12 @@ export class SingleCategoryComponent implements OnInit {
    */
    update() {
     if(this.categoryForm.valid) {
-      let imageUrl = this.images.find(i=>i.id == this.categoryForm.value.image);
-     this.catService.updateCategory({...this.categoryForm.value,image:imageUrl?imageUrl.url:''})
+        let imageUrl = this.images.find(i=>i.id == this.categoryForm.value.image);
+        this.catService.updateCategory({...this.categoryForm.value,image:imageUrl?imageUrl.url:this.image})
+        .then(res=>this.matDialgoRef.close(true))
+        .catch(err=>{
+          this.matDialgoRef.close(false)
+        })
     }
    }
 }

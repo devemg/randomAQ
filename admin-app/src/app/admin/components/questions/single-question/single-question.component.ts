@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Category } from 'src/app/admin/models/category';
 import { DialogData } from 'src/app/admin/models/dialog-data';
 import { Question } from 'src/app/admin/models/question';
@@ -26,7 +26,8 @@ export class SingleQuestionComponent implements OnInit {
 
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogDataQuestion, private formBuilder: FormBuilder,
-  public qService: QuestionService, public catService: CategoryService) {
+  public qService: QuestionService, public catService: CategoryService,
+  private matDialogRef: MatDialogRef<SingleQuestionComponent>) {
     this.qForm = this.formBuilder.group({
       id: [],
       content: ['',Validators.required],
@@ -73,6 +74,9 @@ export class SingleQuestionComponent implements OnInit {
   save() {
     if(this.qForm.valid){
       this.qService.saveQuestion(this.qForm.value)
+      .subscribe(res=>this.matDialogRef.close(true),err=>{
+        this.matDialogRef.close(false)
+      })
     }
   }
 
@@ -82,6 +86,9 @@ export class SingleQuestionComponent implements OnInit {
   update() {
     if(this.qForm.valid){
       this.qService.updateQuestion(this.qForm.value)
+      .subscribe(res=>this.matDialogRef.close(true),err=>{
+        this.matDialogRef.close(false)
+      })
     }
   }
 

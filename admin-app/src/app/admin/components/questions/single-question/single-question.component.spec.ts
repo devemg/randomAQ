@@ -1,7 +1,9 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import { ModalStatus } from 'src/app/admin/models/status-modal';
 import { questionsMock } from 'src/app/admin/services/mock-data-services.spec';
 import { QuestionService } from 'src/app/admin/services/question.service';
@@ -16,8 +18,10 @@ describe('SingleQuestionComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ SingleQuestionComponent ],
+      imports: [ HttpClientTestingModule ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: null },
+        { provide: MatDialogRef, useValue: {close: ()=>{}} },
         FormBuilder
       ],
       schemas:[ CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA ]
@@ -81,7 +85,7 @@ describe('SingleQuestionComponent', () => {
   });
 
   it('should call newQuestion service ', () => {
-    let newQ = spyOn(service,'saveQuestion').and.stub();  
+    let newQ = spyOn(service,'saveQuestion').and.callFake(_=>new Observable()); 
     component.qForm.patchValue({
       content:'what if...?',
       category:1,
@@ -92,7 +96,7 @@ describe('SingleQuestionComponent', () => {
   });
 
   it('should call updateQuestion service ', () => {
-    let newQ = spyOn(service,'updateQuestion').and.stub();
+    let newQ = spyOn(service,'updateQuestion').and.callFake(_=>new Observable());
     component.qForm.patchValue({
       content:'what if...?',
       category:1,

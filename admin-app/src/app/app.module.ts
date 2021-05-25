@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
 import { MessageComponent } from './components/message/message.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HeadersInterceptor } from './admin/interceptors/headers.interceptor';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [ 
+    //{ provide: HTTP_INTERCEPTORS, useClass: HeadersInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

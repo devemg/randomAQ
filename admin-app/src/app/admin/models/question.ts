@@ -1,7 +1,7 @@
 import { Category } from "./category";
 
 export interface Question {
-    id?:number;
+    id?:string;
     category?:Category;
     content: string; 
     answer: string; 

@@ -1,5 +1,7 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { of } from 'rxjs';
 import { questionsMock } from 'src/app/admin/services/mock-data-services.spec';
 import { QuestionService } from 'src/app/admin/services/question.service';
@@ -14,7 +16,10 @@ describe('ListQuestionsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ListQuestionsComponent ],
-      imports: [ MatDialogModule ]
+      imports: [ MatDialogModule, HttpClientTestingModule ],
+      providers: [
+        { provide: MatSnackBar, useValue: {open: ()=>{}} }
+      ]
     })
     .compileComponents();
   });
@@ -40,7 +45,13 @@ describe('ListQuestionsComponent', () => {
     expect(allQuestions).toHaveBeenCalled();
   }); 
 
-  it('should open matDialog to create new Question', () => {
+  it('should call deleteQuestion() of categoryService on ngOnInit', () => {
+    let allQuestions = spyOn(qService,'deleteQuestion').and.returnValue(of(questionsMock));
+    component.deleteQuestion('1');
+    expect(allQuestions).toHaveBeenCalled();
+  }); 
+
+  /*it('should open matDialog to create new Question', () => {
     let open = spyOn(component.matDialog,'open');
     component.newQuestion();
     component.ngOnInit();
@@ -60,5 +71,5 @@ describe('ListQuestionsComponent', () => {
     component.ngOnInit();
     expect(open).toHaveBeenCalled();
   }); 
-
+  */
 });
