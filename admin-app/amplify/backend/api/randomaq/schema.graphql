@@ -9,5 +9,5 @@ type Question @model {
   id: ID!
   content: String!
   answer: String!
-  blog: Category @connection(name: "CategoryQuestion")
+  category: Category @connection(name: "CategoryQuestion")
 }

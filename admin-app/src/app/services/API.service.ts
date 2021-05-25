@@ -86,7 +86,7 @@ export type Question = {
   id?: string;
   content?: string;
   answer?: string;
-  blog?: Category;
+  category?: Category;
   createdAt?: string;
   updatedAt?: string;
 };
@@ -106,7 +106,7 @@ export type CreateQuestionInput = {
   id?: string | null;
   content: string;
   answer: string;
-  questionBlogId?: string | null;
+  questionCategoryId?: string | null;
 };
 
 export type ModelQuestionConditionInput = {
@@ -121,7 +121,7 @@ export type UpdateQuestionInput = {
   id: string;
   content?: string | null;
   answer?: string | null;
-  questionBlogId?: string | null;
+  questionCategoryId?: string | null;
 };
 
 export type DeleteQuestionInput = {
@@ -240,7 +240,7 @@ export type CreateQuestionMutation = {
   id: string;
   content: string;
   answer: string;
-  blog?: {
+  category?: {
     __typename: "Category";
     id: string;
     name: string;
@@ -262,7 +262,7 @@ export type UpdateQuestionMutation = {
   id: string;
   content: string;
   answer: string;
-  blog?: {
+  category?: {
     __typename: "Category";
     id: string;
     name: string;
@@ -284,7 +284,7 @@ export type DeleteQuestionMutation = {
   id: string;
   content: string;
   answer: string;
-  blog?: {
+  category?: {
     __typename: "Category";
     id: string;
     name: string;
@@ -346,7 +346,7 @@ export type GetQuestionQuery = {
   id: string;
   content: string;
   answer: string;
-  blog?: {
+  category?: {
     __typename: "Category";
     id: string;
     name: string;
@@ -370,7 +370,7 @@ export type ListQuestionsQuery = {
     id: string;
     content: string;
     answer: string;
-    blog?: {
+    category?: {
       __typename: "Category";
       id: string;
       name: string;
@@ -456,7 +456,7 @@ export type OnCreateQuestionSubscription = {
   id: string;
   content: string;
   answer: string;
-  blog?: {
+  category?: {
     __typename: "Category";
     id: string;
     name: string;
@@ -478,7 +478,7 @@ export type OnUpdateQuestionSubscription = {
   id: string;
   content: string;
   answer: string;
-  blog?: {
+  category?: {
     __typename: "Category";
     id: string;
     name: string;
@@ -500,7 +500,7 @@ export type OnDeleteQuestionSubscription = {
   id: string;
   content: string;
   answer: string;
-  blog?: {
+  category?: {
     __typename: "Category";
     id: string;
     name: string;
@@ -645,7 +645,7 @@ export class APIService {
           id
           content
           answer
-          blog {
+          category {
             __typename
             id
             name
@@ -683,7 +683,7 @@ export class APIService {
           id
           content
           answer
-          blog {
+          category {
             __typename
             id
             name
@@ -721,7 +721,7 @@ export class APIService {
           id
           content
           answer
-          blog {
+          category {
             __typename
             id
             name
@@ -827,7 +827,7 @@ export class APIService {
           id
           content
           answer
-          blog {
+          category {
             __typename
             id
             name
@@ -865,7 +865,7 @@ export class APIService {
             id
             content
             answer
-            blog {
+            category {
               __typename
               id
               name
@@ -995,7 +995,7 @@ export class APIService {
           id
           content
           answer
-          blog {
+          category {
             __typename
             id
             name
@@ -1025,7 +1025,7 @@ export class APIService {
           id
           content
           answer
-          blog {
+          category {
             __typename
             id
             name
@@ -1055,7 +1055,7 @@ export class APIService {
           id
           content
           answer
-          blog {
+          category {
             __typename
             id
             name

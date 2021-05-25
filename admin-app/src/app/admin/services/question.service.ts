@@ -60,7 +60,6 @@ export class QuestionService {
    * @param q question
    */
   saveQuestion(q:Question):Promise<any> {
-    delete q.category;
     return this.apiService.CreateQuestion(q);
   }
 

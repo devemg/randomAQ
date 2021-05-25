@@ -64,7 +64,7 @@ subscription OnCreateQuestion {
     id
     content
     answer
-    blog {
+    category {
       id
       name
       image
@@ -84,7 +84,7 @@ subscription OnUpdateQuestion {
     id
     content
     answer
-    blog {
+    category {
       id
       name
       image
@@ -104,7 +104,7 @@ subscription OnDeleteQuestion {
     id
     content
     answer
-    blog {
+    category {
       id
       name
       image

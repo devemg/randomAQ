@@ -44,7 +44,7 @@ query GetQuestion($id: ID!) {
     id
     content
     answer
-    blog {
+    category {
       id
       name
       image
@@ -69,7 +69,7 @@ query ListQuestions(
       id
       content
       answer
-      blog {
+      category {
         id
         name
         image
