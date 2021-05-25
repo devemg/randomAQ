@@ -74,7 +74,9 @@ export class SingleQuestionComponent implements OnInit {
   save() {
     if(this.qForm.valid){
       this.qService.saveQuestion(this.qForm.value)
-      .subscribe(res=>this.matDialogRef.close(true),err=>{
+      .then(res=>this.matDialogRef.close(true))
+      .catch(err=>{
+        console.log(err)
         this.matDialogRef.close(false)
       })
     }
@@ -85,9 +87,11 @@ export class SingleQuestionComponent implements OnInit {
    */
   update() {
     if(this.qForm.valid){
-      this.qService.updateQuestion(this.qForm.value)
-      .subscribe(res=>this.matDialogRef.close(true),err=>{
+      this.qService.updateQuestion(this.qForm.value.id,this.qForm.value)
+      .then(res=>this.matDialogRef.close(true),err=>{
         this.matDialogRef.close(false)
+      }).catch(err=>{
+        console.log(err)
       })
     }
   }

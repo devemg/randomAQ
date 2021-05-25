@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { APIService } from 'src/app/services/API.service';
 import { Question } from '../models/question';
 import { questionsMock } from './mock-data-services.spec';
 
@@ -10,30 +8,50 @@ import { questionsMock } from './mock-data-services.spec';
 })
 export class QuestionService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private apiService: APIService) { }
 
   /**
    * Get all questions
    */
-  getAllQuestions():Observable<Question[]> {
-    return this.httpClient.get<Question[]>(`${environment.URL_API}/question`);
+  getAllQuestions():Promise<Question[]> {
+    return new Promise( async (resolve:any,reject:any)=>{
+      let response = await this.apiService.ListQuestions()
+      let newResponse: Question[] = []; 
+      if(response.items) {
+        response.items.forEach(element => {
+          if(element){
+            newResponse.push({
+              answer:element.answer,
+              content:element.content,
+              id:element.id,
+              category: element.category,
+              createdAt:element.createdAt,
+              updatedAt:element.updatedAt
+            });
+          }
+        });
+      }else {
+        reject('Categories not found')
+      }
+      resolve(newResponse);
+    });
   }
 
   /**
    * Get question by id
    * id
    */
-   getQuestion(id: string):Observable<Question> {
-    return this.httpClient.get<Question>(`${environment.URL_API}/question/${id}`);
+   getQuestion(id: string):Promise<Question> {
+    return this.apiService.GetQuestion(id);
   }
 
   /**
    * Get questions by category id
    * @param id
    */
-   getQuestionByCategory(idCategory: string):Observable<Question[]> {
-    return new Observable(observer=>{
-      observer.next(questionsMock.filter(m=>m.category?.id == idCategory));
+   getQuestionByCategory(idCategory: string):Promise<Question[]> {
+    return new Promise((resolve:any,reject:any)=>{
+      resolve(questionsMock.filter(m=>m.category?.id == idCategory));
     });
   }
 
@@ -41,16 +59,17 @@ export class QuestionService {
    * Save new question
    * @param q question
    */
-  saveQuestion(q:Question):Observable<any> {
-    return this.httpClient.post(`${environment.URL_API}/question`,JSON.stringify(q));
+  saveQuestion(q:Question):Promise<any> {
+    delete q.category;
+    return this.apiService.CreateQuestion(q);
   }
 
   /**
    * Update question
    * @param q question
    */
-   updateQuestion(q:Question):Observable<any> {
-    return this.httpClient.put(`${environment.URL_API}/question`,JSON.stringify(q));
+   updateQuestion(id: string,q:Question):Promise<any> {
+    return this.apiService.UpdateQuestion({...q, id });
 
   }
 
@@ -59,9 +78,8 @@ export class QuestionService {
    * delete question
    * @param id
    */
-   deleteQuestion(id: string):Observable<any> {
-    return this.httpClient.delete(`${environment.URL_API}/question/${id}`);
-
+   deleteQuestion(id: string):Promise<any> {
+    return this.apiService.DeleteQuestion({ id });
   }
 
 }

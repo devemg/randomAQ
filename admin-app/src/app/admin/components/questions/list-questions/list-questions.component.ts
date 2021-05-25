@@ -26,9 +26,9 @@ export class ListQuestionsComponent implements OnInit {
   }
 
   loadDatasource() {
-    this.qService.getAllQuestions().subscribe(res=>{
+    this.qService.getAllQuestions().then(res=>{
       this.datasource = new MatTableDataSource(res);
-    })
+    }).catch(err=>console.log(err));
   }
 
   /**
@@ -81,11 +81,12 @@ export class ListQuestionsComponent implements OnInit {
    */
   deleteQuestion(id: string) {
     this.qService.deleteQuestion(id)
-    .subscribe(res=>{
+    .then(res=>{
       if(res){
         this.snackBar.open("Question deleted!",'Ok',{duration:2000})
         this.loadDatasource();
       }
-    },err=>this.snackBar.open("Cannot delete question",'Ok',{duration:2000}))
+    })
+    .catch(err=>this.snackBar.open("Cannot delete question",'Ok',{duration:2000}))
   }
 }
