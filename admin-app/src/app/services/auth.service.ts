@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
-import { Auth } from '@aws-amplify/Auth';
 import { NewUser } from '../models/new-user';
 import { LogInUser } from '../models/login-user';
 
@@ -10,17 +9,6 @@ import { LogInUser } from '../models/login-user';
 export class AuthService {
 
   constructor(private localService: LocalStorageService) { 
-    Auth.configure({
-      userPoolId:'us-east-1_zB1UvrAap',
-			userPoolWebClientId:'754ogk3q9aj8542ro960c8vjq8',
-			region: 'us-east-1',
-      mandatorySignIn:true
-			//oauth,
-			//identityPoolId: '',
-			//refreshHandlers,
-			//identityPoolRegion,
-			//clientMetadata,
-    });
   }
 
   /**
@@ -28,13 +16,13 @@ export class AuthService {
    * @param user 
    */
   async register(user: NewUser) {
-    return Auth.signUp({
+    /*return Auth.signUp({
       username: user.username,
       password: user.password,
       attributes: {
         email: user.email
       }
-    });
+    });*/
   }
 
   changePassword() {
@@ -51,7 +39,8 @@ export class AuthService {
    * @param password 
    */
   async login(user: LogInUser) {
-    return  Auth.signIn(user.username, user.password);
+    this.localService.setAuthToken("1234");
+    //return  Auth.signIn(user.username, user.password);
   }
 
   /**
@@ -59,7 +48,7 @@ export class AuthService {
    */
   async logout() {
     try {
-      await Auth.signOut();
+     // await Auth.signOut();
     } catch (error) {
         console.log('error signing out: ', error);
     }

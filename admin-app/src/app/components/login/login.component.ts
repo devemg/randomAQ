@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
    * login with username and password
    */
   login() {
-    if(this.loginForm.valid) {
+    /*if(this.loginForm.valid) {
       this.authService.login(this.loginForm.value).then(res=>{
         console.log(res)
       })
@@ -36,11 +36,11 @@ export class LoginComponent implements OnInit {
         if(err.code == 'NotAuthorizedException' && err.message){
           this.errorMessage = err.message;
         }
-      })
+      })*/
     
-    //this.authService.login("admin","password");
-    //this.router.navigate(['/admin']);
-    }
+    this.authService.login(this.loginForm.value);
+    this.router.navigate(['/admin']);
+    ///}
   }
 
   /**

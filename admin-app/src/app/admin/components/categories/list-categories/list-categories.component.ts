@@ -23,9 +23,14 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.catService.getAllCategories().subscribe(res=>{
+    this.loadSource();
+  }
+
+  loadSource() {
+    this.catService.getAllCategories().then(res=>{
       this.datasource = new MatTableDataSource(res);
     })
+    .catch(err=>console.log(err));
   }
 
    ngAfterViewInit() {

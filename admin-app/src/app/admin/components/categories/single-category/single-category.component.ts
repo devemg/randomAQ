@@ -39,9 +39,10 @@ export class SingleCategoryComponent implements OnInit {
     this.status = this.data != null?this.data.status:ModalStatus.CREATING;
     // updating list of images
     if(this.status != ModalStatus.READONLY){
-      this.catService.getImages().subscribe(res=>{
+      this.catService.getImages().then(res=>{
         this.images = res;
-      });
+      })
+      .catch(err=>console.log(err));
     }
     //updating form data
     if(this.status != ModalStatus.CREATING){
@@ -79,6 +80,12 @@ export class SingleCategoryComponent implements OnInit {
    if(this.categoryForm.valid) {
      let imageUrl = this.images.find(i=>i.id == this.categoryForm.value.image);
     this.catService.newCategory({...this.categoryForm.value,image:imageUrl?imageUrl.url:''})
+    .then(res=>{
+      console.log(res)
+    })
+    .catch(err=>{
+
+    })
    }
   }
 

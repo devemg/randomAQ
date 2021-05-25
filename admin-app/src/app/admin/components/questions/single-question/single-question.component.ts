@@ -46,9 +46,10 @@ export class SingleQuestionComponent implements OnInit {
 
     //fill categories
     if(this.status != 3){
-      this.catService.getAllCategories().subscribe(res=>{
+      this.catService.getAllCategories().then(res=>{
         this.categoriesList = res; 
       })
+      .catch(err=>console.log(err));
     }else {
       this.categoriesList = this.data.question.category?[this.data.question.category]:[];  
     }
