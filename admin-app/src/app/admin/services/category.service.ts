@@ -80,10 +80,8 @@ export class CategoryService {
      * @param category 
      * @returns 
      */
-    updateCategory(category: Category): Promise<any> {
-      return new Promise((resolve:any,reject:any)=>{
-        resolve({});
-      })
+    updateCategory(id: string, category: Category): Promise<any> {
+      return this.apiGraphService.UpdateCategory( {...category, id });
     }
 
     /**
@@ -91,9 +89,7 @@ export class CategoryService {
      * @param id 
      */
     deleteCategory(id: string): Promise<any> {
-      return new Promise((resolve:any,reject:any)=>{
-        resolve({});
-      })
+      return this.apiGraphService.DeleteCategory({id});
     }
 
     /**

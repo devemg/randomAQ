@@ -90,7 +90,8 @@ export class SingleCategoryComponent implements OnInit {
    update() {
     if(this.categoryForm.valid) {
         let imageUrl = this.images.find(i=>i.id == this.categoryForm.value.image);
-        this.catService.updateCategory({...this.categoryForm.value,image:imageUrl?imageUrl.url:this.image})
+        let newElement = {...this.categoryForm.value,image:imageUrl?imageUrl.url:this.image};
+        this.catService.updateCategory(this.categoryForm.value.id,newElement)
         .then(res=>this.matDialgoRef.close(true))
         .catch(err=>{
           this.matDialgoRef.close(false)
