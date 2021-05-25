@@ -67,7 +67,7 @@ export class SingleCategoryComponent implements OnInit {
   /**
    * change preview image 
    */
-  changeSelectedImage(event: number){
+  changeSelectedImage(event: string){
     let image = this.images.find(m=>m.id == event);
     this.image = image?image.url:'';
   }
