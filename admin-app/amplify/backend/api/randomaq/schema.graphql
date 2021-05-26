@@ -1,0 +1,13 @@
+type Category @model {
+  id: ID!
+  name: String!
+  image: String! 
+  description: String!
+  questions: [Question] @connection(name: "CategoryQuestion")
+}
+type Question @model {
+  id: ID!
+  content: String!
+  answer: String!
+  category: Category @connection(name: "CategoryQuestion")
+}

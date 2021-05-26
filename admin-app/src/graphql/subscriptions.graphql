@@ -1,0 +1,121 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateCategory {
+  onCreateCategory {
+    id
+    name
+    image
+    description
+    questions {
+      items {
+        id
+        content
+        answer
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateCategory {
+  onUpdateCategory {
+    id
+    name
+    image
+    description
+    questions {
+      items {
+        id
+        content
+        answer
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteCategory {
+  onDeleteCategory {
+    id
+    name
+    image
+    description
+    questions {
+      items {
+        id
+        content
+        answer
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateQuestion {
+  onCreateQuestion {
+    id
+    content
+    answer
+    category {
+      id
+      name
+      image
+      description
+      questions {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateQuestion {
+  onUpdateQuestion {
+    id
+    content
+    answer
+    category {
+      id
+      name
+      image
+      description
+      questions {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteQuestion {
+  onDeleteQuestion {
+    id
+    content
+    answer
+    category {
+      id
+      name
+      image
+      description
+      questions {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
