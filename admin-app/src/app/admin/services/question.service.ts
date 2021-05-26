@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { APIService } from 'src/app/services/API.service';
+import { APIService, GetQuestionQuery } from 'src/app/services/API.service';
 import { Question } from '../models/question';
 import { questionsMock } from './mock-data-services.spec';
 
@@ -24,7 +24,7 @@ export class QuestionService {
               answer:element.answer,
               content:element.content,
               id:element.id,
-              category: element.category,
+              questionCategoryId: element.category?.image || '',
               createdAt:element.createdAt,
               updatedAt:element.updatedAt
             });
@@ -41,7 +41,7 @@ export class QuestionService {
    * Get question by id
    * id
    */
-   getQuestion(id: string):Promise<Question> {
+   getQuestion(id: string):Promise<GetQuestionQuery> {
     return this.apiService.GetQuestion(id);
   }
 

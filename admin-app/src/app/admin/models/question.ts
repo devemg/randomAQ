@@ -3,7 +3,8 @@ import { Category } from "./category";
 
 export interface Question extends Base {
     id?:string;
-    category?:Category;
+    category?:Category | null;
     content: string; 
     answer: string; 
+    questionCategoryId: string;
 }

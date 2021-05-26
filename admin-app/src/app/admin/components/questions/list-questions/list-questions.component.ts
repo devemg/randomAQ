@@ -44,7 +44,6 @@ export class ListQuestionsComponent implements OnInit {
         this.loadDatasource();
       }
     },err=>this.snackBar.open("Cannot create question",'Ok',{duration:2000}));
-    
   }
 
   /**

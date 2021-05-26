@@ -13,7 +13,7 @@
 
           <mat-form-field class="full-width" appearance="outline" >
             <mat-label>Category</mat-label>
-            <mat-select required formControlName="category" name="category">
+            <mat-select required formControlName="questionCategoryId" name="questionCategoryId">
                 <mat-option *ngFor="let item of categoriesList" [value]="item.id">
                     {{item.name}}
                 </mat-option>

@@ -32,7 +32,7 @@ export class SingleQuestionComponent implements OnInit {
       id: [],
       content: ['',Validators.required],
       answer: ['',Validators.required],
-      category: ['',Validators.required]
+      questionCategoryId: ['',Validators.required]
     });
    }
 
@@ -40,7 +40,7 @@ export class SingleQuestionComponent implements OnInit {
     //setting status modal
     if(this.data != null){
       this.status = this.data.status;
-      this.qForm.patchValue({...this.data.question,category:this.data.question.category?.id});
+      this.qForm.patchValue({...this.data.question,questionCategoryId:this.data.question.category?.id});
     }else {
       this.status = ModalStatus.CREATING;
     }
@@ -74,7 +74,10 @@ export class SingleQuestionComponent implements OnInit {
   save() {
     if(this.qForm.valid){
       this.qService.saveQuestion(this.qForm.value)
-      .then(res=>this.matDialogRef.close(true))
+      .then(res=>{
+        console.log(res)
+        this.matDialogRef.close(true)
+      })
       .catch(err=>{
         console.log(err)
         this.matDialogRef.close(false)
