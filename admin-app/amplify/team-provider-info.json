@@ -1,26 +1,32 @@
 {
-    "dev": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-randomaq-dev-180152-authRole",
-            "UnauthRoleArn": "arn:aws:iam::095193355706:role/amplify-randomaq-dev-180152-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::095193355706:role/amplify-randomaq-dev-180152-authRole",
-            "Region": "us-east-2",
-            "DeploymentBucketName": "amplify-randomaq-dev-180152-deployment",
-            "UnauthRoleName": "amplify-randomaq-dev-180152-unauthRole",
-            "StackName": "amplify-randomaq-dev-180152",
-            "StackId": "arn:aws:cloudformation:us-east-2:095193355706:stack/amplify-randomaq-dev-180152/6a9697d0-bcec-11eb-b380-0216171f8fb8",
-            "AmplifyAppId": "dy9kxsbb1x3ou"
-        },
-        "categories": {
-            "auth": {
-                "randomaqb2e9d44e": {}
-            },
-            "hosting": {
-                "amplifyhosting": {
-                    "appId": "dy9kxsbb1x3ou",
-                    "type": "manual"
-                }
-            }
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-randomaq-dev-180152-authRole",
+      "UnauthRoleArn": "arn:aws:iam::095193355706:role/amplify-randomaq-dev-180152-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::095193355706:role/amplify-randomaq-dev-180152-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-randomaq-dev-180152-deployment",
+      "UnauthRoleName": "amplify-randomaq-dev-180152-unauthRole",
+      "StackName": "amplify-randomaq-dev-180152",
+      "StackId": "arn:aws:cloudformation:us-east-2:095193355706:stack/amplify-randomaq-dev-180152/6a9697d0-bcec-11eb-b380-0216171f8fb8",
+      "AmplifyAppId": "dy9kxsbb1x3ou"
+    },
+    "categories": {
+      "auth": {
+        "randomaqb2e9d44e": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "dy9kxsbb1x3ou",
+          "type": "manual"
         }
+      },
+      "function": {
+        "randomaq11getquestion": {
+          "deploymentBucketName": "amplify-randomaq-dev-180152-deployment",
+          "s3Key": "amplify-builds/randomaq11getquestion-424b414d65734f786671-build.zip"
+        }
+      }
     }
+  }
 }
