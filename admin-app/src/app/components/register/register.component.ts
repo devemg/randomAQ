@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/services/auth.service';
 import { PasswordValidator } from './password-validator';
 
@@ -15,7 +16,12 @@ export class RegisterComponent implements OnInit {
 
   get registerFControls() { return this.registerForm.controls; }
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(
+    private formBuilder: FormBuilder, 
+    private authService: AuthService, 
+    private router: Router,
+    private spinner: NgxSpinnerService
+    ) {
     this.registerForm = this.formBuilder.group({
       username: ['',[Validators.required,Validators.minLength(4)]],
       email: ['',[Validators.required,Validators.email]],
@@ -32,6 +38,7 @@ export class RegisterComponent implements OnInit {
    */
   register() {
     if(this.registerForm.valid){
+      this.spinner.show();
       this.authService.register(this.registerForm.value).then(res=>{
         this.router.navigate(['/registered-to-verificate']);
       })
@@ -40,6 +47,8 @@ export class RegisterComponent implements OnInit {
         if(err.code == 'UsernameExistsException') {
           this.registerFControls.username.setErrors({ usernameAlreadyExists: true })
         }
+      }).finally(()=>{
+        this.spinner.hide();
       });
     }
     

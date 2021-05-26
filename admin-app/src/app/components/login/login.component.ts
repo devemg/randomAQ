@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit {
   loginForm:FormGroup; 
   errorMessage: string | null = null;
 
-  constructor(private router: Router, private authService: AuthService, private formBuilder: FormBuilder) {
+  constructor(private router: Router, private authService: AuthService, private formBuilder: FormBuilder,
+    private spinner: NgxSpinnerService) {
     this.loginForm = this.formBuilder.group({
       username: ['',Validators.required],
       password: ['',[ Validators.required,Validators.minLength(6)]]
@@ -28,6 +30,7 @@ export class LoginComponent implements OnInit {
    */
   login() {
     if(this.loginForm.valid) {
+      this.spinner.show();
       this.authService.login(this.loginForm.value).then(res=>{
         this.router.navigate(['/admin']);
       })
@@ -40,6 +43,9 @@ export class LoginComponent implements OnInit {
         }else if (err.code == "UserNotConfirmedException" && err.message) {
           this.errorMessage = err.message;
         }
+      })
+      .finally(()=>{
+        this.spinner.hide();
       })
     }
   }

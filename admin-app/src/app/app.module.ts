@@ -12,6 +12,7 @@ import { MessageComponent } from './components/message/message.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeadersInterceptor } from './admin/interceptors/headers.interceptor';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { HeadersInterceptor } from './admin/interceptors/headers.interceptor';
     BrowserAnimationsModule,
     MaterialAngularModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule
   ],
   providers: [ 
     //{ provide: HTTP_INTERCEPTORS, useClass: HeadersInterceptor, multi: true },
