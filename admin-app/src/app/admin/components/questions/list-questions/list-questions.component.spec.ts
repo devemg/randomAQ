@@ -23,7 +23,7 @@ describe('ListQuestionsComponent', () => {
     })
     .compileComponents();
   });
-
+/*
   beforeEach(() => {
     fixture = TestBed.createComponent(ListQuestionsComponent);
     component = fixture.componentInstance;
@@ -49,7 +49,7 @@ describe('ListQuestionsComponent', () => {
     let allQuestions = spyOn(qService,'deleteQuestion').and.returnValue(of(questionsMock));
     component.deleteQuestion('1');
     expect(allQuestions).toHaveBeenCalled();
-  }); 
+  }); */
 
   /*it('should open matDialog to create new Question', () => {
     let open = spyOn(component.matDialog,'open');

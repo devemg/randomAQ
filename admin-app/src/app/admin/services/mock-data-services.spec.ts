@@ -40,5 +40,10 @@ export const imagesMock: Image[] = [
 
 
 export const questionsMock: Question[] = [
- 
+ {
+   answer:'',
+   content:'',
+   category: categoriesMock[0],
+   id:'1'
+ }
 ];

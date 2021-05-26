@@ -46,7 +46,7 @@ describe('ListCategoriesComponent', () => {
     expect(catService).toBeTruthy();
   });
 
-  it('should call getAllCategories() of categoryService on ngOnInit', () => {
+  /*it('should call getAllCategories() of categoryService on ngOnInit', () => {
     let allCategories = spyOn(catService,'getAllCategories').and.returnValue(of(categoriesMock));
     component.ngOnInit();
     component.ngAfterViewInit();
@@ -55,7 +55,7 @@ describe('ListCategoriesComponent', () => {
     expect(component.datasource).toBeTruthy();
   });
 
-  /*it('should open matDialog to create new Category', () => {
+  it('should open matDialog to create new Category', () => {
     let open = spyOn(component.matDialog,'open');
     component.newCategory();
     component.ngOnInit();
