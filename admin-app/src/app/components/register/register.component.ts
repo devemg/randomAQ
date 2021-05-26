@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       username: ['',[Validators.required,Validators.minLength(4)]],
       email: ['',[Validators.required,Validators.email]],
-      password: ['',[Validators.required,Validators.minLength(8),Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z]).*$')]],
+    password: ['',[Validators.required,Validators.minLength(6),/*Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z]).*$')*/]],
       confirmPassword: ['',Validators.required]
     },{validator: PasswordValidator('password','confirmPassword') });
    }
@@ -33,8 +33,6 @@ export class RegisterComponent implements OnInit {
   register() {
     if(this.registerForm.valid){
       this.authService.register(this.registerForm.value).then(res=>{
-        console.log(res)
-        //save JWT in local storage
         this.router.navigate(['/registered-to-verificate']);
       })
       .catch(err=>{

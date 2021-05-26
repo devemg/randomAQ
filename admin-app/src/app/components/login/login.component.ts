@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService, private formBuilder: FormBuilder) {
     this.loginForm = this.formBuilder.group({
       username: ['',Validators.required],
-      password: ['',[ Validators.required,Validators.minLength(8)]]
+      password: ['',[ Validators.required,Validators.minLength(6)]]
     });
    }
 
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
    * login with username and password
    */
   login() {
-    /*if(this.loginForm.valid) {
+    if(this.loginForm.valid) {
       this.authService.login(this.loginForm.value).then(res=>{
         console.log(res)
       })
@@ -36,11 +36,10 @@ export class LoginComponent implements OnInit {
         if(err.code == 'NotAuthorizedException' && err.message){
           this.errorMessage = err.message;
         }
-      })*/
+      })
     
-    this.authService.login(this.loginForm.value);
-    this.router.navigate(['/admin']);
-    ///}
+    //this.router.navigate(['/admin']);
+    }
   }
 
   /**

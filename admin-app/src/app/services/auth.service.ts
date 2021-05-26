@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
 import { NewUser } from '../models/new-user';
 import { LogInUser } from '../models/login-user';
+import Auth from '@aws-amplify/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +17,13 @@ export class AuthService {
    * @param user 
    */
   async register(user: NewUser) {
-    /*return Auth.signUp({
+    return Auth.signUp({
       username: user.username,
       password: user.password,
       attributes: {
         email: user.email
       }
-    });*/
+    });
   }
 
   changePassword() {
@@ -39,8 +40,7 @@ export class AuthService {
    * @param password 
    */
   async login(user: LogInUser) {
-    this.localService.setAuthToken("1234");
-    //return  Auth.signIn(user.username, user.password);
+    return  Auth.signIn(user.username, user.password);
   }
 
   /**
@@ -48,7 +48,7 @@ export class AuthService {
    */
   async logout() {
     try {
-     // await Auth.signOut();
+      await Auth.signOut();
     } catch (error) {
         console.log('error signing out: ', error);
     }

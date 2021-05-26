@@ -17,7 +17,7 @@
                     <mat-icon matPrefix>password</mat-icon>
                     <input required matInput type="password" placeholder="Password" formControlName="password" (focus)="errorMessage = null;">
                     <mat-error *ngIf="isError('password','required')">Password is required</mat-error>
-                    <mat-error *ngIf="isError('password','minlength')">Password minimun length is 8</mat-error>
+                    <mat-error *ngIf="isError('password','minlength')">Password minimun length is 6</mat-error>
                   </mat-form-field>
                   <mat-error class="error-msg" *ngIf="errorMessage">{{errorMessage}}</mat-error>
 

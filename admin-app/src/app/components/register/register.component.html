@@ -26,7 +26,7 @@
                     <mat-icon matPrefix>password</mat-icon>
                     <input matInput type="password" placeholder="Password" formControlName="password" required>
                     <mat-error *ngIf="isError('password','required')">Password is required</mat-error>
-                    <mat-error *ngIf="isError('password','minlength')">Password minimun length is 8</mat-error>
+                    <mat-error *ngIf="isError('password','minlength')">Password minimun length is 6</mat-error>
                     <mat-error *ngIf="isError('password','pattern')">Password must have at least one uppercase and one lowercase letter  </mat-error>
                   </mat-form-field>
                   <mat-form-field appearance="outline">
