@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
     if(this.registerForm.valid){
       this.spinner.show();
       this.authService.register(this.registerForm.value).then(res=>{
-        this.router.navigate(['/registered-to-verificate']);
+        this.router.navigate(['/verificate-account',this.registerForm.value.username]);
       })
       .catch(err=>{
         console.log(err)

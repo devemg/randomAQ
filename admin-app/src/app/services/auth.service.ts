@@ -56,4 +56,15 @@ export class AuthService {
     return Auth.confirmSignUp(username,code);
   }
 
+  /**
+   * Reset password
+   */
+  resetPassword(username: string) {
+    return Auth.forgotPassword(username);
+  }
+
+  newPassword(username: string, password: string, code: string){
+    return Auth.forgotPasswordSubmit(username,code,password);
+  }
+
 }

@@ -27,6 +27,7 @@ export class MessageComponent implements OnInit {
     ) {
     this.code = new FormControl('',[Validators.required]);
     this.username = new FormControl('',[Validators.required]);
+    
     this.isActivating = false;
     if(this.activatedRoute.snapshot.url[0].path == 'verificated'){
       this.title = 'Your account has been verificated!';
@@ -34,6 +35,7 @@ export class MessageComponent implements OnInit {
     }else if(this.activatedRoute.snapshot.url[0].path == 'verificate-account'){
       this.title = 'Activate your Account';
       this.message = 'Enter the code we send to your mail and activate your admin account.';
+      this.username.patchValue(this.activatedRoute.snapshot.params.username);
       this.isActivating = true;
     }
    }

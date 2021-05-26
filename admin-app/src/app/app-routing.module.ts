@@ -23,22 +23,22 @@ const routes: Routes = [
     canActivate: [ PublicGuard ]
   },
   {
-    path: 'registered-to-verificate',
-    component:MessageComponent,
-    canActivate: [ PublicGuard ]
-  },
-  {
     path: 'verificated',
     component:MessageComponent,
     canActivate: [ PublicGuard ]
   },
   {
-    path: 'verificate-account',
+    path: 'verificate-account/:username',
     component:MessageComponent,
     canActivate: [ PublicGuard ]
   },
   {
-    path: 'recover-password',
+    path: 'reset-password',
+    component:ForgotPasswordComponent,
+    canActivate: [ PublicGuard ]
+  },
+  {
+    path: 'reset-password/:username',
     component:ForgotPasswordComponent,
     canActivate: [ PublicGuard ]
   },
