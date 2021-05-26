@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { APIService, GetQuestionQuery } from 'src/app/services/API.service';
+import { CreateQuestionInput, ModelQuestionConditionInput, ModelQuestionFilterInput } from 'src/API';
+import { APIService, CreateQuestionMutation, DeleteQuestionMutation, GetQuestionQuery, UpdateQuestionInput, UpdateQuestionMutation } from 'src/app/services/API.service';
 import { Question } from '../models/question';
 import { questionsMock } from './mock-data-services.spec';
 
@@ -13,7 +14,7 @@ export class QuestionService {
   /**
    * Get all questions
    */
-  getAllQuestions():Promise<Question[]> {
+  getAllQuestions(filter?: ModelQuestionFilterInput,limit?: number):Promise<Question[]> {
     return new Promise( async (resolve:any,reject:any)=>{
       let response = await this.apiService.ListQuestions()
       let newResponse: Question[] = []; 
@@ -59,16 +60,16 @@ export class QuestionService {
    * Save new question
    * @param q question
    */
-  saveQuestion(q:Question):Promise<any> {
-    return this.apiService.CreateQuestion(q);
+  saveQuestion(input: CreateQuestionInput, condition?: ModelQuestionConditionInput):Promise<CreateQuestionMutation> {
+    return this.apiService.CreateQuestion(input,condition);
   }
 
   /**
    * Update question
    * @param q question
    */
-   updateQuestion(id: string,q:Question):Promise<any> {
-    return this.apiService.UpdateQuestion({...q, id });
+   updateQuestion(id: string,input: UpdateQuestionInput,condition?: ModelQuestionConditionInput):Promise<UpdateQuestionMutation> {
+    return this.apiService.UpdateQuestion({...input, id },condition);
 
   }
 
@@ -77,7 +78,7 @@ export class QuestionService {
    * delete question
    * @param id
    */
-   deleteQuestion(id: string):Promise<any> {
+   deleteQuestion(id: string):Promise<DeleteQuestionMutation> {
     return this.apiService.DeleteQuestion({ id });
   }
 

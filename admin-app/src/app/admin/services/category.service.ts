@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { APIService } from 'src/app/services/API.service';
+import { APIService, CreateCategoryInput, CreateCategoryMutation, DeleteCategoryMutation, GetCategoryQuery, ModelCategoryFilterInput, UpdateCategoryInput, UpdateCategoryMutation } from 'src/app/services/API.service';
 import { Category } from '../models/category';
 import { Image } from '../models/image';
 
@@ -41,7 +41,7 @@ export class CategoryService {
    * Get list with all categories
    * @returns Categories list
    */
-    getAllCategories(): Promise<Category[]> {
+    getAllCategories(filter?:ModelCategoryFilterInput, limit?:number): Promise<Category[]> {
       return new Promise( async (resolve,reject)=>{
         let response = await this.apiGraphService.ListCategorys()
         let newResponse: Category[] = []; 
@@ -63,7 +63,7 @@ export class CategoryService {
      * @param id category
      * @returns category
      */
-    getCategory(id: string):Promise< Category | undefined> {
+    getCategory(id: string):Promise<GetCategoryQuery> {
       return this.apiGraphService.GetCategory(id);
     }
   
@@ -71,7 +71,7 @@ export class CategoryService {
      * Save new category
      * @param category 
      */
-    newCategory(category: Category): Promise<any> {
+    newCategory(category: CreateCategoryInput): Promise<CreateCategoryMutation> {
       return this.apiGraphService.CreateCategory(category);
     }
 
@@ -80,7 +80,7 @@ export class CategoryService {
      * @param category 
      * @returns 
      */
-    updateCategory(id: string, category: Category): Promise<any> {
+    updateCategory(id: string, category: UpdateCategoryInput): Promise<UpdateCategoryMutation> {
       return this.apiGraphService.UpdateCategory( {...category, id });
     }
 
@@ -88,7 +88,7 @@ export class CategoryService {
      * Delete category
      * @param id 
      */
-    deleteCategory(id: string): Promise<any> {
+    deleteCategory(id: string): Promise<DeleteCategoryMutation> {
       return this.apiGraphService.DeleteCategory({id});
     }
 
