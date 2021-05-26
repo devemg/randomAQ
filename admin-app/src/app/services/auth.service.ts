@@ -26,14 +26,6 @@ export class AuthService {
     });
   }
 
-  changePassword() {
-
-  }
-
-  completePassword() {
-
-  }
-
   /**
    * Login cognito user
    * @param user 
@@ -49,12 +41,19 @@ export class AuthService {
    * logout cognito user
    */
   async logout() {
-    try {
-      await Auth.signOut();
-    } catch (error) {
-        console.log('error signing out: ', error);
-    }
-    this.localService.removeAuthToken();
+    return Auth.signOut().then(()=>{
+      this.localService.removeAuthToken();
+    });
+  }
+
+  /**
+   * Confirm account
+   * @param username 
+   * @param code 
+   * @returns 
+   */
+  async confirmAccount(username: string, code: string){
+    return Auth.confirmSignUp(username,code);
   }
 
 }

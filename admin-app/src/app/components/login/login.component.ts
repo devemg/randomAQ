@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/services/auth.service';
@@ -12,10 +13,10 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
 
   loginForm:FormGroup; 
-  errorMessage: string | null = null;
 
   constructor(private router: Router, private authService: AuthService, private formBuilder: FormBuilder,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService,
+    private snackBar: MatSnackBar) {
     this.loginForm = this.formBuilder.group({
       username: ['',Validators.required],
       password: ['',[ Validators.required,Validators.minLength(6)]]
@@ -36,12 +37,12 @@ export class LoginComponent implements OnInit {
       })
       .catch(err=>{
         console.log(err)
-        if(err.code == 'NotAuthorizedException' && err.message){
-          this.errorMessage = err.message;
-        }else if (err.code == 'UserNotFoundException' && err.message) {
-          this.errorMessage = err.message;
-        }else if (err.code == "UserNotConfirmedException" && err.message) {
-          this.errorMessage = err.message;
+        if(
+          (err.code == 'NotAuthorizedException' || 
+            err.code == 'UserNotFoundException' || 
+            err.code == "UserNotConfirmedException") 
+        && err.message){
+          this.snackBar.open(err.message,'Ok',{duration:3000});
         }
       })
       .finally(()=>{

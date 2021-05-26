@@ -8,10 +8,15 @@ mat-card {
     padding-bottom: 1em;
 }
 
-mat-card-content {
+.mat-card-content-message {
     text-align: center;
     padding-top: 2em;
     h3 {
         padding-bottom: 2em;
     }
+}
+
+.mat-card-content {
+    text-align: center;
+    padding-top: 2em;
 }
