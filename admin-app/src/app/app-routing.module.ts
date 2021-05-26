@@ -33,6 +33,11 @@ const routes: Routes = [
     canActivate: [ PublicGuard ]
   },
   {
+    path: 'verificate-account',
+    component:MessageComponent,
+    canActivate: [ PublicGuard ]
+  },
+  {
     path: 'recover-password',
     component:ForgotPasswordComponent,
     canActivate: [ PublicGuard ]
