@@ -75,7 +75,6 @@ export class SingleQuestionComponent implements OnInit {
     if(this.qForm.valid){
       this.qService.saveQuestion(this.qForm.value)
       .then(res=>{
-        console.log(res)
         this.matDialogRef.close(true)
       })
       .catch(err=>{

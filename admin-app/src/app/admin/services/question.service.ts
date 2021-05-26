@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CreateQuestionInput, ModelQuestionConditionInput, ModelQuestionFilterInput } from 'src/API';
-import { APIService, CreateQuestionMutation, DeleteQuestionMutation, GetQuestionQuery, UpdateQuestionInput, UpdateQuestionMutation } from 'src/app/services/API.service';
+import { APIService, CreateQuestionInput, CreateQuestionMutation, DeleteQuestionMutation, GetQuestionQuery, ModelQuestionConditionInput, ModelQuestionFilterInput, UpdateQuestionInput, UpdateQuestionMutation } from '../../services/API.service';
 import { Question } from '../models/question';
 import { questionsMock } from './mock-data-services.spec';
 
@@ -14,27 +13,14 @@ export class QuestionService {
   /**
    * Get all questions
    */
-  getAllQuestions(filter?: ModelQuestionFilterInput,limit?: number):Promise<Question[]> {
+  getAllQuestions():Promise<Question[]> {
     return new Promise( async (resolve:any,reject:any)=>{
       let response = await this.apiService.ListQuestions()
-      let newResponse: Question[] = []; 
       if(response.items) {
-        response.items.forEach(element => {
-          if(element){
-            newResponse.push({
-              answer:element.answer,
-              content:element.content,
-              id:element.id,
-              questionCategoryId: element.category?.image || '',
-              createdAt:element.createdAt,
-              updatedAt:element.updatedAt
-            });
-          }
-        });
+        resolve(response.items);
       }else {
         reject('Categories not found')
       }
-      resolve(newResponse);
     });
   }
 
@@ -60,16 +46,16 @@ export class QuestionService {
    * Save new question
    * @param q question
    */
-  saveQuestion(input: CreateQuestionInput, condition?: ModelQuestionConditionInput):Promise<CreateQuestionMutation> {
-    return this.apiService.CreateQuestion(input,condition);
+  saveQuestion(input: CreateQuestionInput):Promise<CreateQuestionMutation> {
+    return this.apiService.CreateQuestion(input);
   }
 
   /**
    * Update question
    * @param q question
    */
-   updateQuestion(id: string,input: UpdateQuestionInput,condition?: ModelQuestionConditionInput):Promise<UpdateQuestionMutation> {
-    return this.apiService.UpdateQuestion({...input, id },condition);
+   updateQuestion(id: string,input: UpdateQuestionInput):Promise<UpdateQuestionMutation> {
+    return this.apiService.UpdateQuestion({...input, id });
 
   }
 

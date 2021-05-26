@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { APIService, CreateCategoryInput, CreateCategoryMutation, DeleteCategoryMutation, GetCategoryQuery, ModelCategoryFilterInput, UpdateCategoryInput, UpdateCategoryMutation } from 'src/app/services/API.service';
+import { APIService, CreateCategoryInput, CreateCategoryMutation, DeleteCategoryMutation, GetCategoryQuery, ModelCategoryFilterInput, UpdateCategoryInput, UpdateCategoryMutation } from '../../services/API.service';
 import { Category } from '../models/category';
 import { Image } from '../models/image';
 
@@ -37,26 +37,19 @@ export class CategoryService {
   
   constructor(private apiGraphService: APIService) { }
 
-   /**
-   * Get list with all categories
-   * @returns Categories list
+  /**
+   * Get all questions
    */
-    getAllCategories(filter?:ModelCategoryFilterInput, limit?:number): Promise<Category[]> {
-      return new Promise( async (resolve,reject)=>{
-        let response = await this.apiGraphService.ListCategorys()
-        let newResponse: Category[] = []; 
-        if(response.items) {
-          response.items.forEach(element => {
-            if(element){
-              newResponse.push({id:element.id,name:element.name,description:element.description,image:element.image});
-            }
-          });
-        }else {
-          reject('Categories not found')
-        }
-        resolve(newResponse);
-      });
-    }
+   getAllCategories():Promise<Category[]> {
+    return new Promise( async (resolve:any,reject:any)=>{
+      let response = await this.apiGraphService.ListCategorys()
+      if(response.items) {
+        resolve(response.items);
+      }else {
+        reject('Categories not found')
+      }
+    });
+  }
   
     /**
      * Get category by id

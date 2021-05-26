@@ -4,6 +4,14 @@
     </button>
 </div>
 <div class="table-responsive">
+  <div *ngIf="loading"
+   style="display: flex; justify-content: center; align-items: center;">
+  <mat-progress-spinner 
+    color="primary" 
+    mode="indeterminate">
+  </mat-progress-spinner>
+</div>
+
   <table mat-table [dataSource]="datasource">
   
     <!-- Name Column -->
