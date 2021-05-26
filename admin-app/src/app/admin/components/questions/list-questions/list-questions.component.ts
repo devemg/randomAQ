@@ -29,7 +29,6 @@ export class ListQuestionsComponent implements OnInit {
   loadDatasource() {
     this.loading = true;
     this.qService.getAllQuestions().then(res=>{
-      console.log(res)
       this.datasource = new MatTableDataSource(res);
       this.loading  = false;
     }).catch(err=>console.log(err));

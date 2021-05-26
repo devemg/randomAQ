@@ -4,31 +4,38 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { LoginComponent } from './components/login/login.component';
 import { MessageComponent } from './components/message/message.component';
 import { RegisterComponent } from './components/register/register.component';
+import { PublicGuard } from './services/public.guard';
 
 const routes: Routes = [
   {
     path:'',
-    component:LoginComponent
+    component:LoginComponent,
+    canActivate: [ PublicGuard ]
   },
   {
     path:'login',
-    component:LoginComponent
+    component:LoginComponent,
+    canActivate: [ PublicGuard ]
   },
   {
     path:'register',
-    component:RegisterComponent
+    component:RegisterComponent,
+    canActivate: [ PublicGuard ]
   },
   {
     path: 'registered-to-verificate',
-    component:MessageComponent
+    component:MessageComponent,
+    canActivate: [ PublicGuard ]
   },
   {
     path: 'verificated',
-    component:MessageComponent
+    component:MessageComponent,
+    canActivate: [ PublicGuard ]
   },
   {
     path: 'recover-password',
-    component:ForgotPasswordComponent
+    component:ForgotPasswordComponent,
+    canActivate: [ PublicGuard ]
   },
   {
     path:'admin',

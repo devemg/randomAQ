@@ -40,7 +40,9 @@ export class AuthService {
    * @param password 
    */
   async login(user: LogInUser) {
-    return  Auth.signIn(user.username, user.password);
+    return  Auth.signIn(user.username, user.password).then(res=>{
+      this.localService.setAuthToken(JSON.stringify(res.signInUserSession.accessToken));
+    });
   }
 
   /**

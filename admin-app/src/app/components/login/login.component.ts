@@ -29,16 +29,18 @@ export class LoginComponent implements OnInit {
   login() {
     if(this.loginForm.valid) {
       this.authService.login(this.loginForm.value).then(res=>{
-        console.log(res)
+        this.router.navigate(['/admin']);
       })
       .catch(err=>{
         console.log(err)
         if(err.code == 'NotAuthorizedException' && err.message){
           this.errorMessage = err.message;
+        }else if (err.code == 'UserNotFoundException' && err.message) {
+          this.errorMessage = err.message;
+        }else if (err.code == "UserNotConfirmedException" && err.message) {
+          this.errorMessage = err.message;
         }
       })
-    
-    //this.router.navigate(['/admin']);
     }
   }
 
