@@ -12,8 +12,8 @@
         <mat-drawer class="drawer-mobile" #drawer mode="over">
             <!----------menu mobile------->
             <mat-nav-list>
-              <a mat-list-item routerLink="/admin/categories" ><mat-icon>category</mat-icon>Categories</a>
-              <a mat-list-item routerLink="/admin/questions" ><mat-icon>help</mat-icon>Questions</a>
+              <a mat-list-item (click)="drawer.close()" routerLink="/admin/categories" ><mat-icon>category</mat-icon>Categories</a>
+              <a mat-list-item (click)="drawer.close()" routerLink="/admin/questions" ><mat-icon>help</mat-icon>Questions</a>
               <a mat-list-item (click)="logout()" ><mat-icon>logout</mat-icon>Exit</a>
            </mat-nav-list>
 

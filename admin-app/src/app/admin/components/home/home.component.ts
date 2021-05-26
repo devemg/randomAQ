@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -16,7 +17,7 @@ export class HomeComponent implements OnInit {
 
   logout() {
     this.authService.logout().finally(()=>{
-      this.router.navigate(['/']);
+      this.router.navigate(['/']);   
     });
   }
 
