@@ -37,8 +37,17 @@ export class ApiService {
    * Get next question
    * @returns Question
    */
-  getQuestion(): Question {
-    return this.question[0];
+  getQuestion(category: string): Promise<Question> {
+    return this.apiService.GetCategory(category).then(res=>{
+      if(res.questions){
+        return this.getRandom(res.questions.items);
+      }
+    });
+  }
+
+  getRandom(questions: Question[]): Question{
+    let index = Math.floor(Math.random() * questions.length);
+    return questions[index];
   }
 
 }

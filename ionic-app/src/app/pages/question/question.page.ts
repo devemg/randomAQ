@@ -35,7 +35,11 @@ export class QuestionPage implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.category = this.localService.getCategory();
-    this.question = this.apiService.getQuestion();
+    this.apiService.getQuestion(this.category.id).then(res=>{
+      if(res){
+        this.question = res;
+      }
+    });
     this.nativeAudio.preloadSimple('time-over', '/assets/sounds/short-alarm.wav')
     .then(()=>console.log("sound loaded"), (ex)=>console.log("sound not loaded",ex));
   }
