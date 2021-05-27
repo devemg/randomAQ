@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { APIService, Category, Question } from './API.service-amplify';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class ApiService {
   question: Question[] = [
   ];
 
-  constructor(private apiService: APIService) { }
+  constructor(private apiService: APIService, private localService: LocalStorageService) { }
 
   /**
    * Get list with all categories
@@ -20,6 +21,7 @@ export class ApiService {
    */
   getAllCategories(): Promise<Category[]> {
     return this.apiService.ListCategorys().then(res=>{
+      console.log(res.items)
       return res.items;
     })
   }
@@ -37,12 +39,20 @@ export class ApiService {
    * Get next question
    * @returns Question
    */
-  getQuestion(category: string): Promise<Question> {
-    return this.apiService.GetCategory(category).then(res=>{
-      if(res.questions){
-        return this.getRandom(res.questions.items);
+  getQuestion(): Promise<Question> {
+    return new Promise((resolve,reject)=>{
+      let q = this.localService.getQuestion();
+      if(q){
+        resolve(q);
+      }else {
+        reject('No hay pregunta');
       }
-    });
+    })
+  }
+
+  setQuestion(questions: Question[]) {
+    let question = this.getRandom(questions);
+    this.localService.setQuestion(question);
   }
 
   getRandom(questions: Question[]): Question{

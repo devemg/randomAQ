@@ -5,7 +5,8 @@
         <img class="image" [src]="category.image" [alt]="category.name" />
         <h2>{{category.name}}</h2>
         <p>{{category.description}}</p>
-        <button class="start-btn" (click)="start()">Iniciar</button>
+        <h3 style="padding-top: 15px;"  *ngIf="nothaveQuestions">No hay preguntas en esta categoría</h3>
+        <button *ngIf="!nothaveQuestions" class="start-btn" (click)="start()">Iniciar</button>
       </div>
     </ion-card>
   </div>

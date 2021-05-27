@@ -35,10 +35,12 @@ export class QuestionPage implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.category = this.localService.getCategory();
-    this.apiService.getQuestion(this.category.id).then(res=>{
+    this.apiService.getQuestion().then(async res=>{
       if(res){
         this.question = res;
       }
+    }).catch(err=>{
+      this.router.navigate(['/categories']);
     });
     this.nativeAudio.preloadSimple('time-over', '/assets/sounds/short-alarm.wav')
     .then(()=>console.log("sound loaded"), (ex)=>console.log("sound not loaded",ex));
@@ -80,14 +82,14 @@ export class QuestionPage implements OnInit, AfterViewInit {
    */
   async timeover() {
     this.running = false;
-    const alert = await this.alertController.create({
+    /*const alert = await this.alertController.create({
       header: '¡El tiempo acabó!',
       subHeader: '',
       message: 'El tiempo ha terminado.',
       buttons: ['OK']
-    });
+    });*/
     this.playAlarm();
-    await alert.present();
+    //await alert.present();
   }
 
   /**

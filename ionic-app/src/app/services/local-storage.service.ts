@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Category } from './API.service-amplify';
+import { Category, Question } from './API.service-amplify';
 export const LS_KEYS = {
   CATEGORY:'category',
+  RANDOMQ:'randomq',
   TIME:'time-clock'
 }
 
@@ -53,4 +54,23 @@ export class LocalStorageService {
     return 30;
   }
 
+   /**
+   * save category in local storage
+   * @param category 
+   */
+    setQuestion(question: Question){
+      localStorage.setItem(LS_KEYS.RANDOMQ,JSON.stringify(question));
+    }
+  
+    /**
+     * get category from localStorage
+     * @returns category
+     */
+    getQuestion(): Question {
+      const itemString = localStorage.getItem(LS_KEYS.RANDOMQ);
+      if(itemString){
+        return JSON.parse(itemString);
+      }
+      return null;
+    }
 }
