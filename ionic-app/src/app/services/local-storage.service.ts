@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Category } from '../models/category';
-
+import { Category } from './API.service-amplify';
 export const LS_KEYS = {
   CATEGORY:'category',
   TIME:'time-clock'

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Category } from 'src/app/models/category';
 import { ApiService } from 'src/app/services/api.service';
+import { Category } from 'src/app/services/API.service-amplify';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
@@ -15,14 +15,17 @@ export class SingleCategoryPage implements OnInit {
     image:'',
     name:'',
     description:'',
-    id:0
+    id:'',
+    __typename:'Category'
   };
 
   constructor(private activatedRouter: ActivatedRoute, private apiService: ApiService, private router: Router,
     private localService: LocalStorageService) { 
     const id = this.activatedRouter.snapshot.params.id;
     if(id){
-      this.category = this.apiService.getCategory(id);
+      this.apiService.getCategory(id).then(res=>{
+        this.category = res;
+      })
     }
   }
 

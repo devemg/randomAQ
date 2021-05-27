@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NativeAudio } from '@ionic-native/native-audio/ngx';
-import { Category } from 'src/app/models/category';
 import { ApiService } from 'src/app/services/api.service';
+import { Category } from 'src/app/services/API.service-amplify';
 
 @Component({
   selector: 'app-categories',
@@ -16,7 +15,9 @@ export class CategoriesPage implements OnInit {
   }
 
   ngOnInit() {
-    this.catList = this.apiService.getAllCategories();
+    this.apiService.getAllCategories().then(res=>{
+      this.catList = res;
+    });
   }
 
   goToCategory(id: number){

@@ -2,10 +2,8 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { AlertController } from '@ionic/angular';
-import { setUncaughtExceptionCaptureCallback } from 'process';
-import { Category } from 'src/app/models/category';
-import { Question } from 'src/app/models/question';
 import { ApiService } from 'src/app/services/api.service';
+import { Category, Question } from 'src/app/services/API.service-amplify';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ClockComponent } from './clock/clock.component';
 
@@ -19,12 +17,14 @@ export class QuestionPage implements OnInit, AfterViewInit {
 
   category: Category = {
     image:'',
-    name:''
+    name:'',
+    __typename:'Category'
   };
 
   question: Question = {
     answer:'',
-    content:''
+    content:'',
+    __typename:'Question'
   };
 
   running = true; 
