@@ -20,12 +20,6 @@
           "appId": "dy9kxsbb1x3ou",
           "type": "manual"
         }
-      },
-      "function": {
-        "randomaq11getquestion": {
-          "deploymentBucketName": "amplify-randomaq-dev-180152-deployment",
-          "s3Key": "amplify-builds/randomaq11getquestion-424b414d65734f786671-build.zip"
-        }
       }
     }
   }
