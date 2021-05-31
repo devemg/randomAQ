@@ -5,6 +5,7 @@ export const questionRoutes = Router();
 const controller = new QuestionsController();
 
 questionRoutes.get('/', controller.getAllQuestions);
+questionRoutes.get('/random', controller.getRandomQuestion);
 questionRoutes.get('/:id', controller.getQuestionById);
 questionRoutes.post('/', controller.newQuestion);
 questionRoutes.put('/', controller.updateQuestion);

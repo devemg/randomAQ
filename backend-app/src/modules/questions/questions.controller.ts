@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { Question } from "../../models/question";
 import { CategoriesRepository } from "../categories/categories.repository";
 import { QuestionsRepository } from "./questions.repository";
 
@@ -13,7 +14,7 @@ export class QuestionsController {
      * @param req 
      * @param res 
      */
-    getAllQuestions(request:Request, response:Response) {
+     getAllQuestions(request:Request, response:Response) {
         qRepository.getAll().then( async (res)=>{
             for(let item of res.Items) {
                 let category = (await catRepository.getOne(item.questionCategoryId)).Item;
@@ -89,4 +90,29 @@ export class QuestionsController {
             response.status(400).json({message: err.message })
         })
     }
+
+      /**
+   * Get next question
+   * @returns Question
+   */
+  getRandomQuestion(request:Request, response:Response) {
+    qRepository.getAll().then( async (res)=>{
+        let question = this.getRandom(res.Items);
+        response.status(200).json(question);
+    })
+    .catch(err=>{
+        response.status(400).json({message: err.message })
+    })
+  }
+
+  /**
+   * Get random of question array
+   * @param questions 
+   * @returns 
+   */
+  private getRandom(questions: Question[]): Question{
+    let index = Math.floor(Math.random() * questions.length);
+    return questions[index];
+  }
+  
 }
