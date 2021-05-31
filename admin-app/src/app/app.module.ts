@@ -10,7 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
 import { MessageComponent } from './components/message/message.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeadersInterceptor } from './admin/interceptors/headers.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -29,7 +29,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     MaterialAngularModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    HttpClientModule
   ],
   providers: [ 
     { provide: HTTP_INTERCEPTORS, useClass: HeadersInterceptor, multi: true },

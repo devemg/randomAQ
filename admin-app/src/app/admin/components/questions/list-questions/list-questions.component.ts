@@ -30,7 +30,10 @@ export class ListQuestionsComponent implements OnInit {
     this.loading = true;
     this.qService.getAllQuestions().then(res=>{
       this.datasource = new MatTableDataSource(res);
-      this.loading  = false;
+      if(this.paginator){
+        this.datasource.paginator = this.paginator;
+      }
+      this.loading = false;
     }).catch(err=>console.log(err));
   }
 

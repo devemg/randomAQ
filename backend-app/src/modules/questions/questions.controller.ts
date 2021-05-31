@@ -16,14 +16,14 @@ export class QuestionsController {
      */
      getAllQuestions(request:Request, response:Response) {
         qRepository.getAll().then( async (res)=>{
-            for(let item of res.Items) {
+            /*for(let item of res.Items) {
                 let category = (await catRepository.getOne(item.questionCategoryId)).Item;
                 item.category = {
                     name: category.name,
                     id: category.id,
                     image: category.image
                 }; 
-            }
+            }*/
             response.status(200).json(res.Items);
         })
         .catch(err=>{

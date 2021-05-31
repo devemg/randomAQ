@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Category } from '../models/category';
 import { Image } from '../models/image';
 
@@ -41,14 +42,7 @@ export class CategoryService {
    * Get all questions
    */
    getAllCategories():Promise<Category[]> {
-    return new Promise( async (resolve:any,reject:any)=>{
-      let response = await this.apiGraphService.ListCategorys()
-      if(response.items) {
-        resolve(response.items);
-      }else {
-        reject('Categories not found')
-      }
-    });
+    return this.http.get<Category[]>(`${environment.API_CATEGORIES}`).toPromise();
   }
   
     /**
@@ -56,16 +50,16 @@ export class CategoryService {
      * @param id category
      * @returns category
      */
-    getCategory(id: string):Promise<GetCategoryQuery> {
-      return this.apiGraphService.GetCategory(id);
+    getCategory(id: string):Promise<Category> {
+      return this.http.get<Category>(`${environment.API_CATEGORIES}/${id}`).toPromise();
     }
   
     /**
      * Save new category
      * @param category 
      */
-    newCategory(category: CreateCategoryInput): Promise<CreateCategoryMutation> {
-      return this.apiGraphService.CreateCategory(category);
+    newCategory(category: Category): Promise<any> {
+      return this.http.post(`${environment.API_CATEGORIES}`,JSON.stringify(category)).toPromise();
     }
 
     /**
@@ -73,16 +67,16 @@ export class CategoryService {
      * @param category 
      * @returns 
      */
-    updateCategory(id: string, category: UpdateCategoryInput): Promise<UpdateCategoryMutation> {
-      return this.apiGraphService.UpdateCategory( {...category, id });
+    updateCategory(id: string, category: Category): Promise<any> {
+      return this.http.put(`${environment.API_CATEGORIES}`,JSON.stringify(category)).toPromise();
     }
 
     /**
      * Delete category
      * @param id 
      */
-    deleteCategory(id: string): Promise<DeleteCategoryMutation> {
-      return this.apiGraphService.DeleteCategory({id});
+    deleteCategory(id: string): Promise<any> {
+      return this.http.delete(`${environment.API_CATEGORIES}/${id}`).toPromise();
     }
 
     /**

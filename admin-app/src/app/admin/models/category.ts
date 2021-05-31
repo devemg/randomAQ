@@ -1,5 +1,5 @@
-import { Question } from "src/app/services/API.service";
 import { Base } from "./base";
+import { Question } from "./question";
 
 export interface Category extends Base{
     id?: string;
