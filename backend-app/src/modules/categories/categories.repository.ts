@@ -5,8 +5,7 @@ dotenv.config();
 import { Category } from "../../models/category";
 
 const documentClient = new AWS.DynamoDB.DocumentClient({
-    apiVersion: '2012-08-10',
-    region: 'us-east-1',
+    region: 'us-east-2',
     accessKeyId: process.env.aws_dynamo_acces_key,
     secretAccessKey: process.env.aws_dynamo_secret_key
 });
@@ -40,6 +39,8 @@ export class CategoriesRepository {
      */
     async create(category: Category): Promise<any> {
         category.id = uuid();
+        category.createdAt = new Date().toISOString(); 
+        category.updatedAt = new Date().toISOString();
         var params = {
             TableName: this.TableName,
             Item: category,
@@ -55,6 +56,7 @@ export class CategoriesRepository {
      */
     async update(category: Category | any): Promise<any> {
         //create updating objects 
+        category.updatedAt = new Date().toISOString();
         var names: any = {};
         var values: any = {};
         var updateExp = 'set ';

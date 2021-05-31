@@ -1,5 +1,5 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { APIService, CreateCategoryInput, CreateCategoryMutation, DeleteCategoryMutation, GetCategoryQuery, ModelCategoryFilterInput, UpdateCategoryInput, UpdateCategoryMutation } from '../../services/API.service';
 import { Category } from '../models/category';
 import { Image } from '../models/image';
 
@@ -35,7 +35,7 @@ export class CategoryService {
     }
   ];
   
-  constructor(private apiGraphService: APIService) { }
+  constructor(private http: HttpClient) { }
 
   /**
    * Get all questions

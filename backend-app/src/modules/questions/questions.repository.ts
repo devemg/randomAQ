@@ -5,8 +5,7 @@ import { Question } from "../../models/question";
 dotenv.config();
 
 const documentClient = new AWS.DynamoDB.DocumentClient({
-    apiVersion: '2012-08-10',
-    region: 'us-east-1',
+    region: 'us-east-2',
     accessKeyId: process.env.aws_dynamo_acces_key,
     secretAccessKey: process.env.aws_dynamo_secret_key
 });
@@ -40,6 +39,8 @@ export class QuestionsRepository {
      */
     async create(question: Question): Promise<any> {
         question.id = uuid();
+        question.createdAt = new Date().toISOString();
+        question.updatedAt = new Date().toISOString();
         var params = {
             TableName: this.TableName,
             Item: question,
@@ -54,6 +55,7 @@ export class QuestionsRepository {
      * @returns 
      */
     async update(body: Question | any): Promise<any> {
+        body.updatedAt = new Date().toISOString();
         //create updating objects 
         var names: any = {};
         var values: any = {};

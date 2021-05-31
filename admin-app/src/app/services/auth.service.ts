@@ -2,28 +2,23 @@ import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
 import { NewUser } from '../models/new-user';
 import { LogInUser } from '../models/login-user';
-import Auth from '@aws-amplify/auth';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private localService: LocalStorageService) { 
+  constructor(private localService: LocalStorageService, private http: HttpClient) { 
   }
 
   /**
    * Register a new user in cognito
    * @param user 
    */
-  async register(user: NewUser) {
-    return Auth.signUp({
-      username: user.username,
-      password: user.password,
-      attributes: {
-        email: user.email
-      }
-    });
+  async register(user: NewUser): Promise<any> {
+    return this.http.post(``,JSON.stringify(user)).toPromise();
   }
 
   /**
@@ -31,19 +26,17 @@ export class AuthService {
    * @param user 
    * @param password 
    */
-  async login(user: LogInUser) {
-    return  Auth.signIn(user.username, user.password).then(res=>{
-      this.localService.setAuthToken(JSON.stringify(res.signInUserSession.accessToken));
+  async login(user: LogInUser): Promise<any> {
+    return this.http.post(``,JSON.stringify(user)).toPromise().then(res=>{
+
     });
   }
 
   /**
    * logout cognito user
    */
-  async logout() {
-    return Auth.signOut().then(()=>{
-      this.localService.removeAuthToken();
-    });
+  async logout(): Promise<any> {
+    return new Promise((resolve,reject)=>{})
   }
 
   /**
@@ -52,19 +45,20 @@ export class AuthService {
    * @param code 
    * @returns 
    */
-  async confirmAccount(username: string, code: string){
-    return Auth.confirmSignUp(username,code);
+  async confirmAccount(username: string, code: string) : Promise<any> {
+    return this.http.post(``,JSON.stringify({username,code})).toPromise();
   }
 
   /**
    * Reset password
    */
-  resetPassword(username: string) {
-    return Auth.forgotPassword(username);
+  resetPassword(username: string): Promise<any> {
+    return this.http.post(``,JSON.stringify(username)).toPromise();
   }
 
-  newPassword(username: string, password: string, code: string){
-    return Auth.forgotPasswordSubmit(username,code,password);
+  newPassword(username: string, password: string, code: string): Promise<any> {
+    return this.http.post(``,JSON.stringify({username,password,code})).toPromise();
   }
+  
 
 }
