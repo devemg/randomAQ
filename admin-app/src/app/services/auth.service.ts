@@ -18,7 +18,11 @@ export class AuthService {
    * @param user 
    */
   async register(user: NewUser): Promise<any> {
-    return this.http.post(``,JSON.stringify(user)).toPromise();
+    return this.http.post(`${environment.API_AUTH}/register`,JSON.stringify(user)).toPromise()
+    .then((res:any)=>{
+      this.localService.setAuthToken(res.token);
+      return res;
+    });
   }
 
   /**
@@ -27,9 +31,11 @@ export class AuthService {
    * @param password 
    */
   async login(user: LogInUser): Promise<any> {
-    return this.http.post(``,JSON.stringify(user)).toPromise().then(res=>{
-
-    });
+    return this.http.post(`${environment.API_AUTH}/login`,JSON.stringify(user)).toPromise()
+    .then((res:any)=>{
+      this.localService.setAuthToken(res.token);
+      return res;
+    });;
   }
 
   /**

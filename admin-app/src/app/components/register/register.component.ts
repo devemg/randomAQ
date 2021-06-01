@@ -40,11 +40,11 @@ export class RegisterComponent implements OnInit {
     if(this.registerForm.valid){
       this.spinner.show();
       this.authService.register(this.registerForm.value).then(res=>{
-        this.router.navigate(['/verificate-account',this.registerForm.value.username]);
+        this.router.navigate(['/admin']);
       })
       .catch(err=>{
         console.log(err)
-        if(err.code == 'UsernameExistsException') {
+        if(err.code) {
           this.registerFControls.username.setErrors({ usernameAlreadyExists: true })
         }
       }).finally(()=>{
