@@ -36,7 +36,10 @@ export class AuthService {
    * logout cognito user
    */
   async logout(): Promise<any> {
-    return new Promise((resolve,reject)=>{})
+    return new Promise((resolve,reject)=>{
+      this.localService.removeAuthToken();
+      resolve(true);
+    })
   }
 
   /**
