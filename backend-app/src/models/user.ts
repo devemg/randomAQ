@@ -6,8 +6,3 @@ export interface User extends Base {
     isAuthorized: boolean; 
     confirmationCode?:string;
 }
-
-/**
- * status = 1 -> Active 
- * status = 0 -> Inactive
- */

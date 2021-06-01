@@ -4,8 +4,8 @@ import cors from 'cors';
 import { categoryRoutes } from "./modules/categories/categories.routes";
 import { questionRoutes } from './modules/questions/questions.routes';
 import { usersRoutes } from './modules/users/users.routes';
-import { middlewareToken } from './const';
 import { enviroment } from './enviroment';
+import { middlewareToken } from './providers/jwt-provider';
 
 
 const app = express();

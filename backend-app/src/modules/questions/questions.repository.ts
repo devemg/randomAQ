@@ -2,7 +2,7 @@ import  * as AWS from "aws-sdk";
 import { Question } from "../../models/question";
 import { NewQuestionDto } from "../../dtos/questions/new-question.dto";
 import { UpdateQuestionDto } from "../../dtos/questions/update-question.dto";
-import { getRandomId } from "../../const";
+import { getRandomId } from "../../providers/random-provider";
 import { enviroment } from "../../enviroment";
 
 

@@ -1,5 +1,5 @@
 import  * as AWS from "aws-sdk";
-import { getRandomId } from "../../const";
+import { getRandomId } from "../../providers/random-provider";
 
 import { NewCategoryDto } from "../../dtos/categories/new-category.dto";
 import { UpdateCategoryDto } from "../../dtos/categories/update-category.dto";

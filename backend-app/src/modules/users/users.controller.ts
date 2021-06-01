@@ -1,31 +1,45 @@
 import { Request, Response } from "express";
 import { UsersRepository } from "./users.repository";
-import * as jwt  from "jsonwebtoken";
 import { enviroment } from "../../enviroment";
+import { User } from "../../models/user";
+import { getJWToken } from "../../providers/jwt-provider";
 
 const repository: UsersRepository = new UsersRepository();
 export class UsersController {
     
 
+    /**
+     * Register a new user and return a token 
+     * @param request 
+     * @param response 
+     */
     register(request:Request,response:Response) {
         repository.newUser(request.body,true).then(res=>{
-            const payload = {
-                check:  true,
-                username: request.body.username,
-                email: request.body.email,
-                isAuthorized: true
-               };
-               const token = jwt.sign(payload,enviroment.jwt_secret_key || '', { expiresIn: 1440 });
+            const token = getJWToken(request.body.username,request.body.email);
             response.status(200).json({ token });
         })
         .catch(err=>{
-            response.status(400).json({message: err.message })
+            if(err.code == 'ConditionalCheckFailedException'){
+                response.status(400).json({message: 'Username already exists' })
+            }else {
+                response.status(400).json({message: err.message })
+            }   
         })
     }
 
+    /**
+     * check if the users credentials are valid
+     * @param request 
+     * @param response 
+     */
     login(request:Request,response:Response) {
         repository.getUser(request.body.username).then(res=>{
-            response.status(200).json(res);
+            if(res.Item){
+                const token = getJWToken(res.Item.username,res.Item.email);
+                response.status(200).json({ token });
+            }else {
+                response.status(404).json({ message: 'Username not found' });
+            }
         })
         .catch(err=>{
             response.status(400).json({message: err.message })
@@ -37,3 +51,5 @@ export class UsersController {
     }
 
 }
+
+    

@@ -1,7 +1,7 @@
 import  * as AWS from "aws-sdk";
 import { NewUserDto } from "../../dtos/users/new-user.dto";
 import { User } from "../../models/user";
-import { getRandomId } from "../../const";
+import { getRandomId } from "../../providers/random-provider";
 import { enviroment } from "../../enviroment";
 
 const documentClient = new AWS.DynamoDB.DocumentClient(enviroment.aws_dynamo_config);
@@ -30,7 +30,7 @@ export class UsersRepository {
             TableName: this.TableName,
             Item: user,
             ReturnValues: "ALL_OLD",
-            //ConditionExpression: 'attribute_not_exists(user)',
+            ConditionExpression: 'attribute_not_exists(email)',
         };
 
         return documentClient.put(params).promise();
@@ -41,16 +41,14 @@ export class UsersRepository {
      * @param user 
      * @returns 
      */
-     async getUser(username: string): Promise<any>{
+     async getUser(username: string) {
+
         let params = {
             TableName: this.TableName,
-            FilterExpression: "username = :v1",
-            ExpressionAttributeValues: {
-              ":v1": {"S":  username },
-            }
+            Key: { username }
           };
         
-        return documentClient.scan(params).promise();        
+        return documentClient.get(params).promise();        
     }
 
     /**
