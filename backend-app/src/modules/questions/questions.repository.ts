@@ -1,9 +1,9 @@
 import  * as AWS from "aws-sdk";
-import { v4 as uuid } from 'uuid';
 import * as dotenv from "dotenv";
 import { Question } from "../../models/question";
 import { NewQuestionDto } from "../../dtos/questions/new-question.dto";
 import { UpdateQuestionDto } from "../../dtos/questions/update-question.dto";
+import { getRandomId } from "../../const";
 dotenv.config();
 
 const documentClient = new AWS.DynamoDB.DocumentClient({
@@ -42,7 +42,7 @@ export class QuestionsRepository {
     async create(newQuestion: NewQuestionDto): Promise<any> {
         let question: Question = {
             ...newQuestion,
-            id : uuid(),
+            id : getRandomId(),
             createdAt : new Date().toISOString(),
             updatedAt : new Date().toISOString()
         };

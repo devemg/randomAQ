@@ -1,6 +1,6 @@
 import  * as AWS from "aws-sdk";
-import { v4 as uuid } from 'uuid';
 import * as dotenv from "dotenv";
+import { getRandomId } from "../../const";
 dotenv.config();
 
 import { NewCategoryDto } from "../../dtos/categories/new-category.dto";
@@ -43,7 +43,7 @@ export class CategoriesRepository {
     async create(newCategory: NewCategoryDto): Promise<any> {
         let category: Category = {
             ...newCategory,
-            id:  uuid(),
+            id:  getRandomId(),
             createdAt : new Date().toISOString(),
             updatedAt : new Date().toISOString()
         };

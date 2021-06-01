@@ -2,6 +2,9 @@ import  * as AWS from "aws-sdk";
 import * as dotenv from "dotenv";
 import { NewUserDto } from "../../dtos/users/new-user.dto";
 import { User } from "../../models/user";
+import { getRandomCode, getRandomId } from "../../const";
+
+
 dotenv.config();
 
 const documentClient = new AWS.DynamoDB.DocumentClient({
@@ -9,6 +12,7 @@ const documentClient = new AWS.DynamoDB.DocumentClient({
     accessKeyId: process.env.aws_dynamo_acces_key,
     secretAccessKey: process.env.aws_dynamo_secret_key
 });
+
 
 export class UsersRepository {
 
@@ -19,10 +23,23 @@ export class UsersRepository {
      * @param user 
      * @returns 
      */
-    async newUser(user: NewUserDto): Promise<any>{
-        return new Promise((resolve,reject)=>{
-            resolve(true);
-        })
+    async newUser(newUser: NewUserDto, isAuthorized: boolean): Promise<any>{
+        let user: User = 
+        {
+            ...newUser,
+            id: getRandomId(),
+            createdAt : new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+            confirmationCode: getRandomCode(),
+            isAuthorized
+        };
+
+        var params = {
+            TableName: this.TableName,
+            Item: user,
+            ReturnValues: "ALL_OLD"
+        };
+        return documentClient.put(params).promise();
     }
 
     /**
@@ -31,9 +48,7 @@ export class UsersRepository {
      * @returns 
      */
      async getUser(username: string): Promise<any>{
-        return new Promise((resolve,reject)=>{
-            resolve(true);
-        })
+        return documentClient.get({TableName:this.TableName,Key:{}}).promise();        
     }
 
     /**
