@@ -1,17 +1,12 @@
 import  * as AWS from "aws-sdk";
-import * as dotenv from "dotenv";
 import { getRandomId } from "../../const";
-dotenv.config();
 
 import { NewCategoryDto } from "../../dtos/categories/new-category.dto";
 import { UpdateCategoryDto } from "../../dtos/categories/update-category.dto";
+import { enviroment } from "../../enviroment";
 import { Category } from "../../models/category";
 
-const documentClient = new AWS.DynamoDB.DocumentClient({
-    region: 'us-east-2',
-    accessKeyId: process.env.aws_dynamo_acces_key,
-    secretAccessKey: process.env.aws_dynamo_secret_key
-});
+const documentClient = new AWS.DynamoDB.DocumentClient(enviroment.aws_dynamo_config);
 
 export class CategoriesRepository {
 

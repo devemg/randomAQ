@@ -1,16 +1,12 @@
 import  * as AWS from "aws-sdk";
-import * as dotenv from "dotenv";
 import { Question } from "../../models/question";
 import { NewQuestionDto } from "../../dtos/questions/new-question.dto";
 import { UpdateQuestionDto } from "../../dtos/questions/update-question.dto";
 import { getRandomId } from "../../const";
-dotenv.config();
+import { enviroment } from "../../enviroment";
 
-const documentClient = new AWS.DynamoDB.DocumentClient({
-    region: 'us-east-2',
-    accessKeyId: process.env.aws_dynamo_acces_key,
-    secretAccessKey: process.env.aws_dynamo_secret_key
-});
+
+const documentClient = new AWS.DynamoDB.DocumentClient(enviroment.aws_dynamo_config);
 
 export class QuestionsRepository {
 

@@ -1,22 +1,14 @@
 import  * as AWS from "aws-sdk";
-import * as dotenv from "dotenv";
 import { NewUserDto } from "../../dtos/users/new-user.dto";
 import { User } from "../../models/user";
-import { getRandomCode, getRandomId } from "../../const";
+import { getRandomId } from "../../const";
+import { enviroment } from "../../enviroment";
 
-
-dotenv.config();
-
-const documentClient = new AWS.DynamoDB.DocumentClient({
-    region: 'us-east-2',
-    accessKeyId: process.env.aws_dynamo_acces_key,
-    secretAccessKey: process.env.aws_dynamo_secret_key
-});
-
+const documentClient = new AWS.DynamoDB.DocumentClient(enviroment.aws_dynamo_config);
 
 export class UsersRepository {
 
-    TableName = 'randomaq-users';
+    private TableName = 'randomaq-users';
 
     /**
      * Add new user
@@ -30,15 +22,17 @@ export class UsersRepository {
             id: getRandomId(),
             createdAt : new Date().toISOString(),
             updatedAt: new Date().toISOString(),
-            confirmationCode: getRandomCode(),
+            confirmationCode: undefined,//getRandomCode(),
             isAuthorized
         };
 
         var params = {
             TableName: this.TableName,
             Item: user,
-            ReturnValues: "ALL_OLD"
+            ReturnValues: "ALL_OLD",
+            //ConditionExpression: 'attribute_not_exists(user)',
         };
+
         return documentClient.put(params).promise();
     }
 
@@ -48,7 +42,15 @@ export class UsersRepository {
      * @returns 
      */
      async getUser(username: string): Promise<any>{
-        return documentClient.get({TableName:this.TableName,Key:{}}).promise();        
+        let params = {
+            TableName: this.TableName,
+            FilterExpression: "username = :v1",
+            ExpressionAttributeValues: {
+              ":v1": {"S":  username },
+            }
+          };
+        
+        return documentClient.scan(params).promise();        
     }
 
     /**
