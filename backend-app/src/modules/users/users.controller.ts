@@ -35,8 +35,12 @@ export class UsersController {
     login(request:Request,response:Response) {
         repository.getUser(request.body.username).then(res=>{
             if(res.Item){
-                const token = getJWToken(res.Item.username,res.Item.email);
-                response.status(200).json({ token });
+                if(res.Item.password == request.body.password){
+                    const token = getJWToken(res.Item.username,res.Item.email);
+                    response.status(200).json({ token });
+                }else {
+                    response.status(400).json({ message: 'Incorrect password' });
+                }
             }else {
                 response.status(404).json({ message: 'Username not found' });
             }
