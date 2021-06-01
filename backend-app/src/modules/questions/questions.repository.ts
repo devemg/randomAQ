@@ -2,6 +2,8 @@ import  * as AWS from "aws-sdk";
 import { v4 as uuid } from 'uuid';
 import * as dotenv from "dotenv";
 import { Question } from "../../models/question";
+import { NewQuestionDto } from "../../dtos/questions/new-question.dto";
+import { UpdateQuestionDto } from "../../dtos/questions/update-question.dto";
 dotenv.config();
 
 const documentClient = new AWS.DynamoDB.DocumentClient({
@@ -37,10 +39,13 @@ export class QuestionsRepository {
      * @param Question 
      * @returns 
      */
-    async create(question: Question): Promise<any> {
-        question.id = uuid();
-        question.createdAt = new Date().toISOString();
-        question.updatedAt = new Date().toISOString();
+    async create(newQuestion: NewQuestionDto): Promise<any> {
+        let question: Question = {
+            ...newQuestion,
+            id : uuid(),
+            createdAt : new Date().toISOString(),
+            updatedAt : new Date().toISOString()
+        };
         var params = {
             TableName: this.TableName,
             Item: question,
@@ -54,7 +59,7 @@ export class QuestionsRepository {
      * @param question 
      * @returns 
      */
-    async update(body: Question | any): Promise<any> {
+    async update(body: UpdateQuestionDto | any): Promise<any> {
         body.updatedAt = new Date().toISOString();
         //create updating objects 
         var names: any = {};

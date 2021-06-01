@@ -2,6 +2,9 @@ import  * as AWS from "aws-sdk";
 import { v4 as uuid } from 'uuid';
 import * as dotenv from "dotenv";
 dotenv.config();
+
+import { NewCategoryDto } from "../../dtos/categories/new-category.dto";
+import { UpdateCategoryDto } from "../../dtos/categories/update-category.dto";
 import { Category } from "../../models/category";
 
 const documentClient = new AWS.DynamoDB.DocumentClient({
@@ -37,10 +40,14 @@ export class CategoriesRepository {
      * @param category 
      * @returns 
      */
-    async create(category: Category): Promise<any> {
-        category.id = uuid();
-        category.createdAt = new Date().toISOString(); 
-        category.updatedAt = new Date().toISOString();
+    async create(newCategory: NewCategoryDto): Promise<any> {
+        let category: Category = {
+            ...newCategory,
+            id:  uuid(),
+            createdAt : new Date().toISOString(),
+            updatedAt : new Date().toISOString()
+        };
+
         var params = {
             TableName: this.TableName,
             Item: category,
@@ -54,7 +61,7 @@ export class CategoriesRepository {
      * @param category 
      * @returns 
      */
-    async update(category: Category | any): Promise<any> {
+    async update(category: UpdateCategoryDto | any): Promise<any> {
         //create updating objects 
         category.updatedAt = new Date().toISOString();
         var names: any = {};

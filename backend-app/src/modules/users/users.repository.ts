@@ -1,5 +1,6 @@
 import  * as AWS from "aws-sdk";
 import * as dotenv from "dotenv";
+import { NewUserDto } from "../../dtos/users/new-user.dto";
 import { User } from "../../models/user";
 dotenv.config();
 
@@ -18,7 +19,7 @@ export class UsersRepository {
      * @param user 
      * @returns 
      */
-    async newUser(user: User): Promise<any>{
+    async newUser(user: NewUserDto): Promise<any>{
         return new Promise((resolve,reject)=>{
             resolve(true);
         })

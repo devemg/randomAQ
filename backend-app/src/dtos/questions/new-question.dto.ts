@@ -1,5 +1,5 @@
 export interface NewQuestionDto {
-    question: string; 
+    content: string; 
     answer: string; 
-    categoryId: string; 
+    questionCategoryId: string; 
 }
