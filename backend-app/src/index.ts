@@ -15,8 +15,8 @@ app.use(cors());
 const port = enviroment.port || 3000;
 
 
-app.use('/category',categoryRoutes);
-app.use('/question', questionRoutes);
+app.use('/category', middlewareToken, categoryRoutes);
+app.use('/question', middlewareToken, questionRoutes);
 app.use('/users', usersRoutes);
 
 

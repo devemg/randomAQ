@@ -31,7 +31,7 @@ export function middlewareToken (req:any, res:Response, next:any) {
     if (token) {
       jwt.verify(token, enviroment.jwt_secret_key || '', (err:any, decoded:any) => {      
         if (err) {
-          return res.status(401).json({ mensaje: 'Token not found' });    
+          return res.status(401).json({ message: err.message });    
         } else {
           req.payload = decoded;    
           next();
