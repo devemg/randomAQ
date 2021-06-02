@@ -17,6 +17,7 @@ const port = enviroment.port || 3000;
 app.use('/category', categoryRoutes);
 app.use('/question', questionRoutes);
 app.use('/users', usersRoutes);
+app.use('/',express.static('public/admin-app'));
 
 app.listen(port, () => {
   return console.log(`server is listening on ${port}`);

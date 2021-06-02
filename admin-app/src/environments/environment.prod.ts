@@ -1,4 +1,4 @@
-const   API_URL = 'http://localhost:3000';
+const   API_URL = 'https://random-aq.herokuapp.com';
 
 export const environment = {
   production: true,
