@@ -29,6 +29,12 @@
     flex-direction: column;
 }
 
+.card:hover {
+    cursor: pointer;
+    -webkit-box-shadow: 0px 1px 11px 3px #00000091; 
+    box-shadow: 0px 1px 11px 3px #00000077;
+}
+
 .card .image {
     width: 65%;
     height: auto;
@@ -38,4 +44,18 @@
     font-size: 16px;
     text-align: center;
     font-weight: bold;
+}
+
+@media screen and (min-width:768px) {
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+    }    
+}
+
+@media screen and (min-width:1024px) {
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+    }    
 }

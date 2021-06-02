@@ -20,7 +20,7 @@ export class CategoriesPage implements OnInit {
     });
   }
 
-  goToCategory(id: number){
+  goToCategory(id: string){
     this.router.navigate(['/categories',id]);
   }
 }
