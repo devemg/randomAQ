@@ -23,9 +23,6 @@ export class SingleCategoryPage implements OnInit {
     if(id){
       this.apiService.getCategory(id).then(res=>{
         this.category = res;
-        if(this.category.questions.length == 0) {
-          this.nothaveQuestions = true;
-        }
       })
     }
   }
@@ -37,8 +34,12 @@ export class SingleCategoryPage implements OnInit {
    * Start questions
    */
   start(){
-    this.apiService.setQuestion(this.category.questions);
-    this.router.navigate(['/question']);
+    this.apiService.setQuestion(this.category.id).then(res=>{
+      this.router.navigate(['/question']);
+    }).catch(err=>{
+      console.log(err)
+    });
+    
   }
 
 }

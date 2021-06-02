@@ -50,14 +50,10 @@ export class ApiService {
     })
   }
 
-  setQuestion(questions: Question[]) {
-    let question = this.getRandom(questions);
-    this.localService.setQuestion(question);
-  }
-
-  getRandom(questions: Question[]): Question{
-    let index = Math.floor(Math.random() * questions.length);
-    return questions[index];
+  setQuestion(categoryId: string): Promise<any>{
+    return this.http.get(`${environment.API_QUESTIONS}/random/${categoryId}`).toPromise().then((res:Question)=>{
+      this.localService.setQuestion(res);
+    });
   }
 
 }

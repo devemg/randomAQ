@@ -22,6 +22,24 @@ export class QuestionsRepository {
     }
 
     /**
+     * Get All Questions
+     * @returns 
+     */
+     async getAllByCategory(categoryId: string): Promise<any> {
+        let params = {
+            TableName:this.TableName,
+            FilterExpression: '#cat = :cat',
+            ExpressionAttributeNames: {
+                '#cat': 'questionCategoryId',
+            },
+            ExpressionAttributeValues: {
+                ':cat': categoryId,
+            },
+        };
+        return await documentClient.scan(params).promise();
+    }
+
+    /**
      * Get all Questions
      * @param id of Question
      * @returns 
