@@ -20,7 +20,7 @@ export class QuestionsController {
             response.status(200).json(res.Items);
         })
         .catch(err=>{
-            response.status(400).json({ code:err.name, message: err.message })
+            response.status(ExceptionCode.AwsException).json(err.message)
         })
     }
 
@@ -40,11 +40,11 @@ export class QuestionsController {
                 }; 
                 response.status(200).json(res.Item);
             }else {
-                response.status(404).json({ code:ExceptionCode.NotFoundException, message:'Question not found'});
+                response.status(ExceptionCode.NotFoundException).json('Question not found');
             }
         })
         .catch(err=>{
-            response.status(400).json({ code:err.name, message: err.message })
+            response.status(ExceptionCode.AwsException).json(err.message)
         })
     }
 
@@ -58,7 +58,7 @@ export class QuestionsController {
             response.status(200).json(res);
         })
         .catch(err=>{
-            response.status(400).json({ code:err.name, message: err.message })
+            response.status(ExceptionCode.AwsException).json(err.message)
         })
     }
 
@@ -69,13 +69,17 @@ export class QuestionsController {
      */
      updateQuestion(request:Request, response:Response) {
         qRepository.update(request.body).then( (res)=>{
-            response.status(res.Attributes?200:404).json(res.Attributes?res.Attributes:{message:"Question not found"});
+            if(res.Attributes) {
+                response.status(200).json(res.Attributes);
+            }else {
+                response.status(ExceptionCode.NotFoundException).json("Question not found");
+            }
         })
         .catch(err=>{
             if(err.code == 'ConditionalCheckFailedException'){
-                response.status(404).json({ code:ExceptionCode.NotFoundException, message:"Question not found"});
+                response.status(ExceptionCode.NotFoundException).json("Question not found");
             }else{
-                response.status(400).json({ code:err.name, message: err.message })
+                response.status(ExceptionCode.AwsException).json(err.message)
             }
         })
     }
@@ -87,11 +91,14 @@ export class QuestionsController {
      */
      deleteQuestion(request:Request, response:Response) {
         qRepository.delete(request.params.id).then( (res)=>{
-            response.status(res.Attributes?200:404)
-            .json(res.Attributes?res.Attributes:{ code:ExceptionCode.NotFoundException, message:"Question not found"});
+            if(res.Attributes) {
+                response.status(200).json(res.Attributes);
+            }else {
+                response.status(ExceptionCode.NotFoundException).json("Question not found");
+            }
         })
         .catch(err=>{
-            response.status(400).json({ code:err.name, message: err.message })
+            response.status(ExceptionCode.AwsException).json(err.message)
         })
     }
 
@@ -101,11 +108,19 @@ export class QuestionsController {
      */
     getRandomQuestionByCategory(request:Request, response:Response) {
         qRepository.getAllByCategory(request.params.categoryId).then( async (res)=>{
-            let question = getRandom(res.Items);
-            response.status(200).json(question);
+            if(res.Items) {
+                if(res.Items.length > 0){
+                    let question = getRandom(res.Items);
+                    response.status(200).json(question);
+                }else {
+                    response.status(ExceptionCode.NotFoundException).json('Category empty of questions')
+                }
+            }else {
+                response.status(ExceptionCode.NotFoundException).json('Category empty of questions')
+            }
         })
         .catch(err=>{
-            response.status(400).json({ code:err.name, message: err.message })
+            response.status(ExceptionCode.AwsException).json(err.message)
         })
     }
     
@@ -119,7 +134,7 @@ export class QuestionsController {
             response.status(200).json(question);
         })
         .catch(err=>{
-            response.status(400).json({ code:err.name, message: err.message })
+            response.status(ExceptionCode.AwsException).json(err.message)
         })
     }
     

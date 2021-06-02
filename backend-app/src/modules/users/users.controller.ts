@@ -19,9 +19,9 @@ export class UsersController {
         })
         .catch(err=>{
             if(err.code == 'ConditionalCheckFailedException'){
-                response.status(400).json({ code:ExceptionCode.AlreadyExistException, message: 'Username already exists' })
+                response.status(ExceptionCode.AwsException).json({ code:ExceptionCode.AlreadyExistException, message: 'Username already exists' })
             }else {
-                response.status(400).json({ code:err.name, message: err.message })
+                response.status(ExceptionCode.AwsException).json(err.message)
             }   
         })
     }
@@ -45,7 +45,7 @@ export class UsersController {
             }
         })
         .catch(err=>{
-            response.status(ExceptionCode.AwsException).json({ code:err.name, message: err.message })
+            response.status(ExceptionCode.AwsException).json(err.message)
         })
     }
 

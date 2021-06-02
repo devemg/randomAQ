@@ -16,7 +16,7 @@ export class CategoriesController {
             response.status(200).json(res.Items);
         })
         .catch(err=>{
-            response.status(400).json({ code:err.name, message: err.message })
+            response.status(ExceptionCode.AwsException).json(err.message)
         })
     }
 
@@ -27,10 +27,14 @@ export class CategoriesController {
      */
      getCategoryById(request:Request, response:Response) {
         catRepository.getOne(request.params.id).then( (res)=>{
-            response.status(res.Item?200:404).json(res.Item?res.Item:{message:'Category not found'});
+            if(res.Item) {
+                response.status(200).json(res.Item);
+            }else {
+                response.status(ExceptionCode.NotFoundException).json('Category not found');
+            }
         })
         .catch(err=>{
-            response.status(400).json({ code:err.name, message: err.message })
+            response.status(ExceptionCode.AwsException).json(err.message)
         })
     }
 
@@ -44,7 +48,7 @@ export class CategoriesController {
             response.status(200).json(res);
         })
         .catch(err=>{
-            response.status(400).json( { code:err.name, message: err.message })
+            response.status(ExceptionCode.AwsException).json( err.message)
         })
     }
 
@@ -55,13 +59,17 @@ export class CategoriesController {
      */
      updateCategory(request:Request, response:Response) {
         catRepository.update(request.body).then( (res)=>{
-            response.status(res.Attributes?200:404).json(res.Attributes?res.Attributes:{message:"Category not found"});
+            if(res.Attributes) {
+                response.status(200).json(res.Attributes);
+            }else {
+                response.status(ExceptionCode.NotFoundException).json("Category not found");
+            }
         })
         .catch(err=>{
             if(err.code == 'ConditionalCheckFailedException'){
-                response.status(404).json({ code:ExceptionCode.NotFoundException, message:"Category not found"});
+                response.status(ExceptionCode.NotFoundException).json("Category not found");
             }else{
-                response.status(400).json({  code:err.name, message: err.message })
+                response.status(ExceptionCode.AwsException).json({  code:err.name, message: err.message })
             }
         })
     }
@@ -73,11 +81,14 @@ export class CategoriesController {
      */
      deleteCategory(request:Request, response:Response) {
         catRepository.delete(request.params.id).then( (res)=>{
-            response.status(res.Attributes?200:404)
-            .json(res.Attributes?res.Attributes:{ code:ExceptionCode.NotFoundException, message:"Category not found"});
+            if(res.Attributes) {
+                response.status(200).json(res.Attributes);
+            }else {
+                response.status(ExceptionCode.NotFoundException).json("Category not found");
+            }
         })
         .catch(err=>{
-            response.status(400).json({ code:err.name, message: err.message })
+            response.status(ExceptionCode.AwsException).json(err.message)
         })
     }
 }
