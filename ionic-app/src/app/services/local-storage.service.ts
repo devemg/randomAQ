@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Category } from 'src/models/category';
+import { Question } from 'src/models/question';
 export const LS_KEYS = {
   CATEGORY:'category',
   RANDOMQ:'randomq',

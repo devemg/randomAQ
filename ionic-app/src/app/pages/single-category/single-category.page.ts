@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { Category } from 'src/models/category';
 
 @Component({
   selector: 'app-single-category',
@@ -14,7 +15,6 @@ export class SingleCategoryPage implements OnInit {
     name:'',
     description:'',
     id:'',
-    __typename:'Category'
   };
 
   nothaveQuestions = false; 
@@ -23,7 +23,7 @@ export class SingleCategoryPage implements OnInit {
     if(id){
       this.apiService.getCategory(id).then(res=>{
         this.category = res;
-        if(this.category.questions.items.length == 0) {
+        if(this.category.questions.length == 0) {
           this.nothaveQuestions = true;
         }
       })
@@ -37,7 +37,7 @@ export class SingleCategoryPage implements OnInit {
    * Start questions
    */
   start(){
-    this.apiService.setQuestion(this.category.questions.items);
+    this.apiService.setQuestion(this.category.questions);
     this.router.navigate(['/question']);
   }
 

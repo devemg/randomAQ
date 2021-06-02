@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Category } from 'src/models/category';
 import { Question } from 'src/models/question';
 import { LocalStorageService } from './local-storage.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +23,7 @@ export class ApiService {
    * @returns Categories list
    */
   getAllCategories(): Promise<Category[]> {
-    return this.apiService.ListCategorys().then(res=>{
-      console.log(res.items)
-      return res.items;
-    })
+    return this.http.get<Category[]>(`${environment.API_CATEGORIES}`).toPromise();
   }
 
   /**
@@ -33,7 +32,7 @@ export class ApiService {
    * @returns category
    */
   getCategory(id: string): Promise<Category> {
-    return this.apiService.GetCategory(id);
+    return this.http.get<Category>(`${environment.API_CATEGORIES}/${id}`).toPromise();
   }
 
   /**

@@ -5,7 +5,6 @@ import { categoryRoutes } from "./modules/categories/categories.routes";
 import { questionRoutes } from './modules/questions/questions.routes';
 import { usersRoutes } from './modules/users/users.routes';
 import { enviroment } from './enviroment';
-import { middlewareToken } from './providers/jwt-provider';
 
 
 const app = express();
@@ -15,8 +14,8 @@ app.use(cors());
 const port = enviroment.port || 3000;
 
 
-app.use('/category', middlewareToken, categoryRoutes);
-app.use('/question', middlewareToken, questionRoutes);
+app.use('/category', categoryRoutes);
+app.use('/question', questionRoutes);
 app.use('/users', usersRoutes);
 
 

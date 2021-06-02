@@ -4,6 +4,8 @@ import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { AlertController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { Category } from 'src/models/category';
+import { Question } from 'src/models/question';
 import { ClockComponent } from './clock/clock.component';
 
 @Component({
@@ -17,13 +19,14 @@ export class QuestionPage implements OnInit, AfterViewInit {
   category: Category = {
     image:'',
     name:'',
-    __typename:'Category'
+    description:'',
+    id:''
   };
 
   question: Question = {
     answer:'',
     content:'',
-    __typename:'Question'
+    id:''
   };
 
   running = true; 

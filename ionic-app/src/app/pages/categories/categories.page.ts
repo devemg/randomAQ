@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { Category } from 'src/models/category';
 
 @Component({
   selector: 'app-categories',
