@@ -27,16 +27,6 @@ export class QuestionService {
   }
 
   /**
-   * Get questions by category id
-   * @param id
-   */
-   getQuestionByCategory(idCategory: string):Promise<Question[]> {
-    return new Promise((resolve:any,reject:any)=>{
-      resolve(questionsMock.filter(m=>m.category?.id == idCategory));
-    });
-  }
-
-  /**
    * Save new question
    * @param q question
    */
