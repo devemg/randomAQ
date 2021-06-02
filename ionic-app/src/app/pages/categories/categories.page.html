@@ -1,8 +1,10 @@
 <ion-content>
+  <ion-progress-bar *ngIf="isLoading" color="primary" type="indeterminate"></ion-progress-bar>
   <div class="container gradient">
     <div class="title">
       <img src="assets/title-white.svg" alt="RandomAQ" />
     </div>
+
     <div class="grid">
       <ion-card class="card" *ngFor="let item of catList" (click)="goToCategory(item.id)">
         <img class="image" [src]="item.image" [alt]="item.name" />

@@ -1,6 +1,8 @@
 <ion-content>
+  <ion-progress-bar *ngIf="isLoading" color="primary" type="indeterminate"></ion-progress-bar>
   <div class="container gradient">
     <ion-card class="card">
+
       <div class="title">
         <img class="image" [src]="category.image" [alt]="category.name" />
         <h2>{{category.name}}</h2>

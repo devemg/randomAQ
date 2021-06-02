@@ -11,12 +11,17 @@ import { Category } from 'src/models/category';
 export class CategoriesPage implements OnInit {
 
   catList: Category[] = [];
+  isLoading = false; 
+
   constructor(private apiService: ApiService, private router: Router) { 
   }
 
   ngOnInit() {
+    this.isLoading = true;
     this.apiService.getAllCategories().then(res=>{
       this.catList = res;
+    }).finally(()=>{
+      this.isLoading = false;
     });
   }
 
