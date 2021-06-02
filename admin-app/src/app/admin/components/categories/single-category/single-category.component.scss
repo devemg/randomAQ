@@ -1,0 +1,27 @@
+.select-img {
+    width: 40px;
+    height: 40px;
+    padding-right: 10px;
+}
+
+.select-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.image-stack {
+    display: flex;
+    flex-direction: column;
+
+    mat-label {
+        color: gray;
+        padding-bottom: 5px;
+    }
+
+    img {
+        width: 60px;
+        height: 60px;
+    }
+}

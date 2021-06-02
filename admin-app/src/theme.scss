@@ -1,0 +1,70 @@
+@use '~@angular/material' as mat;
+
+$primary-palette: (
+ 50: #f1e2eb,
+ 100: #ddb6cf,
+ 200: #c787b0,
+ 300: #ae5992,
+ 400: #9c377d,
+ 500: #8a146b,
+ 600: #7f0f66,
+ 700: #70075f,
+ 800: #620357,
+ 900: #480048,
+ contrast: (
+   900: white,
+   800: white,
+   700: white,
+   600: white,
+   500: white,
+   400: white,
+   300: rgba(black, 0.87),
+   200: rgba(black, 0.87),
+   100: rgba(black, 0.87),
+   50: rgba(black, 0.87),
+ )
+);
+
+$secondary-palette: (
+ 50: #faecef,
+ 100: #f5d1d6,
+ 200: #e1a1a4,
+ 300: #d37e82,
+ 400: #dd6465,
+ 500: #e15852,
+ 600: #d2504f,
+ 700: #c04848,
+ 800: #b24342,
+ 900: #a13c39,
+ contrast: (
+    900: white,
+    800: white,
+    700: white,
+    600: white,
+    500: white,
+    400: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    50: rgba(black, 0.87),
+ )
+);
+
+@include mat.core();
+
+$my-primary: mat.define-palette($primary-palette, 900);
+$my-accent: mat.define-palette($secondary-palette, 700);
+
+// The "warn" palette is optional and defaults to red if not specified.
+$my-warn: mat.define-palette(mat.$red-palette);
+
+$my-theme: mat.define-light-theme((
+ color: (
+   primary: $my-primary,
+   accent: $my-accent,
+   warn: $my-warn,
+ )
+));
+
+@include mat.button-theme($my-theme);
+@include mat.all-component-themes($my-theme);

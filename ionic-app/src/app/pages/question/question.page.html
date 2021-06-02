@@ -1,0 +1,26 @@
+<ion-content>
+  <div class="container gradient">
+    <ion-card class="card">
+      <div class="content">
+        <div class="title">
+          <img class="image" [src]="category.image" [alt]="category.name" />
+          <h2>{{category.name}}</h2>
+        </div>
+        <div class="question">
+          <p>{{question.content}}</p>
+        </div>
+        <div  *ngIf="!running" class="answer">
+          <h2>{{question.answer}}</h2>
+        </div>
+        <app-clock *ngIf="running" (timeover)="timeover()" ></app-clock>
+        <div class="buttons" *ngIf="running">
+          <button class="circle-btn"><img class="image-btn" src="assets/script-x.svg" alt="X" (click)="badAnswer()" /></button>
+          <button class="circle-btn"><img class="image-btn" src="assets/check-mark.svg" alt="check" (click)="coolAnswer()" /></button>
+        </div>
+        <div class="buttons" *ngIf="!running">
+          <button class="circle-btn"><img class="image-btn" src="assets/home-alt.svg" alt="X" (click)="back()" /></button>
+        </div>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>

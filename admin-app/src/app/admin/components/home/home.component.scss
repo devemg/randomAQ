@@ -1,0 +1,162 @@
+.menu {
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 10vh;
+    .image {
+        width: 15%;
+    }
+
+    .image:hover {
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 3.25));
+        cursor: pointer;
+    }
+
+    mat-icon {
+        color: white;
+    }
+
+    .menu-mobile {
+        display: none;
+        padding-right: 5px;
+        mat-icon {
+            font-size: 35px;
+            width: 35px;
+            height: 35px;
+        }
+    }
+
+}
+
+.drawer-container {
+    width: 100%;
+    height: 90vh;
+    background-color: transparent;
+}
+
+.drawer-mobile {
+    width: 100%;
+    background-color: #000000ba;
+
+    a {
+        color: white;
+        font-weight: lighter;
+        font-size: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        mat-icon {
+            padding-right: 5px;
+        }
+    }
+
+    a:hover{
+        background-color: #ffffff14;
+    }
+
+}
+
+
+  
+  mat-drawer-content {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+.right-menu {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+
+    li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 20px 10px 20px;
+        margin: 0;
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            font-weight: lighter;
+            font-size: 20px;
+
+            mat-icon {
+                padding-right: 5px;
+            }
+        }
+
+        a:hover {
+            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 3.25));
+        }
+
+        button:hover {
+            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 3.25));
+        }
+    }
+
+
+}
+mat-drawer-content {
+    align-items: center;
+}
+
+.card {
+    width: 90%;
+    height: 85%;
+}
+
+@media  only screen and (max-width:768px){
+
+    .right-menu li > a {
+        font-size: 17px;
+    }
+
+    .menu .image {
+        width: 20%;
+    }
+    
+}
+
+@media  only screen and (max-width:665px){
+
+    .right-menu li > a {
+        font-size: 15px;
+    }
+
+
+    .menu .image {
+        width: 25%;
+    }
+    
+}
+
+
+
+@media  only screen and (max-width:575px){
+
+    .right-menu {
+        display: none;
+    }
+
+    .menu .menu-mobile{
+        display: block;
+    }
+
+    .menu .image {
+        width: 35%;
+    }
+    
+}
+
+@media  only screen and (max-width:425px){
+
+    .menu .image {
+        width: 50%;
+    }
+    
+}

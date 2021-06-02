@@ -1,0 +1,36 @@
+<h1 mat-dialog-title><mat-icon>category</mat-icon> {{title}}</h1>
+<mat-dialog-content>
+    <form [formGroup]="categoryForm">
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Name </mat-label>
+            <input matInput type="text" placeholder="Name" required formControlName="name" [readonly]="status == 3">
+            <mat-error>Name is required</mat-error>
+          </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Description </mat-label>
+            <textarea rows="4" matInput placeholder="Description" formControlName="description" [readonly]="status == 3"> </textarea>
+          </mat-form-field>
+
+          <mat-form-field class="full-width" appearance="outline" *ngIf="status != 3">
+            <mat-label>Image</mat-label>
+            <mat-select required formControlName="image" (valueChange)="changeSelectedImage($event)">
+                <mat-option *ngFor="let item of images" [value]="item.id">
+                    <div class="select-container">
+                        <img class="select-img" [src]="item.url" alt="{{item.name}}" />
+                        {{item.name}}
+                    </div>
+                </mat-option>
+              </mat-select>
+              <mat-error>Image is required</mat-error>
+          </mat-form-field>
+          <div *ngIf="image != ''" class="image-stack">
+            <mat-label>Current Image</mat-label>
+            <img [src]="image" alt="" />
+          </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions class="modal-buttons">
+    <button *ngIf="status != 3" mat-button color="accent" mat-dialog-close>Cancel</button>
+    <button *ngIf="status == 2" mat-raised-button color="primary" type="submit" (click)="update()">Update</button>
+    <button *ngIf="status == 1" mat-raised-button color="primary" type="submit" [disabled]="categoryForm.invalid" (click)="save()">Create</button>
+  </mat-dialog-actions>

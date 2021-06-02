@@ -1,0 +1,30 @@
+<h1 mat-dialog-title><mat-icon>help_outline</mat-icon> {{title}}</h1>
+<mat-dialog-content>
+    <form [formGroup]="qForm">
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Question </mat-label>
+            <input matInput type="text" placeholder="Question" required formControlName="content" [readonly]="status == 3">
+            <mat-error>Question is required</mat-error>
+          </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Answer </mat-label>
+            <textarea rows="4" matInput placeholder="Answer" formControlName="answer" [readonly]="status == 3"> </textarea>
+          </mat-form-field>
+
+          <mat-form-field class="full-width" appearance="outline" >
+            <mat-label>Category</mat-label>
+            <mat-select required formControlName="questionCategoryId" name="questionCategoryId">
+                <mat-option *ngFor="let item of categoriesList" [value]="item.id">
+                    {{item.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error>Category is required</mat-error>
+          </mat-form-field>
+
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions class="modal-buttons">
+    <button *ngIf="status != 3" mat-button color="accent" mat-dialog-close>Cancel</button>
+    <button *ngIf="status == 2" mat-raised-button color="primary" type="submit" (click)="update()">Update</button>
+    <button *ngIf="status == 1" mat-raised-button color="primary" type="submit" [disabled]="qForm.invalid" (click)="save()">Create</button>
+  </mat-dialog-actions>

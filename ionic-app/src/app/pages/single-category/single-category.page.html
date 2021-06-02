@@ -1,0 +1,16 @@
+<ion-content>
+  <ion-progress-bar *ngIf="isLoading" color="primary" type="indeterminate"></ion-progress-bar>
+  <div class="container gradient">
+    <ion-card class="card">
+
+      <div class="title">
+        <img class="image" [src]="category.image" [alt]="category.name" />
+        <h2>{{category.name}}</h2>
+        <p>{{category.description}}</p>
+        <h3 style="padding-top: 15px;"  *ngIf="nothaveQuestions">No hay preguntas en esta categoría</h3>
+        <button *ngIf="!nothaveQuestions" class="start-btn" (click)="start()">Iniciar</button>
+        <button *ngIf="nothaveQuestions" class="start-btn" (click)="back()">Volver</button>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>

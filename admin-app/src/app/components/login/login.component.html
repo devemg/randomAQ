@@ -1,0 +1,30 @@
+<div class="container-all center-content gradient">
+    <mat-card class="center-content">
+        <mat-card-header class="center-content">
+            <img class="image" src="assets/img/title.svg" alt="randomAQ" />
+
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
+                <mat-form-field appearance="outline">
+                    <mat-label>User</mat-label>
+                    <mat-icon matPrefix>account_circle</mat-icon>
+                    <input required matInput type="text" placeholder="User" formControlName="username" >
+                    <mat-error>User is required</mat-error>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <mat-icon matPrefix>password</mat-icon>
+                    <input required matInput type="password" placeholder="Password" formControlName="password">
+                    <mat-error *ngIf="isError('password','required')">Password is required</mat-error>
+                    <mat-error *ngIf="isError('password','minlength')">Password minimun length is 6</mat-error>
+                  </mat-form-field>
+
+                  <button class="btn-submit" mat-raised-button color="primary">Sign In</button>
+            </form>
+            <p style="text-align: center;">No account? <a class="link" routerLink="/register">Create One</a></p>
+            <p style="text-align: center;">Forgot password? <a class="link" routerLink="/reset-password">Reset Password</a></p>
+        </mat-card-content>
+        <ngx-spinner type = "ball-scale-pulse" [fullScreen]="false"></ngx-spinner>
+    </mat-card>
+</div>

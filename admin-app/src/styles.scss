@@ -1,0 +1,70 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.gradient {
+    background: linear-gradient(218.49deg, #C04848 5.98%, #480048 98.42%);
+}
+
+.container-all {
+    width: 100%;
+    min-height: 100vh;
+
+}
+
+.clickable:hover {
+    cursor: pointer;
+}
+
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-card {
+    border-radius: 16px !important;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.modal-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+
+    button{
+        width: 20%;
+    }
+}
+
+.link {
+    color: #480048;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.link:hover {
+    cursor: pointer;
+    color: #C04848;
+}
+.ngx-spinner-overlay {
+    border-radius: 15px !important;
+}
+
+
+
+@media  only screen and (max-width:430px){
+
+    .cdk-overlay-pane {
+        width: 100% !important; 
+    }
+    
+}
