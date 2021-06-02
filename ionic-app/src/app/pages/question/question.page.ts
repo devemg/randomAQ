@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { AlertController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
-import { Category, Question } from 'src/app/services/API.service-amplify';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ClockComponent } from './clock/clock.component';
 

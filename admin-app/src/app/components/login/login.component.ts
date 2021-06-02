@@ -37,12 +37,8 @@ export class LoginComponent implements OnInit {
       })
       .catch(err=>{
         console.log(err)
-        if(
-          (err.code == 'NotAuthorizedException' || 
-            err.code == 'UserNotFoundException' || 
-            err.code == "UserNotConfirmedException") 
-        && err.message){
-          this.snackBar.open(err.message,'Ok',{duration:3000});
+        if(err.error.message){
+          this.snackBar.open(err.error.message,'Ok',{duration:3000});
         }
       })
       .finally(()=>{

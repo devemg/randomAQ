@@ -4,11 +4,13 @@ import { NewUser } from '../models/new-user';
 import { LogInUser } from '../models/login-user';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+//import * as bcrypt from "bcryptjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  hashSalt = 10; 
 
   constructor(private localService: LocalStorageService, private http: HttpClient) { 
   }
@@ -18,6 +20,8 @@ export class AuthService {
    * @param user 
    */
   async register(user: NewUser): Promise<any> {
+   //const passwdHash = bcrypt.hashSync(user.password, this.hashSalt);
+    //user.password = passwdHash;
     return this.http.post(`${environment.API_AUTH}/register`,JSON.stringify(user)).toPromise()
     .then((res:any)=>{
       this.localService.setAuthToken(res.token);
@@ -31,6 +35,8 @@ export class AuthService {
    * @param password 
    */
   async login(user: LogInUser): Promise<any> {
+    //const passwdHash = bcrypt.hashSync(user.password, this.hashSalt);
+    //user.password = passwdHash;
     return this.http.post(`${environment.API_AUTH}/login`,JSON.stringify(user)).toPromise()
     .then((res:any)=>{
       this.localService.setAuthToken(res.token);

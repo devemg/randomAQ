@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Category, Question } from './API.service-amplify';
 export const LS_KEYS = {
   CATEGORY:'category',
   RANDOMQ:'randomq',

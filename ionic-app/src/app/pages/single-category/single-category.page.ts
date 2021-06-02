@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
-import { Category } from 'src/app/services/API.service-amplify';
 
 @Component({
   selector: 'app-single-category',

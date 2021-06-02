@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { APIService, Category, Question } from './API.service-amplify';
+import { Category } from 'src/models/category';
+import { Question } from 'src/models/question';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
@@ -13,7 +14,7 @@ export class ApiService {
   question: Question[] = [
   ];
 
-  constructor(private apiService: APIService, private localService: LocalStorageService) { }
+  constructor(private http:HttpClient, private localService: LocalStorageService) { }
 
   /**
    * Get list with all categories
