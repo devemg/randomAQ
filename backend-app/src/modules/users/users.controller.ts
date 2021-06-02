@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
 import { UsersRepository } from "./users.repository";
-import { enviroment } from "../../enviroment";
-import { User } from "../../models/user";
 import { getJWToken } from "../../providers/jwt-provider";
 import { ExceptionCode } from "../../const";
 
@@ -40,14 +38,14 @@ export class UsersController {
                     const token = getJWToken(res.Item.username,res.Item.email);
                     response.status(200).json({ token });
                 }else {
-                    response.status(400).json({ code:ExceptionCode.PasswordIncorrectException, message: 'Incorrect password' });
+                    response.status(ExceptionCode.PasswordIncorrectException).send('Incorrect Password');
                 }
             }else {
-                response.status(404).json({ code:ExceptionCode.NotFoundException, message: 'Username not found' });
+                response.status(ExceptionCode.NotFoundException).json('Username not found');
             }
         })
         .catch(err=>{
-            response.status(400).json({ code:err.name, message: err.message })
+            response.status(ExceptionCode.AwsException).json({ code:err.name, message: err.message })
         })
     }
 

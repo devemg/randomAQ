@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { TipicalExceptions } from 'src/app/const';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -58,10 +59,8 @@ export class MessageComponent implements OnInit {
       })
     .catch(err=>{
       console.log(err);
-      if(err.code == "NotAuthorizedException") {
-        this.snackBar.open('User already confirmed','Ok',{duration:2000})
-      }else if (err.code == "UserNotFoundException"){
-        this.snackBar.open('User not found','Ok',{duration:2000})
+      if(TipicalExceptions.includes(err.status)){
+        this.snackBar.open(err.error,'Ok',{duration:3000});
       }
     })
     .finally(()=>{

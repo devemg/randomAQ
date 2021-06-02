@@ -18,8 +18,6 @@ app.use('/category', categoryRoutes);
 app.use('/question', questionRoutes);
 app.use('/users', usersRoutes);
 
-
-
 app.listen(port, () => {
   return console.log(`server is listening on ${port}`);
 });

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ExceptionCode } from 'src/app/const';
 import { AuthService } from 'src/app/services/auth.service';
 import { PasswordValidator } from './password-validator';
 
@@ -44,7 +45,7 @@ export class RegisterComponent implements OnInit {
       })
       .catch(err=>{
         console.log(err)
-        if(err.code) {
+        if(ExceptionCode.AlreadyExistException == err.status){
           this.registerFControls.username.setErrors({ usernameAlreadyExists: true })
         }
       }).finally(()=>{

@@ -1,5 +1,6 @@
 export enum ExceptionCode {
-    NotFoundException,
-    AlreadyExistException,
-    PasswordIncorrectException
+    NotFoundException = 404,
+    AlreadyExistException = 400,
+    PasswordIncorrectException = 403,
+    AwsException = 503
 };

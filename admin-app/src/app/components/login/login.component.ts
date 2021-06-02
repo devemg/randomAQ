@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { TipicalExceptions } from 'src/app/const';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -36,9 +37,8 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/admin']);
       })
       .catch(err=>{
-        console.log(err)
-        if(err.error.message){
-          this.snackBar.open(err.error.message,'Ok',{duration:3000});
+        if(TipicalExceptions.includes(err.status)){
+          this.snackBar.open(err.error,'Ok',{duration:3000});
         }
       })
       .finally(()=>{
