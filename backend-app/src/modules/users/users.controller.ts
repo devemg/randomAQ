@@ -3,6 +3,7 @@ import { UsersRepository } from "./users.repository";
 import { enviroment } from "../../enviroment";
 import { User } from "../../models/user";
 import { getJWToken } from "../../providers/jwt-provider";
+import { ExceptionCode } from "../../const";
 
 const repository: UsersRepository = new UsersRepository();
 export class UsersController {
@@ -20,9 +21,9 @@ export class UsersController {
         })
         .catch(err=>{
             if(err.code == 'ConditionalCheckFailedException'){
-                response.status(400).json({message: 'Username already exists' })
+                response.status(400).json({ code:ExceptionCode.AlreadyExistException, message: 'Username already exists' })
             }else {
-                response.status(400).json({message: err.message })
+                response.status(400).json({ code:err.name, message: err.message })
             }   
         })
     }
@@ -39,14 +40,14 @@ export class UsersController {
                     const token = getJWToken(res.Item.username,res.Item.email);
                     response.status(200).json({ token });
                 }else {
-                    response.status(400).json({ message: 'Incorrect password' });
+                    response.status(400).json({ code:ExceptionCode.PasswordIncorrectException, message: 'Incorrect password' });
                 }
             }else {
-                response.status(404).json({ message: 'Username not found' });
+                response.status(404).json({ code:ExceptionCode.NotFoundException, message: 'Username not found' });
             }
         })
         .catch(err=>{
-            response.status(400).json({message: err.message })
+            response.status(400).json({ code:err.name, message: err.message })
         })
     }
 

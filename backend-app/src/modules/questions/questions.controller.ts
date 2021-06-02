@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { ExceptionCode } from "../../const";
 import { Question } from "../../models/question";
 import { CategoriesRepository } from "../categories/categories.repository";
 import { QuestionsRepository } from "./questions.repository";
@@ -19,7 +20,7 @@ export class QuestionsController {
             response.status(200).json(res.Items);
         })
         .catch(err=>{
-            response.status(400).json({message: err.message })
+            response.status(400).json({ code:err.name, message: err.message })
         })
     }
 
@@ -39,11 +40,11 @@ export class QuestionsController {
                 }; 
                 response.status(200).json(res.Item);
             }else {
-                response.status(404).json({message:'Question not found'});
+                response.status(404).json({ code:ExceptionCode.NotFoundException, message:'Question not found'});
             }
         })
         .catch(err=>{
-            response.status(400).json({message: err.message })
+            response.status(400).json({ code:err.name, message: err.message })
         })
     }
 
@@ -57,7 +58,7 @@ export class QuestionsController {
             response.status(200).json(res);
         })
         .catch(err=>{
-            response.status(400).json({message: err.message })
+            response.status(400).json({ code:err.name, message: err.message })
         })
     }
 
@@ -72,9 +73,9 @@ export class QuestionsController {
         })
         .catch(err=>{
             if(err.code == 'ConditionalCheckFailedException'){
-                response.status(404).json({message:"Question not found"});
+                response.status(404).json({ code:ExceptionCode.NotFoundException, message:"Question not found"});
             }else{
-                response.status(400).json({message: err.message })
+                response.status(400).json({ code:err.name, message: err.message })
             }
         })
     }
@@ -86,10 +87,11 @@ export class QuestionsController {
      */
      deleteQuestion(request:Request, response:Response) {
         qRepository.delete(request.params.id).then( (res)=>{
-            response.status(res.Attributes?200:404).json(res.Attributes?res.Attributes:{message:"Question not found"});
+            response.status(res.Attributes?200:404)
+            .json(res.Attributes?res.Attributes:{ code:ExceptionCode.NotFoundException, message:"Question not found"});
         })
         .catch(err=>{
-            response.status(400).json({message: err.message })
+            response.status(400).json({ code:err.name, message: err.message })
         })
     }
 
@@ -103,7 +105,7 @@ export class QuestionsController {
             response.status(200).json(question);
         })
         .catch(err=>{
-            response.status(400).json({message: err.message })
+            response.status(400).json({ code:err.name, message: err.message })
         })
     }
     
@@ -117,7 +119,7 @@ export class QuestionsController {
             response.status(200).json(question);
         })
         .catch(err=>{
-            response.status(400).json({message: err.message })
+            response.status(400).json({ code:err.name, message: err.message })
         })
     }
     
