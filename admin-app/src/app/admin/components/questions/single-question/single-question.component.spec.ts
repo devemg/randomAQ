@@ -14,7 +14,7 @@ describe('SingleQuestionComponent', () => {
   let component: SingleQuestionComponent;
   let fixture: ComponentFixture<SingleQuestionComponent>;
   let service: QuestionService;
-/*
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ SingleQuestionComponent ],
@@ -46,49 +46,32 @@ describe('SingleQuestionComponent', () => {
     expect(component.qForm.valid).toBeFalse();
   });
 
+  
+  it('should form be invalid', () => {
+    expect(component.qForm.invalid).toBeTrue();
+  });
+  
   it('should be in updating mode', () => {
     component.data = { status:ModalStatus.UPDATING, question:questionsMock[0] };
     component.ngOnInit();
     expect(component.status).toBe(ModalStatus.UPDATING);
     expect(component.title).toBe("Update Question");
-    expect(component.qForm.valid).toBeTrue();
   });
 
+  
   it('should be in readonly mode', () => {
     component.data = { status:ModalStatus.READONLY, question:questionsMock[0] };
     component.ngOnInit();
     expect(component.status).toBe(ModalStatus.READONLY);
     expect(component.title).toBe("Question");
-    expect(component.qForm.valid).toBeTrue();
   });
 
-  it('should form be invalid', () => {
-    expect(component.qForm.invalid).toBeTrue();
-  });
-
-  it('should form be invalid with some data', () => {
-    component.qForm.patchValue({
-      content:'what if...?',
-      category:1
-    });
-    component.ngOnInit();
-    expect(component.qForm.valid).toBeFalse();
-  });
-
-  it('should form be invalid with some data', () => {
-    component.qForm.patchValue({
-      content:'what if...?',
-      category:1,
-      answer:'So...'
-    });
-    expect(component.qForm.valid).toBeTrue();
-  });
 
   it('should call newQuestion service ', () => {
     let newQ = spyOn(service,'saveQuestion').and.callFake(_=>new Promise(()=>{})); 
     component.qForm.patchValue({
       content:'what if...?',
-      category:1,
+      questionCategoryId:1,
       answer:'So...'
     });
     component.save();
@@ -99,11 +82,11 @@ describe('SingleQuestionComponent', () => {
     let newQ = spyOn(service,'updateQuestion').and.callFake(_=>new Promise(()=>{}));
     component.qForm.patchValue({
       content:'what if...?',
-      category:1,
+      questionCategoryId:1,
       answer:'So...'
     });
     component.update();
     expect(newQ).toHaveBeenCalled();
-  });*/
+  });
 
 });

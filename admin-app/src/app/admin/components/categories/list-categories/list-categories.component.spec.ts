@@ -5,10 +5,10 @@ import { ListCategoriesComponent } from './list-categories.component';
 import { ShortDescriptionPipe } from 'src/app/admin/pipes/short-description.pipe';
 import { CategoryService } from 'src/app/admin/services/category.service';
 import { categoriesMock } from 'src/app/admin/services/mock-data-services.spec';
-import { Observable, of } from 'rxjs';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectorRef, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatPaginator } from '@angular/material/paginator';
 
 describe('ListCategoriesComponent', () => {
   let component: ListCategoriesComponent;
@@ -23,7 +23,7 @@ describe('ListCategoriesComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ ListCategoriesComponent, ShortDescriptionPipe ],
       imports: [NoopAnimationsModule, HttpClientTestingModule ],
-      providers: [
+      providers: [ MatPaginator, ChangeDetectorRef,
         { provide: MatDialog, useValue: { open: ()=>{}} },
         { provide: MatSnackBar, useValue: {open: ()=>{}} } ],
       schemas:[ CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA ]
@@ -46,40 +46,39 @@ describe('ListCategoriesComponent', () => {
     expect(catService).toBeTruthy();
   });
 
-  /*it('should call getAllCategories() of categoryService on ngOnInit', () => {
-    let allCategories = spyOn(catService,'getAllCategories').and.returnValue(of(categoriesMock));
-    component.ngOnInit();
-    component.ngAfterViewInit();
+  it('should call getAllCategories() of CategoryService on loadDatasource', () => {
+    let allFunction = spyOn(catService,'getAllCategories').and.callFake(()=>new Promise((resolve,reject)=>{
+      resolve(categoriesMock);
+    }));
+    component.paginator = TestBed.inject(MatPaginator);
+    component.loadDatasource();
     fixture.detectChanges();
+    expect(allFunction).toHaveBeenCalled();
+    expect(component.paginator).toBeDefined();
+  }); 
+
+  it('should call getAllCategories() of CategoryService on loadDatasource with error', () => {
+    let allCategories = spyOn(catService,'getAllCategories').and.callFake(()=>new Promise((resolve,reject)=>{
+      reject({});
+    }));
+    component.loadDatasource();
     expect(allCategories).toHaveBeenCalled();
-    expect(component.datasource).toBeTruthy();
   });
 
-  it('should open matDialog to create new Category', () => {
-    let open = spyOn(component.matDialog,'open');
-    component.newCategory();
-    component.ngOnInit();
-    expect(open).toHaveBeenCalled();
-  }); 
-
-  it('should open matDialog to create QuCategoryestion', () => {
-    let open = spyOn(component.matDialog,'open');
-    component.seeCategory(categoriesMock[0]);
-    component.ngOnInit();
-    expect(open).toHaveBeenCalled();
-  }); 
-
-  it('should open matDialog to update Category', () => {
-    let open = spyOn(component.matDialog,'open');
-    component.updateCategory(categoriesMock[0]);
-    component.ngOnInit();
-    expect(open).toHaveBeenCalled();
-  }); 
-
-  it('should call delete Category of service', () => {
-    let open = spyOn(component.catService,'deleteCategory');
+  it('should call deleteCategory() of categoryService', () => {
+    let allQuestions = spyOn(catService,'deleteCategory').and.callFake(()=>new Promise((resolve,reject)=>{
+      resolve({});
+    }));
     component.deleteCategory('1');
-    expect(open).toHaveBeenCalled();
-  }); */
+    expect(allQuestions).toHaveBeenCalled();
+  }); 
+  
+  it('should call deleteCategory() of categoryService', () => {
+    let allQuestions = spyOn(catService,'deleteCategory').and.callFake(()=>new Promise((resolve,reject)=>{
+      reject({});
+    }));
+    component.deleteCategory('1');
+    expect(allQuestions).toHaveBeenCalled();
+  }); 
 
 });

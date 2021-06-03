@@ -61,18 +61,18 @@ export class AuthService {
    * @returns 
    */
   async confirmAccount(username: string, code: string) : Promise<any> {
-    return this.http.post(``,JSON.stringify({username,code})).toPromise();
+    return this.http.post(`${environment.API_AUTH}`,JSON.stringify({username,code})).toPromise();
   }
 
   /**
    * Reset password
    */
   resetPassword(username: string): Promise<any> {
-    return this.http.post(``,JSON.stringify(username)).toPromise();
+    return this.http.post(`${environment.API_AUTH}`,JSON.stringify(username)).toPromise();
   }
 
   newPassword(username: string, password: string, code: string): Promise<any> {
-    return this.http.post(``,JSON.stringify({username,password,code})).toPromise();
+    return this.http.post(`${environment.API_AUTH}`,JSON.stringify({username,password,code})).toPromise();
   }
   
 

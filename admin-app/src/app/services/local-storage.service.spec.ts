@@ -60,6 +60,10 @@ describe('LocalStorageService', () => {
     expect(service.isAuth()).toBeTrue();
   });
 
+  it('should return empty token if the user is not authenticated', () => {
+    expect(service.getAuthToken()).toEqual('');
+  });
+
   it('should remove auth token', () => {
     service.removeAuthToken();
     expect(service.isAuth()).toBeFalse();

@@ -16,7 +16,7 @@ export class ForgotPasswordComponent implements OnInit {
   username: FormControl;
   password: FormControl;
   code: FormControl;
-  constructor(private formBuilder: FormBuilder, private authService: AuthService,
+  constructor(private authService: AuthService,
     private spinner: NgxSpinnerService,
     private snackBar: MatSnackBar,
     private activatedRouter: ActivatedRoute,
@@ -24,15 +24,15 @@ export class ForgotPasswordComponent implements OnInit {
       this.username = new FormControl('',[Validators.required]);
       this.password = new FormControl();
       this.code = new FormControl();
+  }
+
+  ngOnInit(): void {
       if(this.activatedRouter.snapshot.params.username){
         this.isRecovering = true; 
         this.username.patchValue(this.activatedRouter.snapshot.params.username);
         this.password.setValidators([Validators.required,Validators.minLength(6)]);
         this.code.setValidators([Validators.required]);
       }
-  }
-
-  ngOnInit(): void {
   }
 
   /**
