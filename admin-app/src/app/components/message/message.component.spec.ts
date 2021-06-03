@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 
 import { MessageComponent } from './message.component';
 
-fdescribe('MessageComponent', () => {
+describe('MessageComponent', () => {
   let component: MessageComponent;
   let fixture: ComponentFixture<MessageComponent>;
   let routeStateMock: any = { snapshot: {url: [ {path:'verificated'} ] }, url: '/admin'};

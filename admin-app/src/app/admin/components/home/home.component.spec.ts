@@ -6,7 +6,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 import { HomeComponent } from './home.component';
 
-fdescribe('HomeComponent', () => {
+describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
   let localService: LocalStorageService;

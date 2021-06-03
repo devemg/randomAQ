@@ -23,7 +23,7 @@ describe('ListQuestionsComponent', () => {
     })
     .compileComponents();
   });
-/*
+
   beforeEach(() => {
     fixture = TestBed.createComponent(ListQuestionsComponent);
     component = fixture.componentInstance;
@@ -40,36 +40,15 @@ describe('ListQuestionsComponent', () => {
   });
 
   it('should call getAllQuestions() of categoryService on ngOnInit', () => {
-    let allQuestions = spyOn(qService,'getAllQuestions').and.returnValue(of(questionsMock));
+    let allQuestions = spyOn(qService,'getAllQuestions').and.callFake(()=>new Promise(()=>{}));
     component.ngOnInit();
     expect(allQuestions).toHaveBeenCalled();
   }); 
 
   it('should call deleteQuestion() of categoryService on ngOnInit', () => {
-    let allQuestions = spyOn(qService,'deleteQuestion').and.returnValue(of(questionsMock));
+    let allQuestions = spyOn(qService,'deleteQuestion').and.callFake(()=>new Promise(()=>{}));
     component.deleteQuestion('1');
     expect(allQuestions).toHaveBeenCalled();
-  }); */
-
-  /*it('should open matDialog to create new Question', () => {
-    let open = spyOn(component.matDialog,'open');
-    component.newQuestion();
-    component.ngOnInit();
-    expect(open).toHaveBeenCalled();
   }); 
-
-  it('should open matDialog to create Question', () => {
-    let open = spyOn(component.matDialog,'open');
-    component.seeQuestion(questionsMock[0]);
-    component.ngOnInit();
-    expect(open).toHaveBeenCalled();
-  }); 
-
-  it('should open matDialog to update Question', () => {
-    let open = spyOn(component.matDialog,'open');
-    component.updateQuestion(questionsMock[0]);
-    component.ngOnInit();
-    expect(open).toHaveBeenCalled();
-  }); 
-  */
+  
 });

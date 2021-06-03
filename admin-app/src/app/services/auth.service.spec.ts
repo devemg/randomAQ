@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 import { LocalStorageService } from './local-storage.service';
 
-fdescribe('AuthService', () => {
+describe('AuthService', () => {
   let service: AuthService;
   let localService: LocalStorageService;
   let httpMock: HttpTestingController; 

@@ -9,10 +9,10 @@ import { AuthService } from 'src/app/services/auth.service';
 
 import { ForgotPasswordComponent } from './forgot-password.component';
 
-fdescribe('ForgotPasswordComponent', () => {
+describe('ForgotPasswordComponent', () => {
   let component: ForgotPasswordComponent;
   let fixture: ComponentFixture<ForgotPasswordComponent>;
-  let routeStateMock: any =  { snapshot: {url: [ {path:'verificated'} ] }, url: '/admin'};
+  let routeStateMock: any =  { snapshot: { params: {} }};
   let service: AuthService; 
 
   beforeEach(async () => {

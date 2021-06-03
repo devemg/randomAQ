@@ -37,7 +37,7 @@ describe('SingleCategoryComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-/*
+
   it('should check if the form is invalid at start', () => {
       expect(component.categoryForm.invalid).toBeTrue();
   });
@@ -125,10 +125,4 @@ describe('SingleCategoryComponent', () => {
     expect(newQ).not.toHaveBeenCalled();
   });
 
-  it('should change preview image', () => {
-    component.changeSelectedImage('1');
-    fixture.detectChanges();
-    expect(component.image).toEqual('https://res.cloudinary.com/devemg/image/upload/v1621289170/randomAQ/category-icons/022-elephant_qzrskn.png');
-  });
-*/
 });

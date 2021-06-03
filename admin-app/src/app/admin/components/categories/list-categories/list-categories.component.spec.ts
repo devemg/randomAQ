@@ -46,40 +46,4 @@ describe('ListCategoriesComponent', () => {
     expect(catService).toBeTruthy();
   });
 
-  /*it('should call getAllCategories() of categoryService on ngOnInit', () => {
-    let allCategories = spyOn(catService,'getAllCategories').and.returnValue(of(categoriesMock));
-    component.ngOnInit();
-    component.ngAfterViewInit();
-    fixture.detectChanges();
-    expect(allCategories).toHaveBeenCalled();
-    expect(component.datasource).toBeTruthy();
-  });
-
-  it('should open matDialog to create new Category', () => {
-    let open = spyOn(component.matDialog,'open');
-    component.newCategory();
-    component.ngOnInit();
-    expect(open).toHaveBeenCalled();
-  }); 
-
-  it('should open matDialog to create QuCategoryestion', () => {
-    let open = spyOn(component.matDialog,'open');
-    component.seeCategory(categoriesMock[0]);
-    component.ngOnInit();
-    expect(open).toHaveBeenCalled();
-  }); 
-
-  it('should open matDialog to update Category', () => {
-    let open = spyOn(component.matDialog,'open');
-    component.updateCategory(categoriesMock[0]);
-    component.ngOnInit();
-    expect(open).toHaveBeenCalled();
-  }); 
-
-  it('should call delete Category of service', () => {
-    let open = spyOn(component.catService,'deleteCategory');
-    component.deleteCategory('1');
-    expect(open).toHaveBeenCalled();
-  }); */
-
 });

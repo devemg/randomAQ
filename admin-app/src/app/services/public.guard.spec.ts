@@ -4,7 +4,7 @@ import { LocalStorageService } from './local-storage.service';
 
 import { PublicGuard } from './public.guard';
 
-fdescribe('PublicGuard', () => {
+describe('PublicGuard', () => {
   let guard: PublicGuard;
   let service: LocalStorageService;
   let routeMock: any = { snapshot: {}};
