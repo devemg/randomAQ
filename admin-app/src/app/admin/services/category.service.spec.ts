@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { CategoryService } from './category.service';
 import { categoriesMock, imagesMock } from './mock-data-services.spec';
 
-describe('CategoryService', () => {
+fdescribe('CategoryService', () => {
   let service: CategoryService;
   let httpMock: HttpTestingController; 
 

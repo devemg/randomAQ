@@ -5,7 +5,7 @@ import { questionsMock } from './mock-data-services.spec';
 
 import { QuestionService } from './question.service';
 
-describe('QuestionService', () => {
+fdescribe('QuestionService', () => {
   let service: QuestionService;
   let httpMock: HttpTestingController; 
   

@@ -5,7 +5,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 import { AuthGuard } from './auth.guard';
 
-describe('AuthGuard', () => {
+fdescribe('AuthGuard', () => {
   let guard: AuthGuard;
   let service: LocalStorageService; 
   let routeMock: any = { snapshot: {}};

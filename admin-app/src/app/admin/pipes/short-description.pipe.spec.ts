@@ -1,6 +1,6 @@
 import { ShortDescriptionPipe } from './short-description.pipe';
 
-describe('ShortDescriptionPipe', () => {
+fdescribe('ShortDescriptionPipe', () => {
   let pipe: ShortDescriptionPipe;
 
   beforeEach(()=>{
