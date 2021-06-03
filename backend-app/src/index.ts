@@ -4,14 +4,12 @@ import cors from 'cors';
 import { categoryRoutes } from "./modules/categories/categories.routes";
 import { questionRoutes } from './modules/questions/questions.routes';
 import { usersRoutes } from './modules/users/users.routes';
-import { enviroment } from './enviroment';
-
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-const port = enviroment.port || 3000;
+const port = process.env.port || 3000;
 
 
 app.use('/category', categoryRoutes);
