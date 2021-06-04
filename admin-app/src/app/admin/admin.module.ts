@@ -11,6 +11,7 @@ import { ShortDescriptionPipe } from './pipes/short-description.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ListQuestionsComponent } from './components/questions/list-questions/list-questions.component';
 import { SingleQuestionComponent } from './components/questions/single-question/single-question.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { SingleQuestionComponent } from './components/questions/single-question/
     AdminRoutingModule,
     MaterialAngularModule,
     LayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule
   ]
 })
 export class AdminModule { }

@@ -3,6 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs';
 import { ModalStatus } from 'src/app/admin/models/status-modal';
 import { questionsMock } from 'src/app/admin/services/mock-data-services.spec';
@@ -17,7 +18,7 @@ describe('SingleQuestionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SingleQuestionComponent ],
+      declarations: [ SingleQuestionComponent, RouterTestingModule ],
       imports: [ HttpClientTestingModule ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: null },

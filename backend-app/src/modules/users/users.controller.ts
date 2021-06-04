@@ -13,8 +13,8 @@ export class UsersController {
      * @param response 
      */
     register(request:Request,response:Response) {
-        repository.newUser(request.body,true).then(res=>{
-            const token = getJWToken(request.body.username,request.body.email);
+        repository.newUser(request.body,false).then(res=>{
+            const token = getJWToken(request.body.username,request.body.email,false);
             response.status(200).json({ token });
         })
         .catch(err=>{
@@ -35,7 +35,7 @@ export class UsersController {
         repository.getUser(request.body.username).then(res=>{
             if(res.Item){
                 if(res.Item.password == request.body.password){
-                    const token = getJWToken(res.Item.username,res.Item.email);
+                    const token = getJWToken(res.Item.username,res.Item.email,res.Item.isAuthorized);
                     response.status(200).json({ token });
                 }else {
                     response.status(ExceptionCode.PasswordIncorrectException).send('Incorrect Password');

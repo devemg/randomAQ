@@ -3,9 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Category } from 'src/app/admin/models/category';
 import { ModalStatus } from 'src/app/admin/models/status-modal';
 import { CategoryService } from 'src/app/admin/services/category.service';
+import { ExceptionCode, TipicalExceptions } from 'src/app/const';
 import { SingleCategoryComponent } from '../single-category/single-category.component';
 
 @Component({
@@ -13,14 +15,15 @@ import { SingleCategoryComponent } from '../single-category/single-category.comp
   templateUrl: './list-categories.component.html',
   styleUrls: ['./list-categories.component.scss']
 })
-export class ListCategoriesComponent implements OnInit,AfterViewInit {
+export class ListCategoriesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
   displayedColumns: string[] = ['name', 'image' ,'description', 'options'];
   datasource: MatTableDataSource<Category> = new MatTableDataSource();
 
   loading = false;
-  constructor(public catService: CategoryService, public matDialog: MatDialog, public snackBar: MatSnackBar) {
+  constructor(public catService: CategoryService, public matDialog: MatDialog, public snackBar: MatSnackBar,
+    private router: Router) {
     
   }
 
@@ -35,12 +38,15 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
       if(this.paginator){
         this.datasource.paginator = this.paginator;
       }
-      this.loading = false;
     })
-    .catch(err=>console.log(err));
-  }
-
-   ngAfterViewInit() {
+    .catch(err=>{
+      console.log(err.status)
+      if(err.status == ExceptionCode.TokenExpiredException) {
+        this.router.navigate(['/login']);
+      }
+    }).finally(()=>{
+      this.loading = false;
+    });
   }
 
   newCategory() {
@@ -49,10 +55,10 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
     })
     .afterClosed().subscribe(res=>{
       if(res){
-        this.snackBar.open("Category created!",'Ok',{duration:2000})
+        this.snackBar.open("Category created!",'Ok',{duration:2000});
         this.loadDatasource();
       }
-    },err=>this.snackBar.open("Cannot create category",'Ok',{duration:2000}))
+    })
   }
 
   updateCategory(category: Category) {
@@ -61,10 +67,10 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
       data:{ status:ModalStatus.UPDATING, category:category }
     }).afterClosed().subscribe(res=>{
       if(res){
-        this.snackBar.open("Category updated!",'Ok',{duration:2000})
+        this.snackBar.open("Category updated!",'Ok',{duration:2000});
         this.loadDatasource();
       }
-    },err=>this.snackBar.open("Cannot update category",'Ok',{duration:2000}))
+    })
   }
 
   seeCategory(category: Category) {
@@ -75,10 +81,21 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
   }
 
   deleteCategory(id: string) {
+    this.loading = true;
     this.catService.deleteCategory(id).then(res=>{
-        this.snackBar.open("Category deleted!",'Ok',{duration:2000})
+        this.snackBar.open("Category deleted!",'Ok',{duration:2000});
         this.loadDatasource();
-    }).catch(err=>this.snackBar.open("Cannot delete category",'Ok',{duration:2000}))
+    }).catch(err=>{
+      if(TipicalExceptions.includes(err.status)){
+        this.snackBar.open(err.error,'Ok',{duration:3000});
+      } else if(err.status == ExceptionCode.TokenExpiredException) {
+        this.router.navigate(['/login']);
+      } else {
+        this.snackBar.open("Cannot delete category",'Ok',{duration:2000})
+      }
+    }).finally(()=>{
+      this.loading = false;
+    })
   }
 
 }

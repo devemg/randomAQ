@@ -1,17 +1,18 @@
 import * as jwt  from "jsonwebtoken";
 import { enviroment } from "../enviroment";
 import { Response } from "express";
+import { ExceptionCode } from "../const";
 
   /**
   * Get access token from jwt sign
   */
-  export function getJWToken(username: string, email: string) {
+  export function getJWToken(username: string, email: string, isAuthorized: boolean) {
     const payload = {
         username,
         email,
-        isAuthorized: true
+        isAuthorized
        };
-    return jwt.sign(payload,enviroment.jwt_secret_key || '', { expiresIn: 1440 });
+    return jwt.sign(payload,enviroment.jwt_secret_key || '', { expiresIn: 60*60*2 });
   }
 
 
@@ -26,13 +27,17 @@ import { Response } from "express";
   if (token) {
     jwt.verify(token, enviroment.jwt_secret_key || '', (err:any, decoded:any) => {      
       if (err) {
-        return res.status(401).json({ message: err.message });    
+        return res.status(ExceptionCode.TokenExpiredException).json(err.message);    
       } else {
-        req.payload = decoded;    
-        next();
+        req.payload = decoded;   
+        if(req.payload.isAuthorized){
+          next();
+        }else {
+          return res.status(ExceptionCode.UnauthorizedException).json('You are not authorized to make this change' ); 
+        }
       }
     });
   } else {
-    res.status(401).send({ message: 'Token not found' });
+    res.status(ExceptionCode.TokenNotFoundException).send('Token not found');
   }
 }
