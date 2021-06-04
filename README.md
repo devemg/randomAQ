@@ -62,6 +62,8 @@ Run `ionic serve` to start the development environment. Navigate to `http://loca
 
 The app will automatically reload if you change any of the source files.
 
+You can find the android APK to download in this folder [Application APK](https://drive.google.com/drive/folders/1dXZHFMEaKaWdY_CDuSJff6SR0GCRcJmO?usp=sharing).
+
 ## Bugs and Issues
 Have a bug or an issue? 
 Open a new issue here on Github.
