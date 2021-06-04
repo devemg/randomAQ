@@ -44,30 +44,35 @@ export const questionsMock: Question[] = [
     answer:'',
     content:'',
     category: categoriesMock[0],
-    id:'1'
+    id:'1',
+    questionCategoryId: '1'
   },
   {
     answer:'',
     content:'',
     category: categoriesMock[1],
-    id:'1'
+    id:'1',
+    questionCategoryId: '1'
   },
   {
     answer:'',
     content:'',
     category: categoriesMock[2],
-    id:'1'
+    id:'1',
+    questionCategoryId: '1'
   },
   {
     answer:'',
     content:'',
     category: categoriesMock[3],
-    id:'1'
+    id:'1',
+    questionCategoryId: '1'
   },
   {
     answer:'',
     content:'',
     category: categoriesMock[4],
-    id:'1'
+    id:'1',
+    questionCategoryId: '1'
   }
 ];

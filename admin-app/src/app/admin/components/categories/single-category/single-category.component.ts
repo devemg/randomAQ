@@ -1,11 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Category } from 'src/app/admin/models/category';
 import { DialogData } from 'src/app/admin/models/dialog-data';
 import { Image } from 'src/app/admin/models/image';
 import { ModalStatus } from 'src/app/admin/models/status-modal';
 import { CategoryService } from 'src/app/admin/services/category.service';
+import { ExceptionCode } from 'src/app/const';
 
 export interface DialogDataCategory extends DialogData {
   category:Category;
@@ -26,7 +28,9 @@ export class SingleCategoryComponent implements OnInit {
   image = '';
 
   constructor(private formBuilder: FormBuilder, public catService: CategoryService,
-    @Inject(MAT_DIALOG_DATA) public data: DialogDataCategory, private matDialgoRef: MatDialogRef<SingleCategoryComponent>) { 
+    @Inject(MAT_DIALOG_DATA) public data: DialogDataCategory, 
+    private matDialgoRef: MatDialogRef<SingleCategoryComponent>,
+    private matSnackBar: MatSnackBar) { 
     this.categoryForm = this.formBuilder.group({
       id:[],
       name:['',Validators.required],
@@ -80,7 +84,17 @@ export class SingleCategoryComponent implements OnInit {
    if(this.categoryForm.valid) {
       let imageUrl = this.images.find(i=>i.id == this.categoryForm.value.image);
       this.catService.newCategory({...this.categoryForm.value,image:imageUrl?imageUrl.url:''})
-      .then(res=>this.matDialgoRef.close(true)).catch(err=>this.matDialgoRef.close(false))
+      .then(res=>this.matDialgoRef.close(true))
+      .catch(err=>{
+        if(err.status == ExceptionCode.ForbbidenException) {
+          this.matSnackBar.open(err.error,'Ok',{duration:3000});
+        }else {
+          this.matSnackBar.open("Cannot update question",'Ok',{duration:2000});
+        }
+      })
+      .finally(()=>{
+        this.matDialgoRef.close(false);
+      });
     }
   }
 
@@ -94,8 +108,15 @@ export class SingleCategoryComponent implements OnInit {
         this.catService.updateCategory(this.categoryForm.value.id,newElement)
         .then(res=>this.matDialgoRef.close(true))
         .catch(err=>{
-          this.matDialgoRef.close(false)
+          if(err.status == ExceptionCode.ForbbidenException) {
+            this.matSnackBar.open(err.error,'Ok',{duration:3000});
+          }else {
+            this.matSnackBar.open("Cannot update question",'Ok',{duration:2000});
+          }
         })
+        .finally(()=>{
+          this.matDialgoRef.close(false);
+        });
     }
    }
 }

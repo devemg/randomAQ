@@ -15,20 +15,19 @@ export class HeadersInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     // json header
+    let modifiedReq = request;
     if(request.body) {
-      const modifiedReq = request.clone({ 
+      modifiedReq = modifiedReq.clone({ 
         headers: request.headers.set('Content-Type', 'application/json'),
       });
-      return next.handle(modifiedReq);
     }
 
     //auth header 
     if(this.local.isAuth()) {
-      const modifiedReq = request.clone({ 
+      modifiedReq = modifiedReq.clone({ 
         headers: request.headers.set('Authorization', this.local.getAuthToken()),
       });
-      return next.handle(modifiedReq);
     }
-    return next.handle(request);
+    return next.handle(modifiedReq);
   }
 }

@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Category } from 'src/app/admin/models/category';
 import { ModalStatus } from 'src/app/admin/models/status-modal';
 import { CategoryService } from 'src/app/admin/services/category.service';
+import { ExceptionCode } from 'src/app/const';
 import { SingleCategoryComponent } from '../single-category/single-category.component';
 
 @Component({
@@ -13,7 +14,7 @@ import { SingleCategoryComponent } from '../single-category/single-category.comp
   templateUrl: './list-categories.component.html',
   styleUrls: ['./list-categories.component.scss']
 })
-export class ListCategoriesComponent implements OnInit,AfterViewInit {
+export class ListCategoriesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
   displayedColumns: string[] = ['name', 'image' ,'description', 'options'];
@@ -40,19 +41,16 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
     .catch(err=>console.log(err));
   }
 
-   ngAfterViewInit() {
-  }
-
   newCategory() {
     this.matDialog.open(SingleCategoryComponent,{
       width:'60%'
     })
     .afterClosed().subscribe(res=>{
       if(res){
-        this.snackBar.open("Category created!",'Ok',{duration:2000})
+        this.snackBar.open("Category created!",'Ok',{duration:2000});
         this.loadDatasource();
       }
-    },err=>this.snackBar.open("Cannot create category",'Ok',{duration:2000}))
+    })
   }
 
   updateCategory(category: Category) {
@@ -61,10 +59,10 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
       data:{ status:ModalStatus.UPDATING, category:category }
     }).afterClosed().subscribe(res=>{
       if(res){
-        this.snackBar.open("Category updated!",'Ok',{duration:2000})
+        this.snackBar.open("Category updated!",'Ok',{duration:2000});
         this.loadDatasource();
       }
-    },err=>this.snackBar.open("Cannot update category",'Ok',{duration:2000}))
+    })
   }
 
   seeCategory(category: Category) {
@@ -76,9 +74,15 @@ export class ListCategoriesComponent implements OnInit,AfterViewInit {
 
   deleteCategory(id: string) {
     this.catService.deleteCategory(id).then(res=>{
-        this.snackBar.open("Category deleted!",'Ok',{duration:2000})
+        this.snackBar.open("Category deleted!",'Ok',{duration:2000});
         this.loadDatasource();
-    }).catch(err=>this.snackBar.open("Cannot delete category",'Ok',{duration:2000}))
+    }).catch(err=>{
+      if(err.status == ExceptionCode.ForbbidenException){
+        this.snackBar.open(err.error,'Ok',{duration:3000});
+      } else {
+        this.snackBar.open("Cannot delete category",'Ok',{duration:2000})
+      }
+    })
   }
 
 }

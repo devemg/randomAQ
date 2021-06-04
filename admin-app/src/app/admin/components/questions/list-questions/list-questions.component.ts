@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Question } from 'src/app/admin/models/question';
 import { ModalStatus } from 'src/app/admin/models/status-modal';
 import { QuestionService } from 'src/app/admin/services/question.service';
+import { ExceptionCode } from 'src/app/const';
 import { SingleQuestionComponent } from '../single-question/single-question.component';
 
 @Component({
@@ -49,7 +50,7 @@ export class ListQuestionsComponent implements OnInit {
         this.snackBar.open("Question created!",'Ok',{duration:2000})
         this.loadDatasource();
       }
-    },err=>this.snackBar.open("Cannot create question",'Ok',{duration:2000}));
+    });
   }
 
   /**
@@ -77,7 +78,7 @@ export class ListQuestionsComponent implements OnInit {
         this.snackBar.open("Question updated!",'Ok',{duration:2000})
         this.loadDatasource();
       }
-    },err=>this.snackBar.open("Cannot update question",'Ok',{duration:2000}));
+    });
   }
 
   /**
@@ -92,6 +93,12 @@ export class ListQuestionsComponent implements OnInit {
         this.loadDatasource();
       }
     })
-    .catch(err=>this.snackBar.open("Cannot delete question",'Ok',{duration:2000}))
+    .catch(err=>{
+      if(err.status == ExceptionCode.ForbbidenException){
+        this.snackBar.open(err.error,'Ok',{duration:3000});
+      } else {
+        this.snackBar.open("Cannot delete question",'Ok',{duration:2000})
+      }
+    })
   }
 }
