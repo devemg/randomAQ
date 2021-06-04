@@ -44,6 +44,9 @@ export class CategoriesController {
      * @param res 
      */
      newCategory(request:Request, response:Response) {
+         if(!request.body.name) {
+            return response.status(ExceptionCode.NotFoundException).json('Data incomplete');
+         }
         catRepository.create(request.body).then( (res)=>{
             response.status(200).json(res);
         })

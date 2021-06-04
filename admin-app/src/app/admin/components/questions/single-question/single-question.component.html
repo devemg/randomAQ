@@ -28,3 +28,4 @@
     <button *ngIf="status == 2" mat-raised-button color="primary" type="submit" (click)="update()">Update</button>
     <button *ngIf="status == 1" mat-raised-button color="primary" type="submit" [disabled]="qForm.invalid" (click)="save()">Create</button>
   </mat-dialog-actions>
+  <ngx-spinner type = "ball-scale-pulse" [fullScreen]="false"></ngx-spinner>

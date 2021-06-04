@@ -2,13 +2,15 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Category } from 'src/app/admin/models/category';
 import { DialogData } from 'src/app/admin/models/dialog-data';
 import { Question } from 'src/app/admin/models/question';
 import { ModalStatus } from 'src/app/admin/models/status-modal';
 import { CategoryService } from 'src/app/admin/services/category.service';
 import { QuestionService } from 'src/app/admin/services/question.service';
-import { ExceptionCode } from 'src/app/const';
+import { ExceptionCode, TipicalExceptions } from 'src/app/const';
 
 export interface DialogDataQuestion extends DialogData {
   question: Question
@@ -30,7 +32,9 @@ export class SingleQuestionComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogDataQuestion, private formBuilder: FormBuilder,
   public qService: QuestionService, public catService: CategoryService,
   private matDialogRef: MatDialogRef<SingleQuestionComponent>,
-  private matSnackBar: MatSnackBar) {
+  private matSnackBar: MatSnackBar,
+  private router: Router,
+  private spinner: NgxSpinnerService) {
     this.qForm = this.formBuilder.group({
       id: [],
       content: ['',Validators.required],
@@ -76,17 +80,22 @@ export class SingleQuestionComponent implements OnInit {
    */
   save() {
     if(this.qForm.valid){
+      this.spinner.show();
       this.qService.saveQuestion(this.qForm.value)
       .then(res=>{
+        this.matDialogRef.close(true);
       })
       .catch(err=>{
-        if(err.status == ExceptionCode.ForbbidenException) {
+        if(TipicalExceptions.includes(err.status)) {
           this.matSnackBar.open(err.error,'Ok',{duration:3000});
+        }else if(err.status == ExceptionCode.TokenExpiredException) {
+          this.router.navigate(['/login']);
         }else {
           this.matSnackBar.open("Cannot save question",'Ok',{duration:2000});
         }
-      }).finally(()=>{
         this.matDialogRef.close(false);
+      }).finally(()=>{
+        this.spinner.hide();
       });
     }
   }
@@ -96,17 +105,21 @@ export class SingleQuestionComponent implements OnInit {
    */
   update() {
     if(this.qForm.valid){
+      this.spinner.show();
       this.qService.updateQuestion(this.qForm.value.id,this.qForm.value)
       .then(res=>this.matDialogRef.close(true))
       .catch(err=>{
-        if(err.status == ExceptionCode.ForbbidenException) {
+        if(TipicalExceptions.includes(err.status)) {
           this.matSnackBar.open(err.error,'Ok',{duration:3000});
+        }else if(err.status == ExceptionCode.TokenExpiredException) {
+          this.router.navigate(['/login']);
         }else {
           this.matSnackBar.open("Cannot update question",'Ok',{duration:2000});
         }
+        this.matDialogRef.close(false);
       })
       .finally(()=>{
-        this.matDialogRef.close(false);
+        this.spinner.hide();
       });
     }
   }

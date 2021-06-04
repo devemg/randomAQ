@@ -4,6 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { questionsMock } from 'src/app/admin/services/mock-data-services.spec';
 import { QuestionService } from 'src/app/admin/services/question.service';
@@ -18,7 +19,7 @@ describe('ListQuestionsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ListQuestionsComponent ],
-      imports: [ MatDialogModule, HttpClientTestingModule ],
+      imports: [ MatDialogModule, HttpClientTestingModule, RouterTestingModule ],
       providers: [ MatPaginator, ChangeDetectorRef,
         { provide: MatSnackBar, useValue: {open: ()=>{}} }
       ]

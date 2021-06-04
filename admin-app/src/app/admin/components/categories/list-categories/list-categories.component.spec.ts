@@ -9,6 +9,7 @@ import { ChangeDetectorRef, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@an
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator } from '@angular/material/paginator';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ListCategoriesComponent', () => {
   let component: ListCategoriesComponent;
@@ -22,8 +23,8 @@ describe('ListCategoriesComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ListCategoriesComponent, ShortDescriptionPipe ],
-      imports: [NoopAnimationsModule, HttpClientTestingModule ],
-      providers: [ MatPaginator, ChangeDetectorRef,
+      imports: [NoopAnimationsModule, HttpClientTestingModule, RouterTestingModule ],
+      providers: [ MatPaginator, ChangeDetectorRef, 
         { provide: MatDialog, useValue: { open: ()=>{}} },
         { provide: MatSnackBar, useValue: {open: ()=>{}} } ],
       schemas:[ CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA ]

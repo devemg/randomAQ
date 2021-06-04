@@ -3,10 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Question } from 'src/app/admin/models/question';
 import { ModalStatus } from 'src/app/admin/models/status-modal';
 import { QuestionService } from 'src/app/admin/services/question.service';
-import { ExceptionCode } from 'src/app/const';
+import { ExceptionCode, TipicalExceptions } from 'src/app/const';
 import { SingleQuestionComponent } from '../single-question/single-question.component';
 
 @Component({
@@ -21,7 +22,8 @@ export class ListQuestionsComponent implements OnInit {
   datasource: MatTableDataSource<Question> = new MatTableDataSource();
 
   loading = false;
-  constructor(public qService: QuestionService, public matDialog:MatDialog, private snackBar: MatSnackBar) { }
+  constructor(public qService: QuestionService, public matDialog:MatDialog, private snackBar: MatSnackBar,
+    private router: Router) { }
 
   ngOnInit(): void {
       this.loadDatasource();
@@ -86,6 +88,7 @@ export class ListQuestionsComponent implements OnInit {
    * @param id 
    */
   deleteQuestion(id: string) {
+    this.loading = true;
     this.qService.deleteQuestion(id)
     .then(res=>{
       if(res){
@@ -94,8 +97,10 @@ export class ListQuestionsComponent implements OnInit {
       }
     })
     .catch(err=>{
-      if(err.status == ExceptionCode.ForbbidenException){
+      if(TipicalExceptions.includes(err.status)){
         this.snackBar.open(err.error,'Ok',{duration:3000});
+      } else if(err.status == ExceptionCode.TokenExpiredException) {
+        this.router.navigate(['/login']);
       } else {
         this.snackBar.open("Cannot delete question",'Ok',{duration:2000})
       }

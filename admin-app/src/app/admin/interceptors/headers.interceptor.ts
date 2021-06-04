@@ -18,14 +18,14 @@ export class HeadersInterceptor implements HttpInterceptor {
     let modifiedReq = request;
     if(request.body) {
       modifiedReq = modifiedReq.clone({ 
-        headers: request.headers.set('Content-Type', 'application/json'),
+        headers: modifiedReq.headers.set('Content-Type', 'application/json'),
       });
     }
 
     //auth header 
     if(this.local.isAuth()) {
       modifiedReq = modifiedReq.clone({ 
-        headers: request.headers.set('Authorization', this.local.getAuthToken()),
+        headers: modifiedReq.headers.set('Authorization', this.local.getAuthToken()),
       });
     }
     return next.handle(modifiedReq);

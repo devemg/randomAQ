@@ -3,10 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Category } from 'src/app/admin/models/category';
 import { ModalStatus } from 'src/app/admin/models/status-modal';
 import { CategoryService } from 'src/app/admin/services/category.service';
-import { ExceptionCode } from 'src/app/const';
+import { ExceptionCode, TipicalExceptions } from 'src/app/const';
 import { SingleCategoryComponent } from '../single-category/single-category.component';
 
 @Component({
@@ -21,7 +22,8 @@ export class ListCategoriesComponent implements OnInit {
   datasource: MatTableDataSource<Category> = new MatTableDataSource();
 
   loading = false;
-  constructor(public catService: CategoryService, public matDialog: MatDialog, public snackBar: MatSnackBar) {
+  constructor(public catService: CategoryService, public matDialog: MatDialog, public snackBar: MatSnackBar,
+    private router: Router) {
     
   }
 
@@ -38,7 +40,12 @@ export class ListCategoriesComponent implements OnInit {
       }
       this.loading = false;
     })
-    .catch(err=>console.log(err));
+    .catch(err=>{
+      console.log(err.status)
+      if(err.status == ExceptionCode.TokenExpiredException) {
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
   newCategory() {
@@ -73,12 +80,15 @@ export class ListCategoriesComponent implements OnInit {
   }
 
   deleteCategory(id: string) {
+    this.loading = true;
     this.catService.deleteCategory(id).then(res=>{
         this.snackBar.open("Category deleted!",'Ok',{duration:2000});
         this.loadDatasource();
     }).catch(err=>{
-      if(err.status == ExceptionCode.ForbbidenException){
+      if(TipicalExceptions.includes(err.status)){
         this.snackBar.open(err.error,'Ok',{duration:3000});
+      } else if(err.status == ExceptionCode.TokenExpiredException) {
+        this.router.navigate(['/login']);
       } else {
         this.snackBar.open("Cannot delete category",'Ok',{duration:2000})
       }

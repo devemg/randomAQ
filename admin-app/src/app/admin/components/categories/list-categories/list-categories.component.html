@@ -11,7 +11,7 @@
     mode="indeterminate">
   </mat-progress-spinner>
 </div>
-  <table mat-table [dataSource]="datasource">
+  <table *ngIf="!loading"  mat-table [dataSource]="datasource">
   
     <!-- Name Column -->
     <ng-container matColumnDef="name">
