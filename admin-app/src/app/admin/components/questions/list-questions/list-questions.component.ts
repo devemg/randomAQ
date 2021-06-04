@@ -36,8 +36,10 @@ export class ListQuestionsComponent implements OnInit {
       if(this.paginator){
         this.datasource.paginator = this.paginator;
       }
+    }).catch(err=>console.log(err))
+    .finally(()=>{
       this.loading = false;
-    }).catch(err=>console.log(err));
+    });
   }
 
   /**
@@ -104,6 +106,9 @@ export class ListQuestionsComponent implements OnInit {
       } else {
         this.snackBar.open("Cannot delete question",'Ok',{duration:2000})
       }
+    })
+    .finally(()=>{
+      this.loading = false;
     })
   }
 }

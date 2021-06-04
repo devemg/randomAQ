@@ -38,13 +38,14 @@ export class ListCategoriesComponent implements OnInit {
       if(this.paginator){
         this.datasource.paginator = this.paginator;
       }
-      this.loading = false;
     })
     .catch(err=>{
       console.log(err.status)
       if(err.status == ExceptionCode.TokenExpiredException) {
         this.router.navigate(['/login']);
       }
+    }).finally(()=>{
+      this.loading = false;
     });
   }
 
@@ -92,6 +93,8 @@ export class ListCategoriesComponent implements OnInit {
       } else {
         this.snackBar.open("Cannot delete category",'Ok',{duration:2000})
       }
+    }).finally(()=>{
+      this.loading = false;
     })
   }
 
