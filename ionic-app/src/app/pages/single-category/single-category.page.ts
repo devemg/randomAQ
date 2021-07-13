@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ExceptionCode } from 'src/const';
 import { Category } from 'src/models/category';
 
@@ -24,6 +25,7 @@ export class SingleCategoryPage implements OnInit {
   constructor(
     private activatedRouter: ActivatedRoute, 
     private apiService: ApiService, 
+    private localService: LocalStorageService,
     private router: Router,
     public alertController: AlertController) {
     this.isLoading = true;
@@ -45,6 +47,7 @@ export class SingleCategoryPage implements OnInit {
    */
   start(){
     this.isLoading = true; 
+    this.localService.setCategory(this.category);
     this.apiService.setQuestion(this.category.id).then(res=>{
       this.isLoading = false;
       this.router.navigate(['/question']);

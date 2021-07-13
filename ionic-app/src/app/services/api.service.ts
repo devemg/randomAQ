@@ -53,6 +53,7 @@ export class ApiService {
   setQuestion(categoryId: string): Promise<any>{
     return this.http.get(`${environment.API_QUESTIONS}/random/${categoryId}`).toPromise().then((res:Question)=>{
       this.localService.setQuestion(res);
+      console.log(res)
     });
   }
 
